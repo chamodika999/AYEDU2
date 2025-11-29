@@ -55,7 +55,7 @@
             top: 0;
             width: 100%; 
             height: 100%; 
-            overflow: hidden; /* Prevent body scroll when modal is open */
+            overflow: hidden; 
             background-color: rgba(0,0,0,0.8); 
             backdrop-filter: blur(5px);
         }
@@ -65,8 +65,8 @@
             margin: 2% auto; 
             padding: 0;
             border: 1px solid #888;
-            width: 95%; /* Increased width for better viewing */
-            height: 95%; /* Increased height for better viewing */
+            width: 95%; 
+            height: 95%; 
             border-radius: 8px;
             display: flex;
             flex-direction: column;
@@ -113,7 +113,7 @@
         .pdf-iframe-container {
             flex: 1;
             width: 100%;
-            height: calc(100% - 50px); /* Subtract header height */
+            height: calc(100% - 50px); 
             background-color: #ecf0f1;
             border-bottom-left-radius: 8px;
             border-bottom-right-radius: 8px;
@@ -133,13 +133,215 @@
             align-items: center;
         }
 
-        /* Custom style for the preview button to distinguish it */
+        /* Custom style for the preview button */
         .btn-preview {
-            background-color: #27ae60 !important; /* Green color for preview */
+            background-color: #27ae60 !important; 
         }
         
         .btn-preview:hover {
             background-color: #219150 !important;
+        }
+
+        /* --- Gemini AI Feature Styles --- */
+        
+        /* 1. AI Explain Button (Sparkle Button) */
+        .btn-ai-explain {
+            background: linear-gradient(135deg, #8e44ad, #9b59b6) !important;
+            color: white !important;
+            border: none;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            font-size: 0.9rem;
+        }
+        
+        .btn-ai-explain:hover {
+            background: linear-gradient(135deg, #732d91, #8e44ad) !important;
+            transform: scale(1.05);
+        }
+
+        /* 2. Floating AI Chat Button */
+        .ai-fab {
+            position: fixed;
+            bottom: 33px; /* Adjusted slightly */
+            right: 33px; /* Adjusted slightly */
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, #2980b9, #6dd5fa);
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+            cursor: pointer;
+            z-index: 2000;
+            transition: transform 0.3s ease;
+        }
+
+        .ai-fab:hover {
+            transform: scale(1.1);
+        }
+
+        .ai-fab i {
+            font-size: 28px;
+            color: white;
+        }
+
+        /* 3. AI Chat Interface (Popup) */
+        .ai-chat-window {
+            display: none;
+            position: fixed;
+            bottom: 100px;
+            right: 30px;
+            width: 350px;
+            height: 500px;
+            background-color: white;
+            border-radius: 15px;
+            box-shadow: 0 5px 25px rgba(0,0,0,0.2);
+            z-index: 2000;
+            flex-direction: column;
+            overflow: hidden;
+            border: 1px solid #e0e0e0;
+        }
+
+        .ai-chat-header {
+            background: linear-gradient(135deg, #2980b9, #6dd5fa);
+            padding: 15px;
+            color: white;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: bold;
+        }
+
+        .ai-chat-body {
+            flex: 1;
+            padding: 15px;
+            overflow-y: auto;
+            background-color: #f8f9fa;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .ai-chat-footer {
+            padding: 10px;
+            border-top: 1px solid #eee;
+            background-color: white;
+            display: flex;
+            gap: 10px;
+        }
+
+        .ai-chat-input {
+            flex: 1;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 20px;
+            outline: none;
+        }
+
+        .ai-chat-send {
+            background-color: #3498db;
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            cursor: pointer;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .message {
+            max-width: 80%;
+            padding: 10px 15px;
+            border-radius: 15px;
+            font-size: 0.9rem;
+            line-height: 1.4;
+        }
+
+        .message.user {
+            background-color: #3498db;
+            color: white;
+            align-self: flex-end;
+            border-bottom-right-radius: 5px;
+        }
+
+        .message.bot {
+            background-color: #ecf0f1;
+            color: #2c3e50;
+            align-self: flex-start;
+            border-bottom-left-radius: 5px;
+            border: 1px solid #dcdcdc;
+        }
+        
+        .typing-indicator {
+            font-style: italic;
+            color: #7f8c8d;
+            font-size: 0.8rem;
+            margin-left: 10px;
+            display: none;
+        }
+
+        /* 4. AI Explanation Modal */
+        .ai-explain-modal {
+            display: none;
+            position: fixed;
+            z-index: 2001;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.7);
+            justify-content: center;
+            align-items: center;
+        }
+
+        .ai-explain-content {
+            background-color: white;
+            width: 90%;
+            max-width: 600px;
+            border-radius: 10px;
+            padding: 20px;
+            position: relative;
+            max-height: 80vh;
+            overflow-y: auto;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            animation: slideIn 0.3s ease;
+        }
+
+        @keyframes slideIn {
+            from {transform: translateY(20px); opacity: 0;}
+            to {transform: translateY(0); opacity: 1;}
+        }
+
+        .ai-explain-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 15px;
+            border-bottom: 2px solid #f0f0f0;
+            padding-bottom: 10px;
+        }
+
+        .ai-explain-header h3 {
+            margin: 0;
+            color: #8e44ad;
+        }
+
+        .close-ai-modal {
+            position: absolute;
+            right: 20px;
+            top: 20px;
+            font-size: 24px;
+            cursor: pointer;
+            color: #aaa;
+        }
+        
+        .ai-result-text {
+            line-height: 1.6;
+            color: #333;
         }
     </style>
 </head>
@@ -297,9 +499,14 @@
                                     <div class="file-name">Mechanical Systems Fundamentals</div>
                                     <div class="file-meta">PDF • 3.2 MB • 245 downloads</div>
                                 </div>
-                                <button class="file-download" onclick="downloadFile('mechanical-fundamentals.pdf')">
-                                    <i class="fas fa-download"></i>
-                                </button>
+                                <div class="file-actions">
+                                    <button class="file-download" onclick="downloadFile('mechanical-fundamentals.pdf')">
+                                        <i class="fas fa-download"></i>
+                                    </button>
+                                    <button class="file-download btn-ai-explain" onclick="explainTopic('Mechanical Systems Fundamentals')" title="Explain with AI">
+                                        <i class="fas fa-wand-magic-sparkles"></i> Explain
+                                    </button>
+                                </div>
                             </div>
                             
                             <div class="file-item" data-category="mechanical" data-type="ppt" data-date="2024-01-10">
@@ -310,9 +517,14 @@
                                     <div class="file-name">Gear Systems and Mechanisms</div>
                                     <div class="file-meta">PPT • 8.7 MB • 189 downloads</div>
                                 </div>
-                                <button class="file-download" onclick="downloadFile('gear-systems.ppt')">
-                                    <i class="fas fa-download"></i>
-                                </button>
+                                <div class="file-actions">
+                                    <button class="file-download" onclick="downloadFile('gear-systems.ppt')">
+                                        <i class="fas fa-download"></i>
+                                    </button>
+                                    <button class="file-download btn-ai-explain" onclick="explainTopic('Gear Systems and Mechanisms')" title="Explain with AI">
+                                        <i class="fas fa-wand-magic-sparkles"></i> Explain
+                                    </button>
+                                </div>
                             </div>
                             
                             <div class="file-item" data-category="mechanical" data-type="video" data-date="2024-01-08">
@@ -323,9 +535,14 @@
                                     <div class="file-name">Hydraulic Systems Tutorial</div>
                                     <div class="file-meta">MP4 • 125.3 MB • 156 downloads</div>
                                 </div>
-                                <button class="file-download" onclick="downloadFile('hydraulic-tutorial.mp4')">
-                                    <i class="fas fa-download"></i>
-                                </button>
+                                <div class="file-actions">
+                                    <button class="file-download" onclick="downloadFile('hydraulic-tutorial.mp4')">
+                                        <i class="fas fa-download"></i>
+                                    </button>
+                                    <button class="file-download btn-ai-explain" onclick="explainTopic('Hydraulic Systems')" title="Explain with AI">
+                                        <i class="fas fa-wand-magic-sparkles"></i> Explain
+                                    </button>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -348,9 +565,14 @@
                                     <div class="file-name">Circuit Analysis Methods</div>
                                     <div class="file-meta">PDF • 4.1 MB • 298 downloads</div>
                                 </div>
-                                <button class="file-download" onclick="downloadFile('circuit-analysis.pdf')">
-                                    <i class="fas fa-download"></i>
-                                </button>
+                                <div class="file-actions">
+                                    <button class="file-download" onclick="downloadFile('circuit-analysis.pdf')">
+                                        <i class="fas fa-download"></i>
+                                    </button>
+                                    <button class="file-download btn-ai-explain" onclick="explainTopic('Circuit Analysis Methods')" title="Explain with AI">
+                                        <i class="fas fa-wand-magic-sparkles"></i> Explain
+                                    </button>
+                                </div>
                             </div>
                             
                             <div class="file-item" data-category="electrical" data-type="doc" data-date="2024-01-09">
@@ -361,9 +583,14 @@
                                     <div class="file-name">AC/DC Circuit Problems</div>
                                     <div class="file-meta">DOC • 2.8 MB • 167 downloads</div>
                                 </div>
-                                <button class="file-download" onclick="downloadFile('ac-dc-problems.doc')">
-                                    <i class="fas fa-download"></i>
-                                </button>
+                                <div class="file-actions">
+                                    <button class="file-download" onclick="downloadFile('ac-dc-problems.doc')">
+                                        <i class="fas fa-download"></i>
+                                    </button>
+                                    <button class="file-download btn-ai-explain" onclick="explainTopic('AC/DC Circuit Problems')" title="Explain with AI">
+                                        <i class="fas fa-wand-magic-sparkles"></i> Explain
+                                    </button>
+                                </div>
                             </div>
                             
                             <div class="file-item" data-category="electrical" data-type="pdf" data-date="2024-01-05">
@@ -374,9 +601,14 @@
                                     <div class="file-name">Electronic Components Guide</div>
                                     <div class="file-meta">PDF • 6.5 MB • 234 downloads</div>
                                 </div>
-                                <button class="file-download" onclick="downloadFile('components-guide.pdf')">
-                                    <i class="fas fa-download"></i>
-                                </button>
+                                <div class="file-actions">
+                                    <button class="file-download" onclick="downloadFile('components-guide.pdf')">
+                                        <i class="fas fa-download"></i>
+                                    </button>
+                                    <button class="file-download btn-ai-explain" onclick="explainTopic('Electronic Components')" title="Explain with AI">
+                                        <i class="fas fa-wand-magic-sparkles"></i> Explain
+                                    </button>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -401,9 +633,14 @@
                                     <div class="file-name">Material Properties and Testing</div>
                                     <div class="file-meta">PDF • 5.3 MB • 178 downloads</div>
                                 </div>
-                                <button class="file-download" onclick="downloadFile('material-properties.pdf')">
-                                    <i class="fas fa-download"></i>
-                                </button>
+                                <div class="file-actions">
+                                    <button class="file-download" onclick="downloadFile('material-properties.pdf')">
+                                        <i class="fas fa-download"></i>
+                                    </button>
+                                    <button class="file-download btn-ai-explain" onclick="explainTopic('Material Properties and Testing')" title="Explain with AI">
+                                        <i class="fas fa-wand-magic-sparkles"></i> Explain
+                                    </button>
+                                </div>
                             </div>
                             
                             <div class="file-item" data-category="materials" data-type="ppt" data-date="2024-01-11">
@@ -414,9 +651,14 @@
                                     <div class="file-name">Metals and Alloys</div>
                                     <div class="file-meta">PPT • 12.1 MB • 145 downloads</div>
                                 </div>
-                                <button class="file-download" onclick="downloadFile('metals-alloys.ppt')">
-                                    <i class="fas fa-download"></i>
-                                </button>
+                                <div class="file-actions">
+                                    <button class="file-download" onclick="downloadFile('metals-alloys.ppt')">
+                                        <i class="fas fa-download"></i>
+                                    </button>
+                                    <button class="file-download btn-ai-explain" onclick="explainTopic('Metals and Alloys')" title="Explain with AI">
+                                        <i class="fas fa-wand-magic-sparkles"></i> Explain
+                                    </button>
+                                </div>
                             </div>
                             
                             <div class="file-item" data-category="materials" data-type="pdf" data-date="2024-01-07">
@@ -427,9 +669,14 @@
                                     <div class="file-name">Composite Materials Handbook</div>
                                     <div class="file-meta">PDF • 8.9 MB • 123 downloads</div>
                                 </div>
-                                <button class="file-download" onclick="downloadFile('composite-materials.pdf')">
-                                    <i class="fas fa-download"></i>
-                                </button>
+                                <div class="file-actions">
+                                    <button class="file-download" onclick="downloadFile('composite-materials.pdf')">
+                                        <i class="fas fa-download"></i>
+                                    </button>
+                                    <button class="file-download btn-ai-explain" onclick="explainTopic('Composite Materials')" title="Explain with AI">
+                                        <i class="fas fa-wand-magic-sparkles"></i> Explain
+                                    </button>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -452,9 +699,14 @@
                                     <div class="file-name">Technical Drawing Standards</div>
                                     <div class="file-meta">PDF • 7.2 MB • 267 downloads</div>
                                 </div>
-                                <button class="file-download" onclick="downloadFile('drawing-standards.pdf')">
-                                    <i class="fas fa-download"></i>
-                                </button>
+                                <div class="file-actions">
+                                    <button class="file-download" onclick="downloadFile('drawing-standards.pdf')">
+                                        <i class="fas fa-download"></i>
+                                    </button>
+                                    <button class="file-download btn-ai-explain" onclick="explainTopic('Technical Drawing Standards')" title="Explain with AI">
+                                        <i class="fas fa-wand-magic-sparkles"></i> Explain
+                                    </button>
+                                </div>
                             </div>
                             
                             <div class="file-item" data-category="drawing" data-type="video" data-date="2024-01-06">
@@ -465,9 +717,14 @@
                                     <div class="file-name">CAD Software Tutorial</div>
                                     <div class="file-meta">MP4 • 89.4 MB • 198 downloads</div>
                                 </div>
-                                <button class="file-download" onclick="downloadFile('cad-tutorial.mp4')">
-                                    <i class="fas fa-download"></i>
-                                </button>
+                                <div class="file-actions">
+                                    <button class="file-download" onclick="downloadFile('cad-tutorial.mp4')">
+                                        <i class="fas fa-download"></i>
+                                    </button>
+                                    <button class="file-download btn-ai-explain" onclick="explainTopic('CAD Software')" title="Explain with AI">
+                                        <i class="fas fa-wand-magic-sparkles"></i> Explain
+                                    </button>
+                                </div>
                             </div>
                             
                             <div class="file-item" data-category="drawing" data-type="pdf" data-date="2024-01-04">
@@ -478,9 +735,14 @@
                                     <div class="file-name">Orthographic Projection Guide</div>
                                     <div class="file-meta">PDF • 4.7 MB • 156 downloads</div>
                                 </div>
-                                <button class="file-download" onclick="downloadFile('orthographic-guide.pdf')">
-                                    <i class="fas fa-download"></i>
-                                </button>
+                                <div class="file-actions">
+                                    <button class="file-download" onclick="downloadFile('orthographic-guide.pdf')">
+                                        <i class="fas fa-download"></i>
+                                    </button>
+                                    <button class="file-download btn-ai-explain" onclick="explainTopic('Orthographic Projection')" title="Explain with AI">
+                                        <i class="fas fa-wand-magic-sparkles"></i> Explain
+                                    </button>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -510,6 +772,9 @@
                             <button class="file-download btn-preview" onclick="openPdfPreview('https://drive.google.com/file/d/1VtZz1GT4FBCUXr7ro_nMtsBtl-AjxQOu/view?usp=drive_link', '2022 Et.pdf')" title="Preview">
                                 <i class="fas fa-eye"></i>
                             </button>
+                             <button class="file-download btn-ai-explain" onclick="explainTopic('A/L Engineering Technology 2022 Paper Structure')" title="Analyze with AI">
+                                <i class="fas fa-wand-magic-sparkles"></i> Explain
+                            </button>
                         </div>
                     </div>
                     
@@ -527,6 +792,9 @@
                             </button>
                             <button class="file-download btn-preview" onclick="openPdfPreview('https://drive.google.com/file/d/1RgzP_2uXQTSxnkd8q9SDEtV1CD9KxNM_/view?usp=drive_link', '2021 Et.pdf')" title="Preview">
                                 <i class="fas fa-eye"></i>
+                            </button>
+                            <button class="file-download btn-ai-explain" onclick="explainTopic('A/L Engineering Technology 2021 Paper Structure')" title="Analyze with AI">
+                                <i class="fas fa-wand-magic-sparkles"></i> Explain
                             </button>
                         </div>
                     </div>
@@ -546,6 +814,9 @@
                             <button class="file-download btn-preview" onclick="openPdfPreview('https://drive.google.com/file/d/1jtz5F7cnXaDLWMw_UlQDnVDhkAclgibn/view?usp=drive_link', '2020 Et.pdf')" title="Preview">
                                 <i class="fas fa-eye"></i>
                             </button>
+                             <button class="file-download btn-ai-explain" onclick="explainTopic('A/L Engineering Technology 2020 Paper Structure')" title="Analyze with AI">
+                                <i class="fas fa-wand-magic-sparkles"></i> Explain
+                            </button>
                         </div>
                     </div>
                     
@@ -563,6 +834,9 @@
                             </button>
                             <button class="file-download btn-preview" onclick="openPdfPreview('https://drive.google.com/file/d/1HvtBoeLIq6ctep1p0BEW73M8yZb1H5lU/view?usp=drive_link', '2019 Et.pdf')" title="Preview">
                                 <i class="fas fa-eye"></i>
+                            </button>
+                            <button class="file-download btn-ai-explain" onclick="explainTopic('A/L Engineering Technology 2019 Paper Structure')" title="Analyze with AI">
+                                <i class="fas fa-wand-magic-sparkles"></i> Explain
                             </button>
                         </div>
                     </div>
@@ -582,6 +856,9 @@
                             <button class="file-download btn-preview" onclick="openPdfPreview('https://drive.google.com/file/d/19aYdTkda8wJ1EXSRe1aW0pKS_AlGzGmn/view?usp=drive_link', '2018 Et.pdf')" title="Preview">
                                 <i class="fas fa-eye"></i>
                             </button>
+                            <button class="file-download btn-ai-explain" onclick="explainTopic('A/L Engineering Technology 2018 Paper Structure')" title="Analyze with AI">
+                                <i class="fas fa-wand-magic-sparkles"></i> Explain
+                            </button>
                         </div>
                     </div>
                     
@@ -599,6 +876,9 @@
                             </button>
                             <button class="file-download btn-preview" onclick="openPdfPreview('https://drive.google.com/file/d/1hdimBpIZq8VZGAyMkvWCLANoFfA_j52Q/view?usp=drive_link', '2017 Et.pdf')" title="Preview">
                                 <i class="fas fa-eye"></i>
+                            </button>
+                            <button class="file-download btn-ai-explain" onclick="explainTopic('A/L Engineering Technology 2017 Paper Structure')" title="Analyze with AI">
+                                <i class="fas fa-wand-magic-sparkles"></i> Explain
                             </button>
                         </div>
                     </div>
@@ -618,6 +898,9 @@
                             <button class="file-download btn-preview" onclick="openPdfPreview('https://drive.google.com/file/d/1J8822yRmbLZv_tdSiI54pKjkcgPikNJ-/view?usp=drive_link', '2016 Et.pdf')" title="Preview">
                                 <i class="fas fa-eye"></i>
                             </button>
+                            <button class="file-download btn-ai-explain" onclick="explainTopic('A/L Engineering Technology 2016 Paper Structure')" title="Analyze with AI">
+                                <i class="fas fa-wand-magic-sparkles"></i> Explain
+                            </button>
                         </div>
                     </div>
                     
@@ -635,6 +918,9 @@
                             </button>
                             <button class="file-download btn-preview" onclick="openPdfPreview('https://drive.google.com/file/d/1Ff5mjT7omwdMa7naknG8ODNuVUG9rbyo/view?usp=drive_link', '2015 Et.pdf')" title="Preview">
                                 <i class="fas fa-eye"></i>
+                            </button>
+                            <button class="file-download btn-ai-explain" onclick="explainTopic('A/L Engineering Technology 2015 Paper Structure')" title="Analyze with AI">
+                                <i class="fas fa-wand-magic-sparkles"></i> Explain
                             </button>
                         </div>
                     </div>
@@ -668,7 +954,21 @@
         </div>
     </div>
 
-    <!-- Existing Video Modal (Hidden by default, triggered by video buttons) -->
+    <!-- AI Explanation Modal -->
+    <div id="aiExplainModal" class="ai-explain-modal">
+        <div class="ai-explain-content">
+            <span class="close-ai-modal" onclick="closeAiModal()">&times;</span>
+            <div class="ai-explain-header">
+                <i class="fas fa-robot fa-2x" style="color: #8e44ad;"></i>
+                <h3 id="aiTopicTitle">AI Explanation</h3>
+            </div>
+            <div id="aiExplainBody" class="ai-result-text">
+                Loading explanation...
+            </div>
+        </div>
+    </div>
+
+    <!-- Existing Video Modal -->
     <div id="videoModal" class="video-modal">
         <div class="video-modal-content">
             <div class="video-modal-header">
@@ -681,19 +981,206 @@
         </div>
     </div>
 
+    <!-- Floating AI Chat Button -->
+    <div class="ai-fab" onclick="toggleChat()">
+        <i class="fas fa-comment-dots"></i>
+    </div>
+
+    <!-- AI Chat Window -->
+    <div class="ai-chat-window" id="aiChatWindow">
+        <div class="ai-chat-header">
+            <span>✨ AI Tutor (AI ගුරුතුමා)</span>
+            <span style="cursor: pointer;" onclick="toggleChat()">&times;</span>
+        </div>
+        <div class="ai-chat-body" id="chatBody">
+            <div class="message bot">
+                Hello! I am your AI Engineering Technology Tutor. How can I help you with your studies today? <br><br>
+                ආයුබෝවන්! මම ඔබගේ ඉංජිනේරු තාක්ෂණවේදය AI ගුරුතුමා. අද පාඩම් වැඩ වලට මට කොහොමද උදව් කරන්න පුළුවන්?
+            </div>
+        </div>
+        <div class="typing-indicator" id="typingIndicator">AI is typing...</div>
+        <div class="ai-chat-footer">
+            <input type="text" class="ai-chat-input" id="chatInput" placeholder="Ask a question..." onkeypress="handleEnter(event)">
+            <button class="ai-chat-send" onclick="sendMessage()">
+                <i class="fas fa-paper-plane"></i>
+            </button>
+        </div>
+    </div>
+
     <script>
-        // --- New PDF Preview Functionality ---
+        // --- Gemini API Configuration ---
+        // ⭐⭐ ඔයාගේ API යතුර මෙතැනට ඇතුළත් කරන්න ⭐⭐
+        const apiKey = "AIzaSyBrzOrHx3VIg5nfbbk7a4kTiUDiIiW08I0"; 
+        
+        // --- AI Chat Functionality ---
+        function toggleChat() {
+            const chatWindow = document.getElementById('aiChatWindow');
+            if (chatWindow.style.display === 'flex') {
+                chatWindow.style.display = 'none';
+            } else {
+                chatWindow.style.display = 'flex';
+                // Focus input when opened
+                setTimeout(() => document.getElementById('chatInput').focus(), 100);
+            }
+        }
+
+        function handleEnter(e) {
+            if (e.key === 'Enter') {
+                sendMessage();
+            }
+        }
+
+        async function sendMessage() {
+            const inputField = document.getElementById('chatInput');
+            const message = inputField.value.trim();
+            if (!message) return;
+
+            // Add user message
+            addMessage(message, 'user');
+            inputField.value = '';
+
+            // Show typing indicator
+            const typingIndicator = document.getElementById('typingIndicator');
+            typingIndicator.style.display = 'block';
+            
+            // Scroll to bottom
+            const chatBody = document.getElementById('chatBody');
+            chatBody.scrollTop = chatBody.scrollHeight;
+
+            // API key එක දාලා නැත්නම් මෙහෙම පණිවිඩයක් දෙන්න
+            if (apiKey === "YOUR_GEMINI_API_KEY_HERE" || apiKey.trim() === "") {
+                typingIndicator.style.display = 'none';
+                addMessage("ඔබ API යතුර ඇතුළත් කර නොමැත. කරුණාකර 'apiKey' විචල්‍යයට ඔබේ Gemini API යතුර ඇතුළත් කරන්න. (API Key is missing. Please insert your key into the 'apiKey' variable.)", 'bot');
+                return;
+            }
+
+            try {
+                // Call Gemini API
+                const response = await callGeminiAPI(message);
+                typingIndicator.style.display = 'none';
+                addMessage(response, 'bot');
+            } catch (error) {
+                console.error("Error calling Gemini:", error);
+                typingIndicator.style.display = 'none';
+                addMessage("සමාවෙන්න, මට දැන් මේකට උත්තර දෙන්න බැරි වුණා. පසුව නැවත උත්සාහ කරන්න. (Sorry, I failed to respond right now. Please try again later.)", 'bot');
+            }
+        }
+
+        function addMessage(text, sender) {
+            const chatBody = document.getElementById('chatBody');
+            const messageDiv = document.createElement('div');
+            messageDiv.classList.add('message', sender);
+            // Simple markdown parsing for bold
+            messageDiv.innerHTML = text.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>').replace(/\n/g, '<br>');
+            chatBody.appendChild(messageDiv);
+            chatBody.scrollTop = chatBody.scrollHeight;
+        }
+
+        async function callGeminiAPI(prompt, context = "general") {
+            const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=${apiKey}`;
+            
+            let systemPrompt = "";
+            if (context === "general") {
+                systemPrompt = "You are a helpful Engineering Technology (ET) tutor for A/L students in Sri Lanka. Answer questions about Mechanical Systems, Electrical Circuits, Materials Science, and Engineering Drawing. Give answers that are easy to understand. You can answer in English or Sinhala depending on the user's language.";
+            } else if (context === "explain") {
+                systemPrompt = "You are an expert teacher. Explain the following Engineering Technology topic in simple terms for a student. Focus on key concepts. Keep it concise (under 150 words).";
+            }
+
+            const payload = {
+                contents: [{
+                    parts: [{ text: prompt }]
+                }],
+                systemInstruction: {
+                    parts: [{ text: systemPrompt }]
+                }
+            };
+
+            const maxRetries = 5;
+            let delay = 1000; // 1 second
+
+            for (let i = 0; i < maxRetries; i++) {
+                try {
+                    const response = await fetch(url, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify(payload)
+                    });
+
+                    if (response.status === 429) { // Too Many Requests
+                        if (i < maxRetries - 1) {
+                            await new Promise(resolve => setTimeout(resolve, delay));
+                            delay *= 2; // Exponential backoff
+                            continue; // Retry
+                        } else {
+                            throw new Error("API rate limit exceeded after all retries.");
+                        }
+                    }
+
+                    if (!response.ok) {
+                        const errorData = await response.json();
+                        throw new Error(`API call failed: ${response.statusText} - ${errorData.error?.message || 'Unknown error'}`);
+                    }
+
+                    const data = await response.json();
+                    const text = data.candidates?.[0]?.content?.parts?.[0]?.text;
+                    return text || "No response generated.";
+
+                } catch (error) {
+                    if (i < maxRetries - 1 && error.message.includes("Failed to fetch")) {
+                         // Basic network error handling, wait and retry
+                         await new Promise(resolve => setTimeout(resolve, delay));
+                         delay *= 2; 
+                         continue;
+                    }
+                    throw error;
+                }
+            }
+            throw new Error("Failed to get response from Gemini API after multiple retries.");
+        }
+
+
+        // --- AI Topic Explainer Functionality ---
+        async function explainTopic(topicName) {
+            const modal = document.getElementById('aiExplainModal');
+            const titleEl = document.getElementById('aiTopicTitle');
+            const bodyEl = document.getElementById('aiExplainBody');
+
+            // Show modal with loading state
+            titleEl.textContent = "Explaining: " + topicName;
+            bodyEl.innerHTML = '<div style="text-align:center"><i class="fas fa-spinner fa-spin"></i> Analyzing content with AI...</div>';
+            modal.style.display = 'flex';
+            
+            // API key check
+            if (apiKey === "YOUR_GEMINI_API_KEY_HERE" || apiKey.trim() === "") {
+                bodyEl.innerHTML = "<strong>⚠️ API යතුර නැත.</strong><br>කරුණාකර API යතුර 'apiKey' විචල්‍යයට ඇතුළත් කරන්න.";
+                return;
+            }
+
+            try {
+                const prompt = `Explain the topic "${topicName}" relevant to A/L Engineering Technology curriculum.`;
+                const explanation = await callGeminiAPI(prompt, "explain");
+                
+                // Format the output lightly
+                bodyEl.innerHTML = explanation.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>').replace(/\n/g, '<br>');
+            } catch (error) {
+                bodyEl.textContent = "පැහැදිලි කිරීම ලබා ගැනීමට නොහැකි විය. කරුණාකර නැවත උත්සාහ කරන්න.";
+            }
+        }
+
+        function closeAiModal() {
+            document.getElementById('aiExplainModal').style.display = 'none';
+        }
+
+        // --- PDF Preview Functionality (Existing) ---
         function openPdfPreview(url, title) {
-            // Transform Google Drive 'view' links to 'preview' links for embedding
-            // The preview link natively supports Zooming and Scrolling inside the PDF
             let previewUrl = url;
             if (url.includes('drive.google.com')) {
-                // If it contains /view, replace it with /preview
                 if (url.includes('/view')) {
                      previewUrl = url.replace('/view', '/preview');
                 }
             }
-            
             document.getElementById('pdfModalTitle').textContent = title;
             document.getElementById('pdfPreviewFrame').src = previewUrl;
             document.getElementById('pdfModal').style.display = 'block';
@@ -704,24 +1191,19 @@
             document.getElementById('pdfPreviewFrame').src = '';
         }
 
-        // --- Existing Functions ---
-
-        // File download simulation (Modified for non-link files)
+        // --- File Management Functions (Existing) ---
         function downloadFile(filename) {
-            alert(`Downloading: ${filename}\n\nThis is a simulation. The file is not hosted on a server.`);
+            console.log(`Downloading: ${filename}. This is a simulation.`);
         }
 
-        // Search functionality
         function searchFiles() {
             const searchTerm = document.getElementById('searchInput').value.toLowerCase();
             if (searchTerm.trim() === '') {
-                alert('Please enter a search term');
+                console.log('Please enter a search term');
                 return;
             }
-            
             const fileItems = document.querySelectorAll('.file-item');
             let found = false;
-            
             fileItems.forEach(item => {
                 const fileName = item.querySelector('.file-name').textContent.toLowerCase();
                 if (fileName.includes(searchTerm)) {
@@ -732,26 +1214,21 @@
                     item.style.display = 'none';
                 }
             });
-            
             if (!found) {
-                alert(`No files found matching: "${searchTerm}"`);
+                console.log(`No files found matching: "${searchTerm}"`);
                 showAllFiles();
             }
         }
 
-        // Filter files by category and type
         function filterFiles() {
             const categoryFilter = document.getElementById('categoryFilter').value;
             const typeFilter = document.getElementById('typeFilter').value;
             const fileItems = document.querySelectorAll('.file-item');
-            
             fileItems.forEach(item => {
                 const category = item.getAttribute('data-category');
                 const type = item.getAttribute('data-type');
-                
                 const categoryMatch = categoryFilter === 'all' || category === categoryFilter;
                 const typeMatch = typeFilter === 'all' || type === typeFilter;
-                
                 if (categoryMatch && typeMatch) {
                     item.style.display = 'flex';
                     item.style.backgroundColor = '';
@@ -761,24 +1238,17 @@
             });
         }
 
-        // Sort files
         function sortFiles() {
             const sortBy = document.getElementById('sortBy').value;
             const categories = document.querySelectorAll('.category-card');
-            
             categories.forEach(category => {
                 const fileList = category.querySelector('.file-list');
                 const fileItems = Array.from(fileList.querySelectorAll('.file-item'));
-                
                 fileItems.sort((a, b) => {
                     switch(sortBy) {
-                        case 'name':
-                            return a.querySelector('.file-name').textContent.localeCompare(
-                                b.querySelector('.file-name').textContent
-                            );
-                        case 'date':
-                            return new Date(b.getAttribute('data-date')) - new Date(a.getAttribute('data-date'));
-                        case 'size':
+                        case 'name': return a.querySelector('.file-name').textContent.localeCompare(b.querySelector('.file-name').textContent);
+                        case 'date': return new Date(b.getAttribute('data-date')) - new Date(a.getAttribute('data-date'));
+                        case 'size': 
                             const sizeA = parseFloat(a.querySelector('.file-meta').textContent.match(/[\d.]+/)[0]);
                             const sizeB = parseFloat(b.querySelector('.file-meta').textContent.match(/[\d.]+/)[0]);
                             return sizeB - sizeA;
@@ -786,16 +1256,13 @@
                             const downloadsA = parseInt(a.querySelector('.file-meta').textContent.match(/(\d+) downloads/)[1]);
                             const downloadsB = parseInt(b.querySelector('.file-meta').textContent.match(/(\d+) downloads/)[1]);
                             return downloadsB - downloadsA;
-                        default:
-                            return 0;
+                        default: return 0;
                     }
                 });
-                
                 fileItems.forEach(item => fileList.appendChild(item));
             });
         }
 
-        // Show all files
         function showAllFiles() {
             const fileItems = document.querySelectorAll('.file-item');
             fileItems.forEach(item => {
@@ -804,14 +1271,12 @@
             });
         }
 
-        // Enter key search
         document.getElementById('searchInput').addEventListener('keypress', function(e) {
             if (e.key === 'Enter') {
                 searchFiles();
             }
         });
 
-        // Add animations on load
         document.addEventListener('DOMContentLoaded', function() {
             const cards = document.querySelectorAll('.card');
             cards.forEach((card, index) => {
@@ -825,12 +1290,11 @@
         window.onclick = function(event) {
             const pdfModal = document.getElementById('pdfModal');
             const videoModal = document.getElementById('videoModal');
-            if (event.target == pdfModal) {
-                closePdfModal();
-            }
-            if (event.target == videoModal && typeof closeVideoModal === 'function') {
-                closeVideoModal();
-            }
+            const aiExplainModal = document.getElementById('aiExplainModal');
+            
+            if (event.target == pdfModal) closePdfModal();
+            if (event.target == videoModal && typeof closeVideoModal === 'function') closeVideoModal();
+            if (event.target == aiExplainModal) closeAiModal();
         }
     </script>
 </body>
