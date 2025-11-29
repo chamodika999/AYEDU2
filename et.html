@@ -1,0 +1,652 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Engineering Technology (ET) - AYEDU</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script src="video-modal.js"></script>
+</head>
+<body>
+    <!-- Header Section -->
+    <div class="header">
+        <h1>Engineering Technology (ET)</h1>
+        <p>Comprehensive resources for Engineering Technology studies</p>
+    </div>
+
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="logo">AYEDU</a>
+            <ul class="nav-list">
+                <li><a href="index.html"><i class="fas fa-home"></i> Home</a></li>
+                <li><a href="et.html" class="active"><i class="fas fa-cogs"></i> Engineering Technology</a></li>
+                <li><a href="sft.html"><i class="fas fa-code"></i> Science for Technology</a></li>
+                <li><a href="ict.html"><i class="fas fa-computer"></i> Information and Communication Technology</a></li>
+            </ul>
+            <div class="nav-right">
+                <div class="search-box">
+                    <input type="text" placeholder="Search ET files..." id="searchInput">
+                    <button class="btn" onclick="searchFiles()"><i class="fas fa-search"></i></button>
+                </div>
+                <a href="login.html" class="btn">Login</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    
+    <!-- Video Tutorials Section -->
+    <div class="card fade-in-up">
+        <div class="card-header" style="background: linear-gradient(135deg, #e74c3c, #c0392b);">
+            <i class="fas fa-video"></i> ඉංජිනේරු තාක්ෂණවේදය වීඩියෝ නිබන්ධන (Engineering Technology Video Tutorials)
+        </div>
+        <div class="card-body">
+            <div class="video-button-grid">
+                <!-- Video Button 1 -->
+                <div class="video-button" data-video-id="dQw4w9WgXcQ" data-video-title="හැඳින්වීම (Introduction)">
+                    <div class="video-thumbnail-container">
+                        <div class="video-thumbnail"></div>
+                    </div>
+                    <div class="video-title">හැඳින්වීම (Introduction)</div>
+                </div>
+                <!-- Video Button 2 -->
+                <div class="video-button" data-video-id="dQw4w9WgXcQ" data-video-title="යාන්ත්‍රික පද්ධති (Mechanical Systems)">
+                    <div class="video-thumbnail-container">
+                        <div class="video-thumbnail"></div>
+                    </div>
+                    <div class="video-title">යාන්ත්‍රික පද්ධති (Mechanical Systems)</div>
+                </div>
+                <!-- Video Button 3 -->
+                <div class="video-button" data-video-id="dQw4w9WgXcQ" data-video-title="විද්‍යුත් පරිපථ (Electrical Circuits)">
+                    <div class="video-thumbnail-container">
+                        <div class="video-thumbnail"></div>
+                    </div>
+                    <div class="video-title">විද්‍යුත් පරිපථ (Electrical Circuits)</div>
+                </div>
+                <!-- Video Button 4 -->
+                <div class="video-button" data-video-id="dQw4w9WgXcQ" data-video-title="ද්‍රව්‍ය විද්‍යාව (Materials Science)">
+                    <div class="video-thumbnail-container">
+                        <div class="video-thumbnail"></div>
+                    </div>
+                    <div class="video-title">ද්‍රව්‍ය විද්‍යාව (Materials Science)</div>
+                </div>
+                <!-- Video Button 5 -->
+                <div class="video-button" data-video-id="dQw4w9WgXcQ" data-video-title="ඉංජිනේරු ඇඳීම (Engineering Drawing)">
+                    <div class="video-thumbnail-container">
+                        <div class="video-thumbnail"></div>
+                    </div>
+                    <div class="video-title">ඉංජිනේරු ඇඳීම (Engineering Drawing)</div>
+                </div>
+                <!-- Video Button 6 -->
+                <div class="video-button" data-video-id="dQw4w9WgXcQ" data-video-title="නිෂ්පාදන ක්‍රියාවලි (Manufacturing Processes)">
+                    <div class="video-thumbnail-container">
+                        <div class="video-thumbnail"></div>
+                    </div>
+                    <div class="video-title">නිෂ්පාදන ක්‍රියාවලි (Manufacturing Processes)</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Subject Overview -->
+    <div class="container">
+        <!-- Subject Overview -->
+        <div class="card fade-in-up">
+            <div class="card-header" style="background: linear-gradient(135deg, #e74c3c, #c0392b);">
+                <i class="fas fa-cogs"></i> Engineering Technology Overview
+            </div>
+            <div class="card-body">
+                <p class="card-text">
+                    Engineering Technology combines theoretical knowledge with practical application in various engineering fields. 
+                    This section contains study materials covering mechanical systems, electrical circuits, materials science, 
+                    engineering drawing, and manufacturing processes essential for A/L Technology students.
+                </p>
+            </div>
+        </div>
+
+        <!-- Filter and Sort Options -->
+        <div class="card">
+            <div class="card-body">
+                <div class="filter-controls">
+                    <div class="filter-group">
+                        <label for="categoryFilter">Category:</label>
+                        <select id="categoryFilter" class="form-control" onchange="filterFiles()">
+                            <option value="all">All Categories</option>
+                            <option value="mechanical">Mechanical Systems</option>
+                            <option value="electrical">Electrical Circuits</option>
+                            <option value="materials">Materials Science</option>
+                            <option value="drawing">Engineering Drawing</option>
+                            <option value="manufacturing">Manufacturing</option>
+                        </select>
+                    </div>
+                    <div class="filter-group">
+                        <label for="typeFilter">File Type:</label>
+                        <select id="typeFilter" class="form-control" onchange="filterFiles()">
+                            <option value="all">All Types</option>
+                            <option value="pdf">PDF Documents</option>
+                            <option value="ppt">Presentations</option>
+                            <option value="doc">Word Documents</option>
+                            <option value="video">Video Tutorials</option>
+                        </select>
+                    </div>
+                    <div class="filter-group">
+                        <label for="sortBy">Sort By:</label>
+                        <select id="sortBy" class="form-control" onchange="sortFiles()">
+                            <option value="name">Name</option>
+                            <option value="date">Date Added</option>
+                            <option value="size">File Size</option>
+                            <option value="downloads">Downloads</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- File Categories -->
+        <div class="row">
+            <!-- Mechanical Systems -->
+            <div class="col-md-6">
+                <div class="card category-card" data-category="mechanical">
+                    <div class="card-header">
+                        <i class="fas fa-gear"></i> Mechanical Systems
+                    </div>
+                    <div class="card-body">
+                        <div class="file-list">
+                            <div class="file-item" data-category="mechanical" data-type="pdf" data-date="2024-01-15">
+                                <div class="file-icon" style="color: #e74c3c;">
+                                    <i class="fas fa-file-pdf"></i>
+                                </div>
+                                <div class="file-info">
+                                    <div class="file-name">Mechanical Systems Fundamentals</div>
+                                    <div class="file-meta">PDF • 3.2 MB • 245 downloads</div>
+                                </div>
+                                <button class="file-download" onclick="downloadFile('mechanical-fundamentals.pdf')">
+                                    <i class="fas fa-download"></i>
+                                </button>
+                            </div>
+                            
+                            <div class="file-item" data-category="mechanical" data-type="ppt" data-date="2024-01-10">
+                                <div class="file-icon" style="color: #e74c3c;">
+                                    <i class="fas fa-file-powerpoint"></i>
+                                </div>
+                                <div class="file-info">
+                                    <div class="file-name">Gear Systems and Mechanisms</div>
+                                    <div class="file-meta">PPT • 8.7 MB • 189 downloads</div>
+                                </div>
+                                <button class="file-download" onclick="downloadFile('gear-systems.ppt')">
+                                    <i class="fas fa-download"></i>
+                                </button>
+                            </div>
+                            
+                            <div class="file-item" data-category="mechanical" data-type="video" data-date="2024-01-08">
+                                <div class="file-icon" style="color: #e74c3c;">
+                                    <i class="fas fa-file-video"></i>
+                                </div>
+                                <div class="file-info">
+                                    <div class="file-name">Hydraulic Systems Tutorial</div>
+                                    <div class="file-meta">MP4 • 125.3 MB • 156 downloads</div>
+                                </div>
+                                <button class="file-download" onclick="downloadFile('hydraulic-tutorial.mp4')">
+                                    <i class="fas fa-download"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Electrical Circuits -->
+            <div class="col-md-6">
+                <div class="card category-card" data-category="electrical">
+                    <div class="card-header">
+                        <i class="fas fa-bolt"></i> Electrical Circuits
+                    </div>
+                    <div class="card-body">
+                        <div class="file-list">
+                            <div class="file-item" data-category="electrical" data-type="pdf" data-date="2024-01-12">
+                                <div class="file-icon" style="color: #f39c12;">
+                                    <i class="fas fa-file-pdf"></i>
+                                </div>
+                                <div class="file-info">
+                                    <div class="file-name">Circuit Analysis Methods</div>
+                                    <div class="file-meta">PDF • 4.1 MB • 298 downloads</div>
+                                </div>
+                                <button class="file-download" onclick="downloadFile('circuit-analysis.pdf')">
+                                    <i class="fas fa-download"></i>
+                                </button>
+                            </div>
+                            
+                            <div class="file-item" data-category="electrical" data-type="doc" data-date="2024-01-09">
+                                <div class="file-icon" style="color: #f39c12;">
+                                    <i class="fas fa-file-word"></i>
+                                </div>
+                                <div class="file-info">
+                                    <div class="file-name">AC/DC Circuit Problems</div>
+                                    <div class="file-meta">DOC • 2.8 MB • 167 downloads</div>
+                                </div>
+                                <button class="file-download" onclick="downloadFile('ac-dc-problems.doc')">
+                                    <i class="fas fa-download"></i>
+                                </button>
+                            </div>
+                            
+                            <div class="file-item" data-category="electrical" data-type="pdf" data-date="2024-01-05">
+                                <div class="file-icon" style="color: #f39c12;">
+                                    <i class="fas fa-file-pdf"></i>
+                                </div>
+                                <div class="file-info">
+                                    <div class="file-name">Electronic Components Guide</div>
+                                    <div class="file-meta">PDF • 6.5 MB • 234 downloads</div>
+                                </div>
+                                <button class="file-download" onclick="downloadFile('components-guide.pdf')">
+                                    <i class="fas fa-download"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <!-- Materials Science -->
+            <div class="col-md-6">
+                <div class="card category-card" data-category="materials">
+                    <div class="card-header">
+                        <i class="fas fa-atom"></i> Materials Science
+                    </div>
+                    <div class="card-body">
+                        <div class="file-list">
+                            <div class="file-item" data-category="materials" data-type="pdf" data-date="2024-01-14">
+                                <div class="file-icon" style="color: #9b59b6;">
+                                    <i class="fas fa-file-pdf"></i>
+                                </div>
+                                <div class="file-info">
+                                    <div class="file-name">Material Properties and Testing</div>
+                                    <div class="file-meta">PDF • 5.3 MB • 178 downloads</div>
+                                </div>
+                                <button class="file-download" onclick="downloadFile('material-properties.pdf')">
+                                    <i class="fas fa-download"></i>
+                                </button>
+                            </div>
+                            
+                            <div class="file-item" data-category="materials" data-type="ppt" data-date="2024-01-11">
+                                <div class="file-icon" style="color: #9b59b6;">
+                                    <i class="fas fa-file-powerpoint"></i>
+                                </div>
+                                <div class="file-info">
+                                    <div class="file-name">Metals and Alloys</div>
+                                    <div class="file-meta">PPT • 12.1 MB • 145 downloads</div>
+                                </div>
+                                <button class="file-download" onclick="downloadFile('metals-alloys.ppt')">
+                                    <i class="fas fa-download"></i>
+                                </button>
+                            </div>
+                            
+                            <div class="file-item" data-category="materials" data-type="pdf" data-date="2024-01-07">
+                                <div class="file-icon" style="color: #9b59b6;">
+                                    <i class="fas fa-file-pdf"></i>
+                                </div>
+                                <div class="file-info">
+                                    <div class="file-name">Composite Materials Handbook</div>
+                                    <div class="file-meta">PDF • 8.9 MB • 123 downloads</div>
+                                </div>
+                                <button class="file-download" onclick="downloadFile('composite-materials.pdf')">
+                                    <i class="fas fa-download"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Engineering Drawing -->
+            <div class="col-md-6">
+                <div class="card category-card" data-category="drawing">
+                    <div class="card-header">
+                        <i class="fas fa-drafting-compass"></i> Engineering Drawing
+                    </div>
+                    <div class="card-body">
+                        <div class="file-list">
+                            <div class="file-item" data-category="drawing" data-type="pdf" data-date="2024-01-13">
+                                <div class="file-icon" style="color: #2ecc71;">
+                                    <i class="fas fa-file-pdf"></i>
+                                </div>
+                                <div class="file-info">
+                                    <div class="file-name">Technical Drawing Standards</div>
+                                    <div class="file-meta">PDF • 7.2 MB • 267 downloads</div>
+                                </div>
+                                <button class="file-download" onclick="downloadFile('drawing-standards.pdf')">
+                                    <i class="fas fa-download"></i>
+                                </button>
+                            </div>
+                            
+                            <div class="file-item" data-category="drawing" data-type="video" data-date="2024-01-06">
+                                <div class="file-icon" style="color: #2ecc71;">
+                                    <i class="fas fa-file-video"></i>
+                                </div>
+                                <div class="file-info">
+                                    <div class="file-name">CAD Software Tutorial</div>
+                                    <div class="file-meta">MP4 • 89.4 MB • 198 downloads</div>
+                                </div>
+                                <button class="file-download" onclick="downloadFile('cad-tutorial.mp4')">
+                                    <i class="fas fa-download"></i>
+                                </button>
+                            </div>
+                            
+                            <div class="file-item" data-category="drawing" data-type="pdf" data-date="2024-01-04">
+                                <div class="file-icon" style="color: #2ecc71;">
+                                    <i class="fas fa-file-pdf"></i>
+                                </div>
+                                <div class="file-info">
+                                    <div class="file-name">Orthographic Projection Guide</div>
+                                    <div class="file-meta">PDF • 4.7 MB • 156 downloads</div>
+                                </div>
+                                <button class="file-download" onclick="downloadFile('orthographic-guide.pdf')">
+                                    <i class="fas fa-download"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Past Papers Section -->
+        <div class="card">
+            <div class="card-header">
+                <i class="fas fa-file-alt"></i> Past Papers & Examinations
+            </div>
+            <div class="card-body">
+                <div class="file-list">
+                    <div class="file-item" data-category="exam" data-type="pdf" data-date="2022-01-01">
+                        <div class="file-icon" style="color: #e74c3c;">
+                            <i class="fas fa-file-pdf"></i>
+                        </div>
+                        <div class="file-info">
+                            <div class="file-name">2022 Et.pdf</div>
+                            <div class="file-meta">PDF • A/L Engineering Technology Past Paper</div>
+                        </div>
+                        <button class="file-download" onclick="window.open('https://drive.google.com/file/d/1VtZz1GT4FBCUXr7ro_nMtsBtl-AjxQOu/view?usp=drive_link', '_blank')">
+                            <i class="fas fa-download"></i>
+                        </button>
+                    </div>
+                    
+                    <div class="file-item" data-category="exam" data-type="pdf" data-date="2021-01-01">
+                        <div class="file-icon" style="color: #e74c3c;">
+                            <i class="fas fa-file-pdf"></i>
+                        </div>
+                        <div class="file-info">
+                            <div class="file-name">2021 Et.pdf</div>
+                            <div class="file-meta">PDF • A/L Engineering Technology Past Paper</div>
+                        </div>
+                        <button class="file-download" onclick="window.open('https://drive.google.com/file/d/1RgzP_2uXQTSxnkd8q9SDEtV1CD9KxNM_/view?usp=drive_link', '_blank')">
+                            <i class="fas fa-download"></i>
+                        </button>
+                    </div>
+                    
+                    <div class="file-item" data-category="exam" data-type="pdf" data-date="2020-01-01">
+                        <div class="file-icon" style="color: #e74c3c;">
+                            <i class="fas fa-file-pdf"></i>
+                        </div>
+                        <div class="file-info">
+                            <div class="file-name">2020 Et.pdf</div>
+                            <div class="file-meta">PDF • A/L Engineering Technology Past Paper</div>
+                        </div>
+                        <button class="file-download" onclick="window.open('https://drive.google.com/file/d/1jtz5F7cnXaDLWMw_UlQDnVDhkAclgibn/view?usp=drive_link', '_blank')">
+                            <i class="fas fa-download"></i>
+                        </button>
+                    </div>
+                    
+                    <div class="file-item" data-category="exam" data-type="pdf" data-date="2019-01-01">
+                        <div class="file-icon" style="color: #e74c3c;">
+                            <i class="fas fa-file-pdf"></i>
+                        </div>
+                        <div class="file-info">
+                            <div class="file-name">2019 Et.pdf</div>
+                            <div class="file-meta">PDF • A/L Engineering Technology Past Paper</div>
+                        </div>
+                        <button class="file-download" onclick="window.open('https://drive.google.com/file/d/1HvtBoeLIq6ctep1p0BEW73M8yZb1H5lU/view?usp=drive_link', '_blank')">
+                            <i class="fas fa-download"></i>
+                        </button>
+                    </div>
+                    
+                    <div class="file-item" data-category="exam" data-type="pdf" data-date="2018-01-01">
+                        <div class="file-icon" style="color: #e74c3c;">
+                            <i class="fas fa-file-pdf"></i>
+                        </div>
+                        <div class="file-info">
+                            <div class="file-name">2018 Et.pdf</div>
+                            <div class="file-meta">PDF • A/L Engineering Technology Past Paper</div>
+                        </div>
+                        <button class="file-download" onclick="window.open('https://drive.google.com/file/d/19aYdTkda8wJ1EXSRe1aW0pKS_AlGzGmn/view?usp=drive_link', '_blank')">
+                            <i class="fas fa-download"></i>
+                        </button>
+                    </div>
+                    
+                    <div class="file-item" data-category="exam" data-type="pdf" data-date="2017-01-01">
+                        <div class="file-icon" style="color: #e74c3c;">
+                            <i class="fas fa-file-pdf"></i>
+                        </div>
+                        <div class="file-info">
+                            <div class="file-name">2017 Et.pdf</div>
+                            <div class="file-meta">PDF • A/L Engineering Technology Past Paper</div>
+                        </div>
+                        <button class="file-download" onclick="window.open('https://drive.google.com/file/d/1hdimBpIZq8VZGAyMkvWCLANoFfA_j52Q/view?usp=drive_link', '_blank')">
+                            <i class="fas fa-download"></i>
+                        </button>
+                    </div>
+                    
+                    <div class="file-item" data-category="exam" data-type="pdf" data-date="2016-01-01">
+                        <div class="file-icon" style="color: #e74c3c;">
+                            <i class="fas fa-file-pdf"></i>
+                        </div>
+                        <div class="file-info">
+                            <div class="file-name">2016 Et.pdf</div>
+                            <div class="file-meta">PDF • A/L Engineering Technology Past Paper</div>
+                        </div>
+                        <button class="file-download" onclick="window.open('https://drive.google.com/file/d/1J8822yRmbLZv_tdSiI54pKjkcgPikNJ-/view?usp=drive_link', '_blank')">
+                            <i class="fas fa-download"></i>
+                        </button>
+                    </div>
+                    
+                    <div class="file-item" data-category="exam" data-type="pdf" data-date="2015-01-01">
+                        <div class="file-icon" style="color: #e74c3c;">
+                            <i class="fas fa-file-pdf"></i>
+                        </div>
+                        <div class="file-info">
+                            <div class="file-name">2015 Et.pdf</div>
+                            <div class="file-meta">PDF • A/L Engineering Technology Past Paper</div>
+                        </div>
+                        <button class="file-download" onclick="window.open('https://drive.google.com/file/d/1Ff5mjT7omwdMa7naknG8ODNuVUG9rbyo/view?usp=drive_link', '_blank')">
+                            <i class="fas fa-download"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <p>&copy; 2024 AYEDU - Educational File Sharing Platform</p>
+        <p>Engineering Technology Resources for A/L Students</p>
+        <div class="footer-links">
+            <a href="index.html">Home</a>
+            <a href="sft.html">Software Technology</a>
+            <a href="ict.html">ICT</a>
+            <a href="login.html">Login</a>
+        </div>
+    </footer>
+
+    <script>
+        // File download simulation
+        function downloadFile(filename) {
+            alert(`Downloading: ${filename}\n\nIn a real implementation, this would initiate the file download.`);
+        }
+
+        // Search functionality
+        function searchFiles() {
+            const searchTerm = document.getElementById('searchInput').value.toLowerCase();
+            if (searchTerm.trim() === '') {
+                alert('Please enter a search term');
+                return;
+            }
+            
+            const fileItems = document.querySelectorAll('.file-item');
+            let found = false;
+            
+            fileItems.forEach(item => {
+                const fileName = item.querySelector('.file-name').textContent.toLowerCase();
+                if (fileName.includes(searchTerm)) {
+                    item.style.display = 'flex';
+                    item.style.backgroundColor = '#fff3cd';
+                    found = true;
+                } else {
+                    item.style.display = 'none';
+                }
+            });
+            
+            if (!found) {
+                alert(`No files found matching: "${searchTerm}"`);
+                showAllFiles();
+            }
+        }
+
+        // Filter files by category and type
+        function filterFiles() {
+            const categoryFilter = document.getElementById('categoryFilter').value;
+            const typeFilter = document.getElementById('typeFilter').value;
+            const fileItems = document.querySelectorAll('.file-item');
+            
+            fileItems.forEach(item => {
+                const category = item.getAttribute('data-category');
+                const type = item.getAttribute('data-type');
+                
+                const categoryMatch = categoryFilter === 'all' || category === categoryFilter;
+                const typeMatch = typeFilter === 'all' || type === typeFilter;
+                
+                if (categoryMatch && typeMatch) {
+                    item.style.display = 'flex';
+                    item.style.backgroundColor = '';
+                } else {
+                    item.style.display = 'none';
+                }
+            });
+        }
+
+        // Sort files
+        function sortFiles() {
+            const sortBy = document.getElementById('sortBy').value;
+            const categories = document.querySelectorAll('.category-card');
+            
+            categories.forEach(category => {
+                const fileList = category.querySelector('.file-list');
+                const fileItems = Array.from(fileList.querySelectorAll('.file-item'));
+                
+                fileItems.sort((a, b) => {
+                    switch(sortBy) {
+                        case 'name':
+                            return a.querySelector('.file-name').textContent.localeCompare(
+                                b.querySelector('.file-name').textContent
+                            );
+                        case 'date':
+                            return new Date(b.getAttribute('data-date')) - new Date(a.getAttribute('data-date'));
+                        case 'size':
+                            const sizeA = parseFloat(a.querySelector('.file-meta').textContent.match(/[\d.]+/)[0]);
+                            const sizeB = parseFloat(b.querySelector('.file-meta').textContent.match(/[\d.]+/)[0]);
+                            return sizeB - sizeA;
+                        case 'downloads':
+                            const downloadsA = parseInt(a.querySelector('.file-meta').textContent.match(/(\d+) downloads/)[1]);
+                            const downloadsB = parseInt(b.querySelector('.file-meta').textContent.match(/(\d+) downloads/)[1]);
+                            return downloadsB - downloadsA;
+                        default:
+                            return 0;
+                    }
+                });
+                
+                fileItems.forEach(item => fileList.appendChild(item));
+            });
+        }
+
+        // Show all files
+        function showAllFiles() {
+            const fileItems = document.querySelectorAll('.file-item');
+            fileItems.forEach(item => {
+                item.style.display = 'flex';
+                item.style.backgroundColor = '';
+            });
+        }
+
+        // Enter key search
+        document.getElementById('searchInput').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                searchFiles();
+            }
+        });
+
+        // Add animations on load
+        document.addEventListener('DOMContentLoaded', function() {
+            const cards = document.querySelectorAll('.card');
+            cards.forEach((card, index) => {
+                setTimeout(() => {
+                    card.classList.add('fade-in-up');
+                }, index * 100);
+            });
+        });
+    </script>
+
+    <style>
+        .active {
+            background-color: #3498db !important;
+        }
+        
+        .filter-controls {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+            align-items: end;
+        }
+        
+        .filter-group {
+            flex: 1;
+            min-width: 150px;
+        }
+        
+        .filter-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 500;
+            color: #2c3e50;
+        }
+        
+        .category-card {
+            margin-bottom: 30px;
+        }
+        
+        @media screen and (max-width: 768px) {
+            .filter-controls {
+                flex-direction: column;
+            }
+            
+            .filter-group {
+                width: 100%;
+            }
+        }
+    </style>
+    <!-- Video Pop-up Modal Structure -->
+    <div id="videoModal" class="video-modal">
+        <div class="video-modal-content">
+            <div class="video-modal-header">
+                <h3 id="modalTitle" class="video-modal-title">Video Title Placeholder</h3>
+                <span class="video-modal-close" onclick="closeVideoModal()">&times;</span>
+            </div>
+            <div class="video-iframe-container">
+                <!-- YouTube iframe will be loaded here -->
+                <iframe id="videoIframe" width="100%" height="100%" src="" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

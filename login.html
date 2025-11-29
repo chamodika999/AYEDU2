@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
+    <title>Login - AYEDU</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        /* Additional responsive styles for login page */
+        @media screen and (max-width: 768px) {
+            .login-features {
+                display: none;
+            }
+            .login-container {
+                margin: 20px auto;
+                width: 95%;
+            }
+        }
+        
+        @media screen and (max-width: 480px) {
+            .navbar {
+                position: sticky;
+                top: 0;
+                z-index: 100;
+            }
+            .login-container {
+                margin: 15px auto;
+                width: 98%;
+            }
+            .login-header h2 {
+                font-size: 1.5rem;
+            }
+            .login-form {
+                padding: 20px 15px;
+            }
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="logo">AYEDU</a>
+            <ul class="nav-list">
+                <li><a href="index.html"><i class="fas fa-home"></i> Home</a></li>
+                <li><a href="et.html"><i class="fas fa-cogs"></i> Engineering Technology</a></li>
+                <li><a href="sft.html"><i class="fas fa-code"></i> Software Technology</a></li>
+                <li><a href="ict.html"><i class="fas fa-computer"></i> ICT</a></li>
+            </ul>
+            <div class="nav-right">
+                <a href="login.html" class="btn active">Login</a>
+                <button class="mobile-menu-btn sm:hidden" id="mobileMenuBtn" aria-label="Toggle menu"><i class="fas fa-bars"></i></button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="container">
+        <!-- Login Form -->
+        <div class="login-container fade-in-up">
+            <div class="login-header">
+                <div class="login-logo">
+                    <i class="fas fa-graduation-cap"></i>
+                </div>
+                <h2>Welcome to AYEDU</h2>
+                <p>Sign in to access educational resources</p>
+            </div>
+            
+            <form class="login-form" id="loginForm" onsubmit="handleLogin(event)">
+                <div class="form-group">
+                    <label for="username">
+                        <i class="fas fa-user"></i> Username or Email
+                    </label>
+                    <input 
+                        type="text" 
+                        id="username" 
+                        name="username" 
+                        class="form-control" 
+                        placeholder="Enter your username or email"
+                        required
+                    >
+                </div>
+                
+                <div class="form-group">
+                    <label for="password">
+                        <i class="fas fa-lock"></i> Password
+                    </label>
+                    <div class="password-input-container">
+                        <input 
+                            type="password" 
+                            id="password" 
+                            name="password" 
+                            class="form-control" 
+                            placeholder="Enter your password"
+                            required
+                        >
+                        <button type="button" class="password-toggle" onclick="togglePassword()">
+                            <i class="fas fa-eye" id="passwordToggleIcon"></i>
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="checkbox-group">
+                    <input type="checkbox" id="remember" name="remember">
+                    <label for="remember">Remember me</label>
+                </div>
+                
+                <button type="submit" class="btn-primary">
+                    <i class="fas fa-sign-in-alt"></i> Sign In
+                </button>
+                
+                <div class="forgot-password">
+                    <a href="#" onclick="showForgotPassword()">
+                        <i class="fas fa-question-circle"></i> Forgot your password?
+                    </a>
+                </div>
+            </form>
+            
+            <div class="login-footer">
+                <div class="divider">
+                    <span>or</span>
+                </div>
+                
+                <div class="social-login">
+                    <button class="social-btn google" onclick="socialLogin('google')">
+                        <i class="fab fa-google"></i> Continue with Google
+                    </button>
+                    <button class="social-btn facebook" onclick="socialLogin('facebook')">
+                        <i class="fab fa-facebook-f"></i> Continue with Facebook
+                    </button>
+                </div>
+                
+                <div class="signup-link">
+                    <p>Don't have an account? <a href="#" onclick="showSignup()">Sign up here</a></p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Features Section -->
+        <div class="login-features">
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-download"></i>
+                        </div>
+                        <h3>Easy Access</h3>
+                        <p>Download study materials instantly after logging in</p>
+                    </div>
+                </div>
+                
+                <div class="col-md-4">
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-bookmark"></i>
+                        </div>
+                        <h3>Save Favorites</h3>
+                        <p>Bookmark important files for quick access later</p>
+                    </div>
+                </div>
+                
+                <div class="col-md-4">
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-chart-line"></i>
+                        </div>
+                        <h3>Track Progress</h3>
+                        <p>Monitor your learning progress and achievements</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <p>&copy; 2024 AYEDU - Educational File Sharing Platform</p>
+        <p>Secure Login for Sri Lankan A/L Technology Students</p>
+        <div class="footer-links">
+            <a href="index.html">Home</a>
+            <a href="#about">About Us</a>
+            <a href="#privacy">Privacy Policy</a>
+            <a href="#terms">Terms of Service</a>
+        </div>
+    </footer>
+
+    <script>
+        // Handle login form submission
+        function handleLogin(event) {
+            event.preventDefault();
+            
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+            const remember = document.getElementById('remember').checked;
+            
+            // Show loading state
+            const submitBtn = event.target.querySelector('.btn-primary');
+            const originalText = submitBtn.innerHTML;
+            submitBtn.innerHTML = '<div class="loading"></div> Signing in...';
+            submitBtn.disabled = true;
+            
+            // Simulate login process
+            setTimeout(() => {
+                // In a real application, this would make an API call
+                if (username && password) {
+                    alert(`Welcome ${username}!\n\nLogin successful. In a real implementation, you would be redirected to the dashboard.`);
+                    
+                    // Simulate successful login
+                    if (remember) {
+                        localStorage.setItem('ayedu_remember', 'true');
+                    }
+                    
+                    // Redirect to home page
+                    window.location.href = 'index.html';
+                } else {
+                    alert('Please enter both username and password.');
+                }
+                
+                // Reset button
+                submitBtn.innerHTML = originalText;
+                submitBtn.disabled = false;
+            }, 2000);
+        }
+        
+        // Toggle password visibility
+        function togglePassword() {
+            const passwordInput = document.getElementById('password');
+            const toggleIcon = document.getElementById('passwordToggleIcon');
+            
+            if (passwordInput.type === 'password') {
+                passwordInput.type = 'text';
+                toggleIcon.className = 'fas fa-eye-slash';
+            } else {
+                passwordInput.type = 'password';
+                toggleIcon.className = 'fas fa-eye';
+            }
+        }
+        
+        // Show forgot password dialog
+        function showForgotPassword() {
+            const email = prompt('Enter your email address to reset your password:');
+            if (email) {
+                alert(`Password reset link has been sent to ${email}\n\nIn a real implementation, this would send an actual email.`);
+            }
+        }
+        
+        // Show signup dialog
+        function showSignup() {
+            alert('Sign up functionality would be implemented here.\n\nThis would typically redirect to a registration page or show a signup form.');
+        }
+        
+        // Social login simulation
+        function socialLogin(provider) {
+            alert(`${provider.charAt(0).toUpperCase() + provider.slice(1)} login would be implemented here.\n\nThis would integrate with ${provider} OAuth API.`);
+        }
+        
+        // Add animations on load
+        document.addEventListener('DOMContentLoaded', function() {
+            // Check if user should be remembered
+            if (localStorage.getItem('ayedu_remember') === 'true') {
+                document.getElementById('remember').checked = true;
+            }
+            
+            // Add fade-in animation
+            const loginContainer = document.querySelector('.login-container');
+            setTimeout(() => {
+                loginContainer.classList.add('fade-in-up');
+            }, 100);
+            
+            // Add staggered animation to feature cards
+            const featureCards = document.querySelectorAll('.feature-card');
+            featureCards.forEach((card, index) => {
+                setTimeout(() => {
+                    card.classList.add('fade-in-up');
+                }, 300 + (index * 100));
+            });
+        });
+        
+        // Form validation
+        document.getElementById('username').addEventListener('input', function() {
+            const value = this.value;
+            if (value.includes('@') && !value.includes('.')) {
+                this.setCustomValidity('Please enter a valid email address');
+            } else {
+                this.setCustomValidity('');
+            }
+        });
+        
+        // Enter key handling
+        document.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter' && document.activeElement.tagName !== 'BUTTON') {
+                document.getElementById('loginForm').dispatchEvent(new Event('submit'));
+            }
+        });
+    </script>
+
+    <style>
+        .active {
+            background-color: #3498db !important;
+        }
+        
+        .login-logo {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            color: rgba(255, 255, 255, 0.9);
+        }
+        
+        .password-input-container {
+            position: relative;
+        }
+        
+        .password-toggle {
+            position: absolute;
+            right: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: none;
+            border: none;
+            color: #666;
+            cursor: pointer;
+            padding: 5px;
+            transition: color 0.3s ease;
+        }
+        
+        .password-toggle:hover {
+            color: #3498db;
+        }
+        
+        .login-footer {
+            padding: 30px 40px 40px;
+            background: #f8f9fa;
+        }
+        
+        .divider {
+            text-align: center;
+            margin: 20px 0;
+            position: relative;
+        }
+        
+        .divider::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: #ddd;
+        }
+        
+        .divider span {
+            background: #f8f9fa;
+            padding: 0 15px;
+            color: #666;
+            font-size: 0.9rem;
+        }
+        
+        .social-login {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+        
+        .social-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            padding: 12px 20px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            background: white;
+            color: #333;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        
+        .social-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+        
+        .social-btn.google:hover {
+            border-color: #db4437;
+            color: #db4437;
+        }
+        
+        .social-btn.facebook:hover {
+            border-color: #4267B2;
+            color: #4267B2;
+        }
+        
+        .signup-link {
+            text-align: center;
+            margin-top: 20px;
+        }
+        
+        .signup-link p {
+            color: #666;
+            margin: 0;
+        }
+        
+        .signup-link a {
+            color: #3498db;
+            text-decoration: none;
+            font-weight: 500;
+        }
+        
+        .signup-link a:hover {
+            text-decoration: underline;
+        }
+        
+        .login-features {
+            margin-top: 60px;
+        }
+        
+        .feature-card {
+            text-align: center;
+            padding: 30px 20px;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            margin-bottom: 30px;
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+        }
+        
+        .feature-icon {
+            font-size: 2.5rem;
+            color: #3498db;
+            margin-bottom: 20px;
+        }
+        
+        .feature-card h3 {
+            color: #2c3e50;
+            margin-bottom: 15px;
+            font-size: 1.3rem;
+        }
+        
+        .feature-card p {
+            color: #666;
+            line-height: 1.6;
+            margin: 0;
+        }
+        
+        @media screen and (max-width: 768px) {
+            .login-form {
+                padding: 30px 20px;
+            }
+            
+            .login-footer {
+                padding: 20px;
+            }
+            
+            .social-login {
+                gap: 15px;
+            }
+            
+            .login-features .row {
+                flex-direction: column;
+            }
+        }
+        
+        @media screen and (max-width: 480px) {
+            .login-container {
+                margin: 20px auto;
+                max-width: 95%;
+            }
+            
+            .login-header {
+                padding: 20px;
+            }
+            
+            .login-header h2 {
+                font-size: 1.5rem;
+            }
+        }
+    </style>
+</body>
+</html>

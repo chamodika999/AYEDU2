@@ -1,0 +1,1081 @@
+<!DOCTYPE html>
+<html lang="si">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
+    <title>AYEDU - AI මෙවලම් එකතුව</title>
+    <!-- මුල් පිටුවේ තිබූ Stylesheet -->
+    <!-- <link rel="stylesheet" href="styles.css"> - මෙම ගොනුව සපයා නැත, නමුත් අභිරුචි CSS පහතින් ඇත. -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+    <!-- නව AI මෙවලම් සඳහා Tailwind CSS CDN එකතු කිරීම -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- marked.js library for handling markdown output -->
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    
+    <!-- මුල් පිටුවේ තිබූ Custom Styles -->
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
+        
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        
+        .stat-item {
+            text-align: center;
+            margin-bottom: 20px;
+            padding: 15px;
+            border-radius: 10px;
+            background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+            transition: all 0.3s ease;
+        }
+        
+        .stat-item:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .stat-item h3 {
+            font-size: 2rem;
+            color: #3498db;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        
+        .stat-item p {
+            color: #666;
+            font-weight: 500;
+            margin: 0;
+        }
+        
+        .col-md-6 {
+            flex: 1;
+            padding: 0 15px;
+        }
+        
+        .col-md-6 h4 {
+            color: #2c3e50;
+            margin-bottom: 10px;
+            font-size: 1.1rem;
+        }
+        
+        .col-md-6 ul {
+            list-style: none;
+            padding-left: 0;
+        }
+        
+        .col-md-6 ul li {
+            background-color: #ecf0f1;
+            padding: 8px 15px;
+            margin-bottom: 8px;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+            transition: transform 0.2s;
+        }
+        
+        .col-md-6 ul li:hover {
+            transform: translateX(5px);
+            background-color: #dce0e1;
+        }
+        
+        .main-content {
+            display: flex;
+            flex-wrap: wrap;
+            padding: 20px 0;
+        }
+        
+        .subject-card {
+            background-color: white;
+            padding: 20px;
+            margin: 15px;
+            border-radius: 12px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            flex: 1 1 calc(33% - 30px);
+            min-width: 280px;
+            text-align: center;
+            transition: transform 0.3s, box-shadow 0.3s;
+            cursor: pointer;
+        }
+        
+        .subject-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+        }
+        
+        .subject-card i {
+            font-size: 3rem;
+            color: #3498db;
+            margin-bottom: 10px;
+        }
+        
+        .subject-card h3 {
+            color: #2c3e50;
+            font-size: 1.5rem;
+            margin-bottom: 5px;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #0d47a1 0%, #1565c0 100%);
+            color: white;
+            padding: 24px 0;
+            box-shadow: 0 6px 15px -3px rgba(0, 0, 0, 0.2);
+            border-bottom-left-radius: 12px;
+            border-bottom-right-radius: 12px;
+            text-align: center;
+        }
+        
+        .navbar {
+            background-color: #2c3e50;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Modal specific styles */
+        .modal {
+            display: none; /* Hidden by default */
+            position: fixed;
+            z-index: 1000; /* High z-index to overlay everything */
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0,0,0,0.6); /* Black w/ opacity */
+            backdrop-filter: blur(5px);
+        }
+        .modal-content-custom {
+            background-color: #fefefe;
+            margin: 5% auto; /* 5% from the top and centered */
+            padding: 24px;
+            border-radius: 16px;
+            width: 95%; /* Responsive width */
+            max-width: 800px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.3);
+            position: relative;
+            animation: fadeIn 0.3s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .close-btn {
+            color: #aaa;
+            font-size: 32px;
+            font-weight: bold;
+            transition: color 0.2s;
+        }
+
+        .close-btn:hover,
+        .close-btn:focus {
+            color: #333;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        /* Chat Specific Styling */
+        .chat-message {
+            max-width: 85%;
+            padding: 10px 15px;
+            border-radius: 18px;
+            word-wrap: break-word;
+            font-size: 0.95rem;
+        }
+        .user-message {
+            background-color: #dbeafe; /* Blue-100 */
+            color: #1e40af; /* Blue-800 */
+            align-self: flex-end;
+            margin-left: auto; /* Push to right */
+            border-bottom-right-radius: 4px;
+        }
+        .ai-message {
+            background-color: #e5e7eb; /* Gray-200 */
+            color: #374151; /* Gray-700 */
+            align-self: flex-start;
+            border-bottom-left-radius: 4px;
+            
+        }
+        .ai-tool-btn {
+            min-height: 100px; /* Ensure visual height consistency */
+        }
+        
+        /* Responsive adjustments for the tool grid */
+        @media (max-width: 768px) {
+            #aiToolButtons {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            .nav-list {
+                display: none; /* Hide for mobile simplicity */
+            }
+            .nav-list.active {
+                display: flex;
+                flex-direction: column;
+                width: 100%;
+                order: 3;
+            }
+            .nav-container {
+                flex-wrap: wrap;
+                padding: 10px;
+            }
+            .nav-right {
+                order: 2;
+                gap: 10px;
+            }
+            .search-box {
+                width: auto;
+                min-width: 120px;
+            }
+            .search-box input {
+                min-width: 60px;
+            }
+            .mobile-menu-btn {
+                cursor: pointer;
+                background: none;
+                border: none;
+                color: white;
+                font-size: 1.5rem;
+                padding: 8px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            #aiToolButtons {
+                grid-template-columns: 1fr;
+            }
+            .header h1 {
+                font-size: 1.8rem;
+            }
+            .header p {
+                font-size: 0.85rem;
+            }
+            .nav-container {
+                padding: 8px;
+            }
+            .logo {
+                font-size: 1rem;
+            }
+            .search-box {
+                min-width: 100px;
+            }
+            .search-box input {
+                min-width: 50px;
+                font-size: 0.8rem;
+            }
+        }
+
+    </style>
+</head>
+<body class="bg-gray-100">
+    <!-- Header Section -->
+    <div class="header">
+        <h1 class="text-4xl font-extrabold">AYEDU</h1>
+        <p class="mt-2 text-lg">ශ්‍රී ලංකාවේ උසස් පෙළ තාක්ෂණවේදී සිසුන් සඳහා අධ්‍යාපන ගොනු බෙදාගැනීමේ වේදිකාව</p>
+    </div>
+
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+        <div class="nav-container max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex justify-between items-center py-3">
+            <a href="index.html" class="logo text-white text-2xl font-bold">AYEDU</a>
+            <!-- Desktop Navigation Links -->
+            <ul class="nav-list hidden sm:flex space-x-6">
+                <li><a href="index.html" class="text-white hover:text-blue-200 transition duration-300 font-medium"><i class="fas fa-home"></i> මුල් පිටුව</a></li>
+                <li><a href="et.html" class="text-white hover:text-blue-200 transition duration-300 font-medium"><i class="fas fa-cogs"></i> ඉංජිනේරු තාක්ෂණවේදය</a></li>
+                <li><a href="sft.html" class="text-white hover:text-blue-200 transition duration-300 font-medium"><i class="fas fa-code"></i> ශාස්ත්‍ර තාක්ෂණ</a></li>
+                <li><a href="ict.html" class="text-white hover:text-blue-200 transition duration-300 font-medium"><i class="fas fa-computer"></i> තොරතුරු සන්නිවේදන ගණ්‍යම</a></li>
+            </ul>
+            <div class="nav-right flex items-center">
+                <div class="search-box flex">
+                    <input type="text" placeholder="ගොනු සොයන්න..." id="searchInput" class="px-3 py-1 rounded-l-md focus:outline-none text-gray-800">
+                    <button class="btn bg-blue-500 hover:bg-blue-600 text-white px-3 py-1 rounded-r-md" onclick="searchFiles()"><i class="fas fa-search"></i></button>
+                </div>
+                <!-- Login/Profile Link -->
+                <a href="login.html" class="login-link ml-4 text-white hover:text-blue-200 transition duration-300 font-medium hidden sm:inline-block"><i class="fas fa-user-circle"></i> පිවිසෙන්න</a>
+                <!-- Mobile Menu Button -->
+                <button class="mobile-menu-btn sm:hidden" id="mobileMenuBtn" aria-label="Toggle menu"><i class="fas fa-bars"></i></button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content Area -->
+    <div class="container mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 mt-8">
+
+        <!-- AI Tools Section (New Section) -->
+        <section id="ai-tools" class="mb-12 p-6 bg-white rounded-xl shadow-2xl">
+            <h2 class="text-3xl font-extrabold text-blue-700 mb-6 border-b-2 border-blue-200 pb-2 flex items-center">
+                <i class="fas fa-rocket mr-3"></i> AYEDU AI HUB
+            </h2>
+            <p class="text-gray-600 mb-8 text-lg">ඔබගේ අධ්‍යාපන කටයුතු පහසු කර ගැනීමට නිර්මාණය කරන ලද නවීනතම AI මෙවලම් මෙතැනින් තෝරන්න. (අත්හදා බැලීමේ සංස්කරණය)</p>
+            
+            <!-- Increased grid columns to 5 for better layout with 11 tools -->
+            <div id="aiToolButtons" class="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-4">
+                <!-- AI tool buttons will be rendered here by JavaScript -->
+            </div>
+        </section>
+
+        <!-- Existing Statistics Section -->
+        <section id="statistics" class="mb-12">
+            <h2 class="text-3xl font-extrabold text-blue-700 mb-6 border-b-2 border-blue-200 pb-2 flex items-center">
+                <i class="fas fa-chart-bar mr-3"></i> වේදිකාවේ සංඛ්‍යාලේඛන
+            </h2>
+            <div class="flex flex-wrap -mx-3">
+                <div class="w-full md:w-1/3 px-3">
+                    <div class="stat-item">
+                        <h3 id="filesCount">150+</h3>
+                        <p>ගොනු ප්‍රමාණය</p>
+                    </div>
+                </div>
+                <div class="w-full md:w-1/3 px-3">
+                    <div class="stat-item">
+                        <h3 id="usersCount">2.5K+</h3>
+                        <p>ලියාපදිංචි පරිශීලකයින්</p>
+                    </div>
+                </div>
+                <div class="w-full md:w-1/3 px-3">
+                    <div class="stat-item">
+                        <h3 id="downloadsCount">10K+</h3>
+                        <p>බාගත කිරීම්</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Existing Subjects Section -->
+        <section id="subjects" class="mb-12">
+            <h2 class="text-3xl font-extrabold text-blue-700 mb-6 border-b-2 border-blue-200 pb-2 flex items-center">
+                <i class="fas fa-book-open mr-3"></i> ප්‍රධාන විෂයන්
+            </h2>
+            <div class="flex flex-wrap justify-center -m-4">
+                <div class="p-4 w-full sm:w-1/2 lg:w-1/3">
+                    <div class="subject-card" onclick="window.location.href='et.html'">
+                        <i class="fas fa-cogs"></i>
+                        <h3>ඉංජිනේරු තාක්ෂණවේදය (E.T)</h3>
+                        <p>ප්‍රායෝගික පුහුණුවට වැදගත් වන ගොනු.</p>
+                    </div>
+                </div>
+                <div class="p-4 w-full sm:w-1/2 lg:w-1/3">
+                    <div class="subject-card" onclick="window.location.href='sft.html'">
+                        <i class="fas fa-code"></i>
+                        <h3>මෘදුකාංග තාක්ෂණවේදය (S.F.T)</h3>
+                        <p>කේතකරණය සහ ඇල්ගොරිතම ගොනු.</p>
+                    </div>
+                </div>
+                <div class="p-4 w-full sm:w-1/2 lg:w-1/3">
+                    <div class="subject-card" onclick="window.location.href='ict.html'">
+                        <i class="fas fa-computer"></i>
+                        <h3>තොරතුරු තාක්ෂණය (I.C.T)</h3>
+                        <p>තොරතුරු පද්ධති සහ දත්ත ගබඩා ගොනු.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Existing Latest Uploads / Popular Files Section -->
+        <section id="content-focus" class="flex flex-wrap -mx-3 mb-10">
+            <div class="col-md-6 w-full md:w-1/2 px-3 mb-6 md:mb-0">
+                <div class="bg-white p-6 rounded-xl shadow-lg h-full">
+                    <h4 class="text-xl font-semibold text-gray-800 border-b pb-2 mb-4"><i class="fas fa-upload mr-2 text-blue-500"></i> අලුතින් එක් කළ ගොනු</h4>
+                    <ul>
+                        <li>E.T - Power Generation (Lec 5)</li>
+                        <li>S.F.T - Python OOP Practice Sheet</li>
+                        <li>I.C.T - Database Normalization Guide</li>
+                        <li>E.T - Circuit Diagrams for Labs</li>
+                        <li>I.C.T - Web Development Basics</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-md-6 w-full md:w-1/2 px-3">
+                <div class="bg-white p-6 rounded-xl shadow-lg h-full">
+                    <h4 class="text-xl font-semibold text-gray-800 border-b pb-2 mb-4"><i class="fas fa-star mr-2 text-yellow-500"></i> ජනප්‍රිය ගොනු</h4>
+                    <ul>
+                        <li>E.T - Model Papers 2024</li>
+                        <li>S.F.T - Past Papers Collection (2010-2023)</li>
+                        <li>I.C.T - Revision Notes for Unit 3</li>
+                        <li>General - Time Management for A/L</li>
+                        <li>S.F.T - C++ Data Structures Tutorial</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Footer Section -->
+    <footer class="bg-gray-800 text-white text-center p-4 mt-8">
+        <p class="text-sm">&copy; 2024 AYEDU. සියලු හිමිකම් ඇවිරිණි.</p>
+        <div class="social-links mt-2">
+            <a href="#" class="text-gray-400 hover:text-white mx-2 transition duration-300"><i class="fab fa-facebook-f"></i></a>
+            <a href="#" class="text-gray-400 hover:text-white mx-2 transition duration-300"><i class="fab fa-twitter"></i></a>
+            <a href="#" class="text-gray-400 hover:text-white mx-2 transition duration-300"><i class="fab fa-instagram"></i></a>
+        </div>
+    </footer>
+
+
+    <!-- AI Tool Modal Structure -->
+    <div id="aiToolModal" class="modal">
+        <div class="modal-content-custom bg-white p-6 rounded-xl shadow-2xl transition duration-500">
+            <div class="flex justify-between items-center border-b pb-3 mb-4">
+                <h2 id="modalTitle" class="text-2xl font-bold text-gray-800">AI මෙවලම</h2>
+                <span class="close-btn text-gray-500 hover:text-gray-800" onclick="document.getElementById('aiToolModal').style.display='none'">&times;</span>
+            </div>
+            
+            <div id="loadingIndicator" class="hidden text-center p-4 bg-yellow-100 border border-yellow-300 text-yellow-800 rounded-lg mb-4">
+                <i class="fas fa-spinner fa-spin mr-2"></i> පිළිතුර සකස් කරමින් පවතී...
+            </div>
+
+            <!-- Input Area -->
+            <div class="mb-6">
+                <label for="userInput" id="inputLabel" class="block text-gray-700 font-semibold mb-2">ඔබගේ විමසුම (Input):</label>
+                <!-- NOTE: The TTS tool does not require a large input, but we keep the textarea for consistency -->
+                <textarea id="userInput" rows="4" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500 transition duration-150 shadow-inner" placeholder="මෙහි ඔබගේ විමසුම ඇතුලත් කරන්න..."></textarea>
+                <button id="submitBtn" class="mt-3 w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-lg shadow-md transition duration-300 disabled:opacity-50" onclick="processAIRequest()">
+                    <i class="fas fa-paper-plane mr-2"></i> ඉදිරිපත් කරන්න
+                </button>
+            </div>
+
+            <!-- Output Area -->
+            <div class="mt-6 border-t pt-4">
+                <h3 class="text-xl font-bold text-gray-800 mb-3 flex items-center"><i class="fas fa-robot mr-2 text-blue-500"></i> AI පිළිතුර / ප්‍රතිඵලය</h3>
+                
+                <!-- General Output Area (for Text, Code, Image, Quiz) -->
+                <div id="aiOutput" class="p-4 bg-gray-50 border border-gray-200 rounded-lg whitespace-pre-wrap min-h-[100px] text-gray-700 flex justify-center items-center overflow-auto">
+                    <p class="text-gray-500">පිළිතුර මෙහි දිස්වනු ඇත.</p>
+                </div>
+                
+                <!-- Audio Player Output Area (for TTS tool) -->
+                <div id="audioOutput" class="hidden p-4 bg-blue-50 border border-blue-200 rounded-lg text-gray-700 flex flex-col items-center">
+                    <p class="mb-3 text-lg font-semibold text-blue-800">ශ්‍රව්‍ය පටය සූදානම්:</p>
+                    <audio id="audioPlayer" controls class="w-full max-w-md bg-white rounded-lg shadow-md"></audio>
+                    <div id="audioText" class="mt-3 text-sm italic text-center max-w-full truncate"></div>
+                </div>
+
+                <!-- Chat specific output area (for the Chat Assistant tool) -->
+                <div id="aiChatOutput" class="hidden h-[300px] overflow-y-auto p-4 bg-white border border-gray-300 rounded-lg flex flex-col space-y-3">
+                    <!-- Chat messages will be appended here -->
+                </div>
+                
+                <!-- NEW: Citation Output Area (for Grounded Text) -->
+                <div id="aiCitations" class="mt-4 p-3 bg-gray-100 border border-gray-300 rounded-lg text-sm hidden">
+                    <p class="font-semibold text-gray-700 mb-1"><i class="fas fa-link mr-1"></i> මූලාශ්‍ර (Citations):</p>
+                    <ul id="citationsList" class="list-disc list-inside space-y-1"></ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <script>
+        // --- Global Setup ---
+        const API_KEY = "AIzaSyBEU0WHjihBjMIdiOXT7PgnLU_IuEMKj84"; 
+        
+        // Base URLs for different model types
+        const GEMINI_TEXT_API_URL = "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent";
+        const IMAGEN_API_URL = "https://generativelanguage.googleapis.com/v1beta/models/imagen-3.0-generate-002:predict";
+        const TTS_API_URL = "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-tts:generateContent";
+
+
+        // Quiz Generator Structured Output Schema (for JSON_GEN)
+        const QUIZ_SCHEMA = {
+            type: "ARRAY",
+            items: {
+                type: "OBJECT",
+                properties: {
+                    "question": { "type": "STRING" },
+                    "options": {
+                        "type": "ARRAY",
+                        "items": { "type": "STRING" }
+                    },
+                    "correctAnswerIndex": { "type": "NUMBER", "description": "0-based index of the correct option (0, 1, 2, or 3)" }
+                },
+                "propertyOrdering": ["question", "options", "correctAnswerIndex"]
+            }
+        };
+
+        // AI මෙවලම් 11 හි දත්ත
+        const aiTools = [
+            { id: 'chatAssistant', name: 'සාමාන්‍ය කතාබස් ✨', icon: 'fas fa-comments', type: 'CHAT', model: 'gemini-2.5-flash', systemPrompt: 'Act as a friendly, helpful, and culturally aware conversational assistant for A/L students. Respond primarily in Sinhala unless the user switches language.' },
+            { id: 'conceptExplainer', name: 'සංකල්ප පැහැදිලි කරන්නා ✨', icon: 'fas fa-graduation-cap', type: 'GROUNDED_TEXT', model: 'gemini-2.5-flash', systemPrompt: 'You are an expert tutor. Your task is to explain complex technical, scientific, or historical concepts clearly and accurately, tailored for a high school student level (A/L). For every concept, provide three sections: 1. Simple Explanation, 2. Analogy (a real-world comparison), and 3. Detailed Breakdown. Respond primarily in Sinhala.' },
+            { id: 'quizGenerator', name: 'ප්‍රශ්න පත්‍ර ජනකය ✨', icon: 'fas fa-clipboard-question', type: 'JSON_GEN', model: 'gemini-2.5-flash', systemPrompt: 'Act as an expert question designer for high school students. Given the study text, generate a set of five highly relevant multiple-choice questions with four options each, including the correct answer, suitable for Sri Lankan A/L students. The output MUST be a JSON array.', schema: QUIZ_SCHEMA },
+            { id: 'ttsReader', name: 'පාඩම් කියවනය (Audio) ✨', icon: 'fas fa-volume-up', type: 'TTS', model: 'gemini-2.5-flash-preview-tts', systemPrompt: 'Say the user-provided text in a clear, informative voice (voiceName: Charon) in the detected language.' },
+            { id: 'summarizer', name: 'සාරාංශකරණ මෙවලම ✨', icon: 'fas fa-file-alt', type: 'TEXT', model: 'gemini-2.5-flash', systemPrompt: 'Act as a professional summarizer. Condense the provided text into a concise, well-structured summary of approximately 100 words. Respond in Sinhala.' },
+            { id: 'essayWriter', name: 'රචනා ලේඛක ✨', icon: 'fas fa-pen-nib', type: 'TEXT', model: 'gemini-2.5-flash', systemPrompt: 'Act as an academic essay writer for a high school level. Write a structured, engaging essay (introduction, body, conclusion) on the user\'s topic. Respond in Sinhala unless the prompt specifies another language.' },
+            { id: 'codeReviewer', name: 'කේත විචාරක ✨', icon: 'fas fa-bug', type: 'TEXT', model: 'gemini-2.5-flash', systemPrompt: 'Act as a rigorous software engineer. Review the provided code snippet, identifying potential bugs, suggesting improvements for efficiency and readability, and explaining the logic. Respond in Sinhala.' },
+            { id: 'imageGenerator', name: 'රූප ජනකය ✨', icon: 'fas fa-palette', type: 'IMAGE_GEN', model: 'imagen-3.0', systemPrompt: 'Generate a highly detailed and imaginative image based on the user\'s creative prompt.' }, 
+            { id: 'translator', name: 'භාෂා පරිවර්තක ✨', icon: 'fas fa-language', type: 'TEXT', model: 'gemini-2.5-flash', systemPrompt: 'Act as a professional and accurate translator. Translate the user-provided text into the target language specified in the prompt. Ensure Sinhala to English translations are precise for technical terms. Respond with only the translated text.' },
+            { id: 'grammarChecker', name: 'ව්‍යාකරණ පරීක්ෂක ✨', icon: 'fas fa-check-double', type: 'TEXT', model: 'gemini-2.5-flash', systemPrompt: 'Act as a meticulous grammar and style checker. Correct any grammatical errors and suggest stylistic improvements for the text provided by the user. Output the corrected text followed by a brief explanation of the changes. Respond in Sinhala.' },
+            { id: 'brainstormer', name: 'අදහස් උත්පාදක ✨', icon: 'fas fa-lightbulb', type: 'TEXT', model: 'gemini-2.5-flash', systemPrompt: 'Act as an innovative brainstorming partner. Generate 5 unique, diverse, and practical ideas or concepts related to the user prompt, presenting them as a numbered list. Respond in Sinhala.' },
+        ];
+
+        let currentTool = null;
+        let chatHistory = [];
+        let isLoading = false;
+
+
+        // --- TTS Utility Functions: PCM to WAV Conversion (MANDATORY) ---
+
+        // Converts Base64 string to ArrayBuffer
+        function base64ToArrayBuffer(base64) {
+            const binaryString = atob(base64);
+            const len = binaryString.length;
+            const bytes = new Uint8Array(len);
+            for (let i = 0; i < len; i++) {
+                bytes[i] = binaryString.charCodeAt(i);
+            }
+            return bytes.buffer;
+        }
+
+        // Writes the RIFF header for a WAV file
+        function writeString(view, offset, string) {
+            for (let i = 0; i < string.length; i++) {
+                view.setUint8(offset + i, string.charCodeAt(i));
+            }
+        }
+
+        // Converts PCM audio data to a WAV Blob
+        function pcmToWav(pcm16, sampleRate) {
+            const numChannels = 1;
+            const bytesPerSample = 2; // Int16 is 2 bytes
+            const blockAlign = numChannels * bytesPerSample;
+            const byteRate = sampleRate * blockAlign;
+            const dataSize = pcm16.byteLength;
+            const buffer = new ArrayBuffer(44 + dataSize);
+            const view = new DataView(buffer);
+
+            // RIFF chunk descriptor
+            writeString(view, 0, 'RIFF'); // Chunk ID
+            view.setUint32(4, 36 + dataSize, true); // Chunk Size
+            writeString(view, 8, 'WAVE'); // Format
+
+            // FMT sub-chunk
+            writeString(view, 12, 'fmt '); // Sub-chunk 1 ID
+            view.setUint32(16, 16, true); // Sub-chunk 1 size (16 for PCM)
+            view.setUint16(20, 1, true); // Audio Format (1 for PCM)
+            view.setUint16(22, numChannels, true); // Num Channels
+            view.setUint32(24, sampleRate, true); // Sample Rate
+            view.setUint32(28, byteRate, true); // Byte Rate
+            view.setUint16(32, blockAlign, true); // Block Align
+            view.setUint16(34, 16, true); // Bits Per Sample (16)
+
+            // DATA sub-chunk
+            writeString(view, 36, 'data'); // Sub-chunk 2 ID
+            view.setUint32(40, dataSize, true); // Sub-chunk 2 size
+
+            // Write PCM data
+            for (let i = 0; i < pcm16.length; i++) {
+                view.setInt16(44 + i * 2, pcm16[i], true);
+            }
+
+            return new Blob([view], { type: 'audio/wav' });
+        }
+
+
+        // --- Utility Functions ---
+
+        function setLoading(state) {
+            isLoading = state;
+            const indicator = document.getElementById('loadingIndicator');
+            const button = document.getElementById('submitBtn');
+            if (state) {
+                indicator.classList.remove('hidden');
+                button.disabled = true;
+                button.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i> සකසමින්...';
+            } else {
+                indicator.classList.add('hidden');
+                button.disabled = false;
+                button.innerHTML = '<i class="fas fa-paper-plane mr-2"></i> ඉදිරිපත් කරන්න';
+            }
+        }
+
+        function displayError(message, targetOutput) {
+            let outputElement = targetOutput;
+            if (typeof targetOutput === 'string' && targetOutput === 'chat') {
+                outputElement = document.getElementById('aiChatOutput');
+                outputElement.innerHTML += `<div class="chat-message ai-message mt-2"><p class="font-bold text-red-600">දෝෂය: ${message}.</p></div>`;
+                outputElement.scrollTop = outputElement.scrollHeight;
+            } else {
+                outputElement.innerHTML = `<p class="font-bold text-red-600 p-2 bg-red-100 rounded-lg">API දෝෂයක්: ${message}. කරුණාකර පසුව නැවත උත්සාහ කරන්න.</p>`;
+            }
+        }
+
+        // --- API Calls ---
+
+        async function callApi(url, payload, isStructured = false) {
+            const maxRetries = 3;
+            let delay = 1000;
+            const headers = { 'Content-Type': 'application/json' };
+
+            for (let i = 0; i < maxRetries; i++) {
+                try {
+                    const response = await fetch(`${url}?key=${API_KEY}`, {
+                        method: 'POST',
+                        headers: headers,
+                        body: JSON.stringify(payload)
+                    });
+
+                    if (!response.ok) {
+                        const errorBody = await response.json();
+                        // Provide a more Sinhala-friendly error message
+                        const errorMessage = errorBody.error?.message.includes('API Key') 
+                            ? 'API යතුරේ දෝෂයක් හෝ සේවාව ලබාගත නොහැක. (Check API Key)' 
+                            : errorBody.error?.message || 'හඳුනා නොගත් දෝෂයක්.';
+                        throw new Error(`HTTP Error ${response.status}: ${errorMessage}`);
+                    }
+
+                    const result = await response.json();
+                    return result;
+
+                } catch (error) {
+                    if (i === maxRetries - 1) {
+                        throw error; // Throw on final attempt
+                    }
+                    // Exponential backoff
+                    await new Promise(resolve => setTimeout(resolve, delay));
+                    delay *= 2; 
+                }
+            }
+        }
+
+
+        async function processAIRequest() {
+            if (isLoading || !currentTool) return;
+
+            const userInput = document.getElementById('userInput').value.trim();
+            const aiOutput = document.getElementById('aiOutput');
+            const aiChatOutput = document.getElementById('aiChatOutput');
+            const audioOutput = document.getElementById('audioOutput');
+            const aiCitations = document.getElementById('aiCitations');
+            const citationsList = document.getElementById('citationsList');
+            
+            // Ensure audio and citation output is hidden initially
+            audioOutput.classList.add('hidden');
+            aiCitations.classList.add('hidden');
+            aiOutput.classList.remove('bg-red-50', 'bg-blue-50', 'p-0');
+            aiOutput.classList.add('bg-gray-50', 'p-4');
+            
+            
+            if (userInput === '') {
+                aiOutput.innerHTML = `<p class="text-red-600">කරුණාකර යමක් ඇතුළත් කරන්න.</p>`;
+                return;
+            }
+
+            setLoading(true);
+
+            try {
+                if (currentTool.type === 'TTS') {
+                    // --- TTS Generation Flow ---
+                    aiOutput.classList.add('hidden');
+                    audioOutput.classList.remove('hidden');
+                    document.getElementById('audioText').textContent = `පාඨය: "${userInput.substring(0, 70)}..."`;
+                    document.getElementById('audioPlayer').src = '';
+                    document.getElementById('audioPlayer').pause();
+                    
+                    const ttsPrompt = currentTool.systemPrompt.replace('{text}', userInput);
+
+                    const payload = {
+                        contents: [{ parts: [{ text: userInput }] }],
+                        generationConfig: {
+                            responseModalities: ["AUDIO"],
+                            speechConfig: {
+                                voiceConfig: {
+                                    prebuiltVoiceConfig: { voiceName: "Charon" }
+                                }
+                            }
+                        },
+                        model: "gemini-2.5-flash-preview-tts"
+                    };
+
+                    const result = await callApi(TTS_API_URL, payload);
+                    
+                    const part = result?.candidates?.[0]?.content?.parts?.[0];
+                    const audioData = part?.inlineData?.data;
+                    const mimeType = part?.inlineData?.mimeType;
+
+                    if (!audioData || !mimeType || !mimeType.startsWith("audio/")) {
+                        throw new Error('ශ්‍රව්‍ය පටය ජනනය කිරීමට නොහැකි විය. කරුණාකර නැවත උත්සාහ කරන්න.');
+                    }
+                    
+                    const match = mimeType.match(/rate=(\d+)/);
+                    if (!match) throw new Error('ශ්‍රව්‍ය නියැදි අනුපාතය (Sample Rate) හඳුනා ගැනීමට නොහැකි විය.');
+                    const sampleRate = parseInt(match[1], 10);
+
+                    // 1. Convert Base64 to ArrayBuffer (PCM data)
+                    const pcmData = base64ToArrayBuffer(audioData);
+                    // 2. PCM is signed 16-bit
+                    const pcm16 = new Int16Array(pcmData);
+                    // 3. Convert PCM to WAV Blob
+                    const wavBlob = pcmToWav(pcm16, sampleRate);
+                    // 4. Create Object URL for the audio element
+                    const audioUrl = URL.createObjectURL(wavBlob);
+
+                    document.getElementById('audioPlayer').src = audioUrl;
+                    document.getElementById('audioPlayer').play();
+
+
+                } else if (currentTool.type === 'IMAGE_GEN') {
+                    // --- Image Generation Flow (Existing) ---
+                    aiOutput.classList.remove('p-4'); 
+                    aiOutput.classList.add('p-0');
+                    aiOutput.innerHTML = `<div class="p-4 text-center text-gray-500"><i class="fas fa-spinner fa-spin mr-2"></i> රූපය සකස් කරමින් පවතී...</div>`;
+
+                    const payload = {
+                        instances: [{ prompt: userInput }],
+                        parameters: { "sampleCount": 1 }
+                    };
+
+                    const result = await callApi(IMAGEN_API_URL, payload); 
+                    
+                    const base64Data = result?.predictions?.[0]?.bytesBase64Encoded;
+
+                    if (!base64Data) {
+                        throw new Error('රූපයක් ජනනය කිරීමට නොහැකි විය. විමසුම පැහැදිලිදැයි පරීක්ෂා කරන්න.');
+                    }
+
+                    const imageUrl = `data:image/png;base64,${base64Data}`;
+                    
+                    aiOutput.innerHTML = `<img src="${imageUrl}" alt="Generated Image" class="max-w-full h-auto rounded-lg shadow-xl mx-auto" style="max-height: 400px; object-fit: contain;">`;
+
+                } else if (currentTool.type === 'JSON_GEN') {
+                    // --- Quiz Generation Flow (Structured Output) ---
+                    aiOutput.classList.remove('hidden');
+                    aiOutput.classList.add('p-4');
+                    aiOutput.innerHTML = `<div class="text-center text-gray-500"><i class="fas fa-spinner fa-spin mr-2"></i> ප්‍රශ්න පත්‍රය සකස් කරමින් පවතී...</div>`;
+
+                    const payload = {
+                        contents: [{ parts: [{ text: userInput }] }],
+                        generationConfig: {
+                            responseMimeType: "application/json",
+                            responseSchema: currentTool.schema
+                        },
+                        systemInstruction: { parts: [{ text: currentTool.systemPrompt }] }
+                    };
+
+                    const result = await callApi(GEMINI_TEXT_API_URL, payload, true);
+                    
+                    const jsonString = result.candidates?.[0]?.content?.parts?.[0]?.text;
+                    if (!jsonString) {
+                         throw new Error('ප්‍රශ්න පත්‍රය ජනනය කිරීමට නොහැකි විය. කරුණාකර විශාල පාඨයක් ලබා දෙන්න.');
+                    }
+
+                    let quizData;
+                    try {
+                        quizData = JSON.parse(jsonString);
+                    } catch (e) {
+                         throw new Error('JSON ප්‍රතිචාරය විග්‍රහ කිරීමට නොහැකි විය.');
+                    }
+                    
+                    // Render the quiz beautifully
+                    let quizHtml = '<div class="space-y-6">';
+                    quizData.forEach((item, qIndex) => {
+                        quizHtml += `
+                            <div class="bg-white p-4 rounded-lg shadow-md border-l-4 border-blue-500">
+                                <p class="font-bold text-gray-800 mb-3 text-lg">(${qIndex + 1}) ${item.question}</p>
+                                <ul class="space-y-2">
+                        `;
+                        item.options.forEach((option, oIndex) => {
+                            const isCorrect = oIndex === item.correctAnswerIndex;
+                            const optionClass = isCorrect ? 'bg-green-100 text-green-700 font-semibold' : 'bg-gray-100 text-gray-700';
+                            const optionIcon = isCorrect ? '<i class="fas fa-check-circle mr-2"></i>' : '<i class="far fa-circle mr-2"></i>';
+                            
+                            // Display all options, highlight the correct one (for self-study)
+                            quizHtml += `
+                                <li class="p-3 rounded-md transition duration-150 ${optionClass}">
+                                    ${optionIcon} ${option}
+                                </li>
+                            `;
+                        });
+                        quizHtml += `
+                                </ul>
+                            </div>
+                        `;
+                    });
+                    quizHtml += '</div><p class="mt-4 text-sm text-blue-600">සටහන: නිවැරදි පිළිතුරු හරිත පැහැයෙන් දක්වා ඇත (ස්වයං අධ්‍යයනය සඳහා).</p>';
+                    aiOutput.innerHTML = quizHtml;
+
+
+                } else if (currentTool.type === 'CHAT') {
+                    // --- Chat Generation Flow (Existing) ---
+                    aiOutput.classList.add('hidden');
+                    aiChatOutput.classList.remove('hidden');
+
+                    let payload = {};
+                    payload.systemInstruction = { parts: [{ text: currentTool.systemPrompt }] }; 
+                    chatHistory.push({ role: 'user', parts: [{ text: userInput }] });
+                    payload.contents = chatHistory;
+                    
+                    aiChatOutput.innerHTML += `<div class="chat-message user-message mt-2">${userInput}</div>`;
+                    aiChatOutput.innerHTML += `<div id="temp-response" class="chat-message ai-message mt-2 flex items-center"><i class="fas fa-spinner fa-spin mr-2"></i> AI පිළිතුරු දෙමින්...</div>`;
+                    aiChatOutput.scrollTop = aiChatOutput.scrollHeight;
+                    document.getElementById('userInput').value = ''; 
+                    
+                    const result = await callApi(GEMINI_TEXT_API_URL, payload);
+                    const candidate = result.candidates?.[0];
+
+                    if (!candidate || !candidate.content?.parts?.[0]?.text) {
+                        throw new Error('පිළිතුරක් ජනනය කිරීමට නොහැකි විය. නැවත උත්සාහ කරන්න.');
+                    }
+
+                    const text = candidate.content.parts[0].text;
+                    
+                    const tempResponse = document.getElementById('temp-response');
+                    if (tempResponse) tempResponse.remove();
+                    aiChatOutput.innerHTML += `<div class="chat-message ai-message mt-2">${text}</div>`;
+                    aiChatOutput.scrollTop = aiChatOutput.scrollHeight;
+                    
+                    chatHistory.push({ role: 'model', parts: [{ text: text }] });
+                    document.getElementById('userInput').value = ''; 
+
+                } else {
+                    // --- Standard TEXT / GROUNDED_TEXT Generation Flow ---
+                    aiOutput.classList.remove('hidden');
+                    aiOutput.classList.add('p-4');
+
+                    let payload = {};
+                    let useGrounding = currentTool.type === 'GROUNDED_TEXT';
+
+                    // 1. Construct Payload
+                    payload.contents = [{ parts: [{ text: userInput }] }];
+                    payload.systemInstruction = { parts: [{ text: currentTool.systemPrompt }] };
+                    
+                    if (useGrounding) {
+                        payload.tools = [{ "google_search": {} }]; // Add grounding tool
+                    }
+                    
+                    aiOutput.innerHTML = `<div class="text-center text-gray-500"><i class="fas fa-spinner fa-spin mr-2"></i> පිළිතුර සකස් කරමින් පවතී...</div>`;
+
+                    // 2. Call API
+                    const result = await callApi(GEMINI_TEXT_API_URL, payload);
+                    const candidate = result.candidates?.[0];
+
+                    if (!candidate || !candidate.content?.parts?.[0]?.text) {
+                        throw new Error('පිළිතුරක් ජනනය කිරීමට නොහැකි විය. නැවත උත්සාහ කරන්න.');
+                    }
+
+                    const text = candidate.content.parts[0].text;
+
+                    // 3. Extract and display grounding sources (Citations)
+                    let sources = [];
+                    const groundingMetadata = candidate.groundingMetadata;
+                    if (useGrounding && groundingMetadata && groundingMetadata.groundingAttributions) {
+                        sources = groundingMetadata.groundingAttributions
+                            .map(attribution => ({
+                                uri: attribution.web?.uri,
+                                title: attribution.web?.title,
+                            }))
+                            .filter(source => source.uri && source.title); // Ensure sources are valid
+                    }
+                    
+                    // 4. Handle Output Display
+                    if (currentTool.id === 'codeReviewer') {
+                        aiOutput.innerHTML = `<pre class="overflow-x-auto p-4 bg-gray-800 text-green-300 rounded-lg whitespace-pre-wrap">${text}</pre>`;
+                    } else {
+                        // Use marked.parse for markdown rendering
+                        aiOutput.innerHTML = marked.parse(text); 
+                    }
+                    
+                    // 5. Display citations if available and grounded
+                    if (sources.length > 0) {
+                        citationsList.innerHTML = '';
+                        sources.forEach((source, index) => {
+                            citationsList.innerHTML += `
+                                <li>
+                                    <a href="${source.uri}" target="_blank" class="text-blue-600 hover:text-blue-800 hover:underline">
+                                        ${source.title || `මූලාශ්‍රය ${index + 1}`}
+                                    </a>
+                                </li>
+                            `;
+                        });
+                        aiCitations.classList.remove('hidden');
+                    } else {
+                        aiCitations.classList.add('hidden');
+                    }
+                }
+
+            } catch (error) {
+                console.error("API Error:", error);
+                aiOutput.innerHTML = '';
+                
+                const errorMessage = error.message.includes('API Key') 
+                    ? 'API යතුරේ දෝෂයක් හෝ සේවාව ලබාගත නොහැක.' 
+                    : error.message;
+
+                if (currentTool.type === 'CHAT') {
+                    const tempResponse = document.getElementById('temp-response');
+                    if (tempResponse) tempResponse.remove();
+                    displayError(`සම්බන්ධතා දෝෂය: ${errorMessage}`, 'chat');
+                } else {
+                    displayError(`සම්බන්ධතා දෝෂය: ${errorMessage}`, aiOutput);
+                }
+                
+                aiCitations.classList.add('hidden'); // Ensure citations are hidden on error
+                
+            } finally {
+                setLoading(false);
+            }
+        }
+
+        // --- UI Rendering and Setup ---
+
+        function openAIModal(tool) {
+            currentTool = tool;
+            document.getElementById('modalTitle').textContent = tool.name;
+            document.getElementById('aiToolModal').style.display = 'flex';
+            document.getElementById('aiToolModal').style.justifyContent = 'center';
+            document.getElementById('aiToolModal').style.alignItems = 'flex-start';
+
+
+            const aiOutput = document.getElementById('aiOutput');
+            const aiChatOutput = document.getElementById('aiChatOutput');
+            const audioOutput = document.getElementById('audioOutput');
+            const aiCitations = document.getElementById('aiCitations'); // New
+            const userInput = document.getElementById('userInput');
+            
+            // Reset UI elements
+            aiOutput.innerHTML = '<p class="text-gray-500">පිළිතුර මෙහි දිස්වනු ඇත.</p>';
+            aiOutput.classList.remove('hidden', 'p-0');
+            aiOutput.classList.add('p-4', 'bg-gray-50');
+            aiChatOutput.classList.add('hidden');
+            audioOutput.classList.add('hidden');
+            aiCitations.classList.add('hidden'); // Reset citations visibility
+            userInput.value = '';
+
+            // Handle tool specific setup
+            if (tool.type === 'CHAT') {
+                aiOutput.classList.add('hidden');
+                aiChatOutput.classList.remove('hidden');
+                aiChatOutput.innerHTML = '<div class="chat-message ai-message">ආයුබෝවන්! මම ඔබට උදව් කිරීමට සූදානම්.</div>';
+                chatHistory = [{ role: 'model', parts: [{ text: "ආයුබෝවන්! මම ඔබට උදව් කිරීමට සූදානම්." }] }]; // Initialize chat history
+                document.getElementById('inputLabel').textContent = 'ඔබගේ පණිවිඩය (Message):';
+                userInput.rows = 4;
+            } else if (tool.type === 'TTS') {
+                aiOutput.classList.add('hidden');
+                audioOutput.classList.remove('hidden');
+                document.getElementById('inputLabel').textContent = 'ශ්‍රව්‍ය බවට පත් කිරීමට අවශ්‍ය පාඨය මෙහි ඇතුළත් කරන්න:';
+                userInput.placeholder = 'උදා: ඉංජිනේරු තාක්ෂණවේදයේ මූලික සංකල්ප මොනවාද යන්න විස්තර කරන්න.';
+                userInput.rows = 6;
+            } else if (tool.type === 'JSON_GEN') {
+                aiOutput.classList.remove('hidden');
+                document.getElementById('inputLabel').textContent = 'ප්‍රශ්න පත්‍රයක් සෑදීමට අවශ්‍ය පාඩම් කොටස මෙහි ඇතුළත් කරන්න:';
+                userInput.placeholder = 'උදා: යකඩ නිෂ්පාදනයේදී සිදුවන රසායනික ප්‍රතික්‍රියා පිළිබඳව කෙටි පාඨයක් මෙහි ඇතුළත් කරන්න.';
+                userInput.rows = 6;
+            } else if (tool.id === 'conceptExplainer') { // NEW TOOL SETUP
+                aiOutput.classList.remove('hidden');
+                document.getElementById('inputLabel').textContent = 'පැහැදිලි කිරීමට අවශ්‍ය සංකීර්ණ සංකල්පය ඇතුළත් කරන්න:';
+                userInput.placeholder = 'උදා: "Blockchain" තාක්ෂණය ක්‍රියා කරන ආකාරය සිංහලෙන් පැහැදිලි කරන්න.';
+                userInput.rows = 4;
+            } else {
+                aiOutput.classList.remove('hidden');
+                document.getElementById('inputLabel').textContent = 'ඔබගේ විමසුම (Input):';
+                userInput.rows = 4;
+            }
+            
+            // Set input placeholder text based on tool (rest of existing logic)
+            if (tool.id === 'imageGenerator') {
+                userInput.placeholder = 'උදා: රන් වරල් සහිත මකරෙක් සඳ මත පියාසර කරන ආකාරය. (විස්තරාත්මකව ඉංග්‍රීසියෙන් දෙන්න)';
+            } else if (tool.id === 'codeReviewer') {
+                userInput.placeholder = 'සමාලෝචනය සඳහා කේත කොටස මෙහි අලවන්න... (උදා: function sum(a,b){return a+b})';
+            } else if (tool.id === 'translator') {
+                userInput.placeholder = 'පරිවර්තනය කිරීමට අවශ්‍ය පෙළ සහ ඉලක්ක භාෂාව ඇතුළත් කරන්න. (උදා: How are you? to Sinhala)';
+            } else if (tool.id === 'summarizer') {
+                userInput.placeholder = 'සාරාංශ කිරීමට අවශ්‍ය විශාල පෙළ කොටස මෙහි ඇතුළත් කරන්න.';
+            } else if (tool.id === 'essayWriter') {
+                userInput.placeholder = 'උදා: ඉංජිනේරු තාක්ෂණවේදය සිංහලෙන් පිළිබඳ වචන 300ක රචනාවක් ලියන්න.';
+            } else if (tool.id === 'grammarChecker') {
+                userInput.placeholder = 'ව්‍යාකරණ පරීක්ෂා කිරීමට අවශ්‍ය පෙළ කොටස මෙහි ඇතුළත් කරන්න.';
+            } else if (tool.id === 'brainstormer') {
+                userInput.placeholder = 'උදා: මෘදුකාංග තාක්ෂණවේදී ව්‍යාපෘති සඳහා නව අදහස් පහක් දෙන්න.';
+            } else if (tool.type !== 'TTS' && tool.type !== 'JSON_GEN' && tool.type !== 'GROUNDED_TEXT') {
+                userInput.placeholder = 'මෙහි ඔබගේ විමසුම ඇතුලත් කරන්න...';
+            }
+            
+            userInput.focus();
+        }
+
+        function renderAITools() {
+            const container = document.getElementById('aiToolButtons');
+            container.innerHTML = ''; // Clear existing content
+            aiTools.forEach(tool => {
+                const buttonHtml = `
+                    <button 
+                        class="ai-tool-btn flex flex-col items-center justify-center p-3 sm:p-4 bg-white border border-gray-200 rounded-xl shadow-md hover:shadow-lg hover:border-blue-500 transition duration-300 text-gray-700 hover:text-blue-600 active:bg-gray-100"
+                        onclick="openAIModal(aiTools.find(t => t.id === '${tool.id}'))"
+                    >
+                        <i class="${tool.icon} text-2xl sm:text-3xl mb-1 sm:mb-2"></i>
+                        <span class="font-semibold text-center text-xs sm:text-sm">${tool.name}</span>
+                    </button>
+                `;
+                container.innerHTML += buttonHtml;
+            });
+        }
+
+        // --- Event Handlers (Original and New) ---
+
+        // Original searchFiles function (kept for completeness)
+        function searchFiles() {
+            const query = document.getElementById('searchInput').value;
+            if (query) {
+                // In a real application, this would redirect or filter files
+                console.log("Searching for:", query);
+                // Placeholder for real search logic
+                document.getElementById('searchInput').value = '';
+            }
+        }
+        
+        // Close modal when user clicks outside of it
+        window.onclick = function(event) {
+            const modal = document.getElementById('aiToolModal');
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
+            
+            // Close mobile menu when clicking outside
+            const navList = document.querySelector('.nav-list');
+            const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+            if (navList && mobileMenuBtn && !navList.contains(event.target) && !mobileMenuBtn.contains(event.target)) {
+                navList.classList.remove('active');
+            }
+        }
+        
+        // Prevent submission on Enter key press in textarea unless it's a chat
+        document.getElementById('userInput').addEventListener('keydown', function(event) {
+            if (event.key === 'Enter' && !event.shiftKey && currentTool && currentTool.type === 'CHAT') {
+                event.preventDefault(); // Prevent new line
+                processAIRequest();
+            } else if (event.key === 'Enter' && !event.shiftKey && currentTool && currentTool.type !== 'CHAT') {
+                event.preventDefault(); // Prevent form submission
+                // allow Shift + Enter for new lines in non-chat tools
+            }
+        });
+
+
+        // Mobile menu toggle functionality
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const navList = document.querySelector('.nav-list');
+        
+        if (mobileMenuBtn) {
+            mobileMenuBtn.addEventListener('click', function() {
+                navList.classList.toggle('active');
+            });
+            
+            // Close menu when a link is clicked
+            navList.querySelectorAll('a').forEach(link => {
+                link.addEventListener('click', function() {
+                    navList.classList.remove('active');
+                });
+            });
+        }
+        
+        // Initialize rendering when the page loads
+        window.onload = function() {
+            renderAITools();
+            
+            document.querySelectorAll('.subject-card').forEach((card, index) => {
+                card.style.opacity = 0;
+                card.style.transform = 'translateY(20px)';
+                setTimeout(() => {
+                    card.style.opacity = 1;
+                    card.style.transform = 'translateY(0)';
+                }, index * 100);
+            });
+        };
+    </script>
+</body>
+</html>
