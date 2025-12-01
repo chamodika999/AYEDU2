@@ -3,15 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AYEDU - AI මෙවලම් එකතුව</title>
+    <meta name="description" content="AYEDU AI HUB - AI-powered educational platform for Sri Lankan Advanced Level Technology students">
+    <title>AYEDU AI HUB - ඔබේ අධ්‍යයන සාර්ථකත්වය, බුද්ධිමත් සහාය සමඟ</title>
+    
+    <!-- Original index.html styles and scripts -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
-    <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
-    
-    <!-- Marked.js -->
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
     
+    <!-- Custom Styles from original index.html (Crucial for AI Tool Modal) -->
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=Fira+Code:wght@400;500&family=Merriweather:ital,wght@0,300;0,400;0,700;1,300&display=swap');
         
@@ -112,392 +112,621 @@
             .nav-list { display: none; }
             .modal-content-custom { width: 100%; height: 100%; border-radius: 0; }
         }
+        
+        /* New styles from pasted_content.txt for better design integration */
+        .container-custom { max-width: 1280px; margin-left: auto; margin-right: auto; padding-left: 1rem; padding-right: 1rem; }
+        .bg-primary { background-color: #1e40af; } /* Dark Blue */
+        .bg-primary-800 { background-color: #1e3a8a; }
+        .bg-secondary { background-color: #059669; } /* Green */
+        .bg-accent { background-color: #f59e0b; } /* Amber/Orange */
+        .text-accent { color: #f59e0b; }
+        .btn-accent { background-color: #f59e0b; color: white; }
+        .btn-accent:hover { background-color: #d97706; }
+        .card { background-color: white; border-radius: 0.75rem; padding: 1.5rem; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1); }
+        .card-hover:hover { transform: translateY(-5px); box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.1); }
+        .section { padding-top: 4rem; padding-bottom: 4rem; }
+        .text-gradient { background-image: linear-gradient(to right, #f59e0b, #fcd34d); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
     </style>
 </head>
 <body class="bg-gray-100">
-    <!-- Header -->
-    <div class="header">
-        <h1 class="text-4xl font-extrabold">AYEDU</h1>
-        <p class="mt-2 text-lg">ශ්‍රී ලංකාවේ උසස් පෙළ තාක්ෂණවේදී සිසුන් සඳහා අධ්‍යාපන ගොනු බෙදාගැනීමේ වේදිකාව</p>
-    </div>
 
-    <!-- Navigation -->
-    <nav class="navbar">
-        <div class="nav-container max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex justify-between items-center py-3">
-            <a href="index.html" class="logo text-white text-2xl font-bold">AYEDU</a>
-            <ul class="nav-list hidden sm:flex space-x-6">
-                <li><a href="index.html" class="text-white hover:text-blue-200 transition duration-300 font-medium"><i class="fas fa-home"></i> මුල් පිටුව</a></li>
-                <li><a href="et.html" class="text-white hover:text-blue-200 transition duration-300 font-medium"><i class="fas fa-cogs"></i> ඉංජිනේරු තාක්ෂණවේදය</a></li>
-                <li><a href="sft.html" class="text-white hover:text-blue-200 transition duration-300 font-medium"><i class="fas fa-code"></i> තාක්ෂණවේදය සදහා විද්‍යාව</a></li>
-                <li><a href="ict.html" class="text-white hover:text-blue-200 transition duration-300 font-medium"><i class="fas fa-computer"></i> තොරතුරු සන්නිවේදන තාක්ෂණය</a></li>
-            </ul>
-            <div class="nav-right flex items-center">
-                <div class="search-box flex">
-                    <input type="text" placeholder="ගොනු සොයන්න..." id="searchInput" class="px-3 py-1 rounded-l-md focus:outline-none text-gray-800">
-                    <button class="btn bg-blue-500 hover:bg-blue-600 text-white px-3 py-1 rounded-r-md" onclick="searchFiles()"><i class="fas fa-search"></i></button>
+    <!-- Navigation Header (From pasted_content.txt) -->
+    <header class="bg-primary shadow-lg sticky top-0 z-50">
+        <nav class="container-custom">
+            <div class="flex items-center justify-between py-4">
+                <!-- Logo -->
+                <a href="index.html" class="flex items-center gap-3 group">
+                    <div class="w-12 h-12 bg-accent rounded-full flex items-center justify-center transform group-hover:scale-110 transition-transform duration-300">
+                        <i class="fas fa-globe text-white text-xl"></i>
+                    </div>
+                    <div class="flex flex-col">
+                        <span class="text-white font-bold text-2xl leading-none">AYEDU</span>
+                        <span class="text-accent-200 text-xs font-medium">AI HUB</span>
+                    </div>
+                </a>
+
+                <!-- Desktop Navigation -->
+                <div class="hidden lg:flex items-center gap-8">
+                    <a href="index.html" class="text-white font-semibold border-b-2 border-accent pb-1 hover:text-accent-200 transition-colors">මුල් පිටුව</a>
+                    <a href="#ai-tools-section" class="text-white hover:text-accent-200 transition-colors">AI මෙවලම්</a>
+                    <a href="#subject-categories" class="text-white hover:text-accent-200 transition-colors">විෂය කාණ්ඩ</a>
+                    <a href="#learning-dashboard" class="text-white hover:text-accent-200 transition-colors">ඉගෙනුම් පුවරුව</a>
+                    <a href="#resource-library" class="text-white hover:text-accent-200 transition-colors">සම්පත් පුස්තකාලය</a>
+                    <a href="login.html" class="text-white hover:text-accent-200 transition-colors">මගේ ගිණුම</a>
                 </div>
-                <a href="login.html" class="login-link ml-4 text-white hover:text-blue-200 transition duration-300 font-medium hidden sm:inline-block"><i class="fas fa-user-circle"></i> පිවිසෙන්න</a>
-                <button class="text-white sm:hidden ml-4 text-xl"><i class="fas fa-bars"></i></button>
+
+                <!-- Search & Profile -->
+                <div class="hidden lg:flex items-center gap-4">
+                    <div class="relative">
+                        <input type="text" placeholder="සොයන්න..." id="searchInput" class="px-3 py-2 pl-10 pr-4 w-64 bg-primary-800 border-primary-700 text-white placeholder-primary-300 focus:ring-accent-500 rounded-lg">
+                        <i class="fas fa-search absolute left-3 top-1/2 -translate-y-1/2 text-primary-300"></i>
+                    </div>
+                    <a href="login.html" class="btn btn-accent btn-sm">
+                        <i class="fas fa-user mr-2"></i>
+                        පිවිසෙන්න
+                    </a>
+                </div>
+
+                <!-- Mobile Menu Button -->
+                <button class="lg:hidden text-white text-2xl" onclick="toggleMobileMenu()">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+
+            <!-- Mobile Navigation -->
+            <div id="mobileMenu" class="hidden lg:hidden pb-4">
+                <div class="flex flex-col gap-3">
+                    <a href="index.html" class="text-white font-semibold bg-primary-800 px-4 py-2 rounded-lg">මුල් පිටුව</a>
+                    <a href="#ai-tools-section" class="text-white hover:bg-primary-800 px-4 py-2 rounded-lg transition-colors">AI මෙවලම්</a>
+                    <a href="#subject-categories" class="text-white hover:bg-primary-800 px-4 py-2 rounded-lg transition-colors">විෂය කාණ්ඩ</a>
+                    <a href="#learning-dashboard" class="text-white hover:bg-primary-800 px-4 py-2 rounded-lg transition-colors">ඉගෙනුම් පුවරුව</a>
+                    <a href="#resource-library" class="text-white hover:bg-primary-800 px-4 py-2 rounded-lg transition-colors">සම්පත් පුස්තකාලය</a>
+                    <a href="login.html" class="text-white hover:bg-primary-800 px-4 py-2 rounded-lg transition-colors">මගේ ගිණුම</a>
+                    <div class="relative mt-2">
+                        <input type="text" placeholder="සොයන්න..." class="input py-2 pl-10 pr-4 w-full bg-primary-800 border-primary-700 text-white placeholder-primary-300 rounded-lg">
+                        <i class="fas fa-search absolute left-3 top-1/2 -translate-y-1/2 text-primary-300"></i>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Hero Section (From pasted_content.txt) -->
+    <section class="section-hero bg-gradient-to-br from-primary via-primary-800 to-secondary relative overflow-hidden">
+        <div class="absolute inset-0 opacity-10">
+            <div class="absolute top-0 left-0 w-96 h-96 bg-accent rounded-full blur-3xl"></div>
+            <div class="absolute bottom-0 right-0 w-96 h-96 bg-primary-400 rounded-full blur-3xl"></div>
+        </div>
+        
+        <div class="container-custom relative z-10 py-20">
+            <div class="grid lg:grid-cols-2 gap-12 items-center">
+                <div class="text-white animate-fade-in">
+                    <div class="inline-flex items-center gap-2 bg-accent/20 backdrop-blur-sm px-4 py-2 rounded-full mb-6">
+                        <i class="fas fa-star text-accent"></i>
+                        <span class="text-sm font-medium">2025 හි #1 අධ්‍යාපන වේදිකාව</span>
+                    </div>
+                    <h1 class="text-5xl lg:text-6xl font-bold mb-6 leading-tight">
+                        ඔබේ අධ්‍යයන සාර්ථකත්වය,<br>
+                        <span class="text-gradient">බුද්ධිමත් සහාය සමඟ</span>
+                    </h1>
+                    <p class="text-xl text-primary-100 mb-8 leading-relaxed">
+                        Advanced Level තාක්ෂණ විද්‍යා සිසුන් සඳහා AI බලයෙන් යුත් සම්පූර්ණ අධ්‍යාපන පරිසරයක්. සාම්ප්‍රදායික ඉගෙනුම සම්පත් නවීන AI මෙවලම් සමඟ ඒකාබද්ධ කරමින්.
+                    </p>
+                    <div class="flex flex-wrap gap-4">
+                        <a href="#ai-tools-section" class="btn btn-accent btn-lg px-6 py-3 rounded-lg font-bold">
+                            <i class="fas fa-rocket mr-2"></i>
+                            AI මෙවලම් අත්හදා බලන්න
+                        </a>
+                        <a href="#subject-categories" class="btn btn-outline btn-lg border-white text-white hover:bg-white hover:text-primary px-6 py-3 rounded-lg font-bold">
+                            <i class="fas fa-book mr-2"></i>
+                            විෂය ගවේෂණය කරන්න
+                        </a>
+                    </div>
+
+                    <!-- Quick Stats (Original index.html stats integrated into new design) -->
+                    <div class="grid grid-cols-3 gap-6 mt-12 pt-8 border-t border-primary-700">
+                        <div>
+                            <div class="text-3xl font-bold text-accent mb-1" id="filesCount">150+</div>
+                            <div class="text-sm text-primary-200">ගොනු ප්‍රමාණය</div>
+                        </div>
+                        <div>
+                            <div class="text-3xl font-bold text-accent mb-1" id="usersCount">2.5K+</div>
+                            <div class="text-sm text-primary-200">ලියාපදිංචි පරිශීලකයින්</div>
+                        </div>
+                        <div>
+                            <div class="text-3xl font-bold text-accent mb-1" id="downloadsCount">10K+</div>
+                            <div class="text-sm text-primary-200">බාගත කිරීම්</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="relative animate-slide-up">
+                    <div class="relative z-10">
+                        <img src="https://img.rocket.new/generatedImages/rocket_gen_img_1eef5ac88-1764578146564.png" 
+                             alt="Sri Lankan students collaborating on technology projects with AI assistance" 
+                             class="rounded-2xl shadow-2xl w-full h-auto object-cover"
+                             onerror="this.src='https://images.pexels.com/photos/3184291/pexels-photo-3184291.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2'; this.onerror=null;">
+                    </div>
+                    <div class="absolute -bottom-6 -right-6 w-72 h-72 bg-accent/20 rounded-full blur-3xl"></div>
+                </div>
             </div>
         </div>
-    </nav>
+    </section>
 
     <!-- Main Content -->
-    <div class="container mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 mt-8">
+    <div class="container-custom mt-8">
 
-        <!-- AI Tools Section -->
-        <section id="ai-tools" class="mb-12 p-6 bg-white rounded-xl shadow-2xl">
-            <h2 class="text-3xl font-extrabold text-blue-700 mb-6 border-b-2 border-blue-200 pb-2 flex items-center">
-                <i class="fas fa-rocket mr-3"></i> AYEDU AI HUB
-            </h2>
-            <p class="text-gray-600 mb-8 text-lg">ඔබගේ අධ්‍යාපන කටයුතු පහසු කර ගැනීමට නිර්මාණය කරන ලද නවීනතම AI මෙවලම් මෙතැනින් තෝරන්න. (අත්හදා බැලීමේ සංස්කරණය)</p>
+        <!-- AI Tools Section (From original index.html, adapted to new design) -->
+        <section id="ai-tools-section" class="section mb-12 p-6 bg-white rounded-xl shadow-2xl">
+            <div class="text-center mb-12">
+                <h2 class="text-4xl font-bold text-text-primary mb-4">
+                    <i class="fas fa-rocket mr-3 text-blue-700"></i> AYEDU AI HUB
+                </h2>
+                <p class="text-lg text-text-secondary max-w-2xl mx-auto">ඔබගේ අධ්‍යාපන කටයුතු පහසු කර ගැනීමට නිර්මාණය කරන ලද නවීනතම AI මෙවලම් මෙතැනින් තෝරන්න. (අත්හදා බැලීමේ සංස්කරණය)</p>
+            </div>
             <div id="aiToolButtons" class="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-4">
                 <!-- Rendered by JS -->
             </div>
         </section>
 
-        <!-- Statistics -->
-        <section id="statistics" class="mb-12">
-            <h2 class="text-3xl font-extrabold text-blue-700 mb-6 border-b-2 border-blue-200 pb-2 flex items-center">
-                <i class="fas fa-chart-bar mr-3"></i> වේදිකාවේ සංඛ්‍යාලේඛන
-            </h2>
-            <div class="flex flex-wrap -mx-3">
-                <div class="w-full md:w-1/3 px-3">
-                    <div class="stat-item"><h3 id="filesCount">150+</h3><p>ගොනු ප්‍රමාණය</p></div>
+        <!-- Subject Categories (From pasted_content.txt) -->
+        <section id="subject-categories" class="section bg-white rounded-xl shadow-2xl mb-12">
+            <div class="text-center mb-12">
+                <h2 class="text-4xl font-bold text-text-primary mb-4">විෂය කාණ්ඩ</h2>
+                <p class="text-lg text-text-secondary max-w-2xl mx-auto">ඔබේ විෂය ධාරාවට අදාළ සියලුම සම්පත් සහ මෙවලම් සොයා ගන්න</p>
+            </div>
+            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <!-- Subject Card 1: Engineering Technology -->
+                <a href="et.html" class="card card-hover group text-center">
+                    <div class="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform duration-300">
+                        <i class="fas fa-cogs text-blue-600 text-3xl"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold text-text-primary mb-2">ඉංජිනේරු තාක්ෂණවේදය</h3>
+                    <p class="text-text-secondary">යාන්ත්‍රික, සිවිල් සහ විදුලි ඉංජිනේරු විද්‍යාව</p>
+                </a>
+                <!-- Subject Card 2: Science for Technology -->
+                <a href="sft.html" class="card card-hover group text-center">
+                    <div class="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform duration-300">
+                        <i class="fas fa-flask text-green-600 text-3xl"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold text-text-primary mb-2">තාක්ෂණවේදය සදහා විද්‍යාව</h3>
+                    <p class="text-text-secondary">භෞතික විද්‍යාව, රසායන විද්‍යාව සහ ජීව විද්‍යාව</p>
+                </a>
+                <!-- Subject Card 3: ICT -->
+                <a href="ict.html" class="card card-hover group text-center">
+                    <div class="w-16 h-16 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform duration-300">
+                        <i class="fas fa-computer text-purple-600 text-3xl"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold text-text-primary mb-2">තොරතුරු සන්නිවේදන තාක්ෂණය</h3>
+                    <p class="text-text-secondary">පරිගණක විද්‍යාව සහ මෘදුකාංග සංවර්ධනය</p>
+                </a>
+                <!-- Subject Card 4: General -->
+                <a href="javascript:void(0)" class="card card-hover group text-center">
+                    <div class="w-16 h-16 bg-yellow-100 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform duration-300">
+                        <i class="fas fa-globe text-yellow-600 text-3xl"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold text-text-primary mb-2">සාමාන්‍ය සම්පත්</h3>
+                    <p class="text-text-secondary">විභාග උපදෙස් සහ අධ්‍යයන ක්‍රම</p>
+                </a>
+            </div>
+        </section>
+
+        <!-- Learning Dashboard (From pasted_content.txt) -->
+        <section id="learning-dashboard" class="section bg-white rounded-xl shadow-2xl mb-12">
+            <div class="grid lg:grid-cols-2 gap-12 items-center">
+                <div class="order-2 lg:order-1">
+                    <h2 class="text-4xl font-bold text-text-primary mb-4">ඔබේ ප්‍රගතිය නිරීක්ෂණය කරන්න</h2>
+                    <p class="text-lg text-text-secondary mb-6">පුද්ගලීකරණය කළ ඉගෙනුම් පුවරුවක් සමඟින් ඔබේ අධ්‍යයන ගමන කළමනාකරණය කරන්න. ඔබේ දුර්වලතා හඳුනාගෙන ඒවා ශක්තිමත් කරන්න.</p>
+                    <ul class="space-y-4 mb-8">
+                        <li class="flex items-start gap-3">
+                            <i class="fas fa-check-circle text-accent text-xl mt-1"></i>
+                            <div>
+                                <h4 class="font-semibold text-text-primary">විෂය ප්‍රවීණතා මට්ටම්</h4>
+                                <p class="text-text-secondary text-sm">සෑම විෂයයකම ඔබේ දැනුම මට්ටම පැහැදිලිව බලන්න.</p>
+                            </div>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <i class="fas fa-chart-line text-accent text-xl mt-1"></i>
+                            <div>
+                                <h4 class="font-semibold text-text-primary">ප්‍රගති වාර්තා</h4>
+                                <p class="text-text-secondary text-sm">සතිපතා සහ මාසික ප්‍රගති වාර්තා ලබා ගන්න.</p>
+                            </div>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <i class="fas fa-trophy text-accent text-xl mt-1"></i>
+                            <div>
+                                <h4 class="font-semibold text-text-primary">ඉලක්ක සැකසීම</h4>
+                                <p class="text-text-secondary text-sm">ඔබේ ඉගෙනුම් ඉලක්ක සකසා ඒවා කරා ළඟා වන්න.</p>
+                            </div>
+                        </li>
+                    </ul>
+                    <a href="javascript:void(0)" class="btn btn-primary btn-lg px-6 py-3 rounded-lg font-bold">
+                        ඉගෙනුම් පුවරුවට පිවිසෙන්න
+                        <i class="fas fa-arrow-right ml-2"></i>
+                    </a>
                 </div>
-                <div class="w-full md:w-1/3 px-3">
-                    <div class="stat-item"><h3 id="usersCount">2.5K+</h3><p>ලියාපදිංචි පරිශීලකයින්</p></div>
-                </div>
-                <div class="w-full md:w-1/3 px-3">
-                    <div class="stat-item"><h3 id="downloadsCount">10K+</h3><p>බාගත කිරීම්</p></div>
+                <div class="order-1 lg:order-2">
+                    <img src="https://img.rocket.new/generatedImages/rocket_gen_img_10826c7fd-1764578150154.png" 
+                         alt="Learning Dashboard Screenshot" 
+                         class="rounded-xl shadow-2xl w-full h-auto object-cover"
+                         onerror="this.src='https://images.pexels.com/photos/4145354/pexels-photo-4145354.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2'; this.onerror=null;">
                 </div>
             </div>
         </section>
 
-        <!-- Subjects -->
-        <section id="subjects" class="mb-12">
-            <h2 class="text-3xl font-extrabold text-blue-700 mb-6 border-b-2 border-blue-200 pb-2 flex items-center">
-                <i class="fas fa-book-open mr-3"></i> ප්‍රධාන විෂයන්
-            </h2>
-            <div class="flex flex-wrap justify-center -m-4">
-                <div class="p-4 w-full sm:w-1/2 lg:w-1/3">
-                    <div class="subject-card" onclick="window.location.href='et.html'">
-                        <i class="fas fa-cogs"></i><h3>ඉංජිනේරු තාක්ෂණවේදය (E.T)</h3><p>ප්‍රායෝගික පුහුණුවට වැදගත් වන ගොනු.</p>
+        <!-- Resource Library (From pasted_content.txt) -->
+        <section id="resource-library" class="section bg-white rounded-xl shadow-2xl mb-12">
+            <div class="text-center mb-12">
+                <h2 class="text-4xl font-bold text-text-primary mb-4">සම්පත් පුස්තකාලය</h2>
+                <p class="text-lg text-text-secondary max-w-2xl mx-auto">Past Papers, Short Notes, සහ Video Tutorials ඇතුළු 850+ අධ්‍යයන සම්පත්</p>
+            </div>
+            <div class="grid md:grid-cols-3 gap-6">
+                <!-- Resource Card 1 -->
+                <div class="card card-hover group">
+                    <i class="fas fa-file-pdf text-error text-3xl mb-3"></i>
+                    <h3 class="text-xl font-semibold text-text-primary mb-2">Past Papers</h3>
+                    <p class="text-text-secondary mb-4">2010 සිට මේ දක්වා සියලුම විෂය ධාරාවල Past Papers සහ Marking Schemes.</p>
+                    <a href="javascript:void(0)" class="text-primary font-medium group-hover:text-accent transition-colors">බාගත කරන්න <i class="fas fa-arrow-right ml-1 text-sm"></i></a>
+                </div>
+                <!-- Resource Card 2 -->
+                <div class="card card-hover group">
+                    <i class="fas fa-pencil-alt text-success text-3xl mb-3"></i>
+                    <h3 class="text-xl font-semibold text-text-primary mb-2">Short Notes</h3>
+                    <p class="text-text-secondary mb-4">විෂය නිර්දේශය ආවරණය වන පරිදි සකස් කළ කෙටි සටහන්.</p>
+                    <a href="javascript:void(0)" class="text-primary font-medium group-hover:text-accent transition-colors">දැන්ම බලන්න <i class="fas fa-arrow-right ml-1 text-sm"></i></a>
+                </div>
+                <!-- Resource Card 3 -->
+                <div class="card card-hover group">
+                    <i class="fas fa-video text-primary text-3xl mb-3"></i>
+                    <h3 class="text-xl font-semibold text-text-primary mb-2">Video Tutorials</h3>
+                    <p class="text-text-secondary mb-4">සංකීර්ණ පාඩම් සඳහා පියවරෙන් පියවර වීඩියෝ පැහැදිලි කිරීම්.</p>
+                    <a href="javascript:void(0)" class="text-primary font-medium group-hover:text-accent transition-colors">නරඹන්න <i class="fas fa-arrow-right ml-1 text-sm"></i></a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Community Forum (From pasted_content.txt) -->
+        <section id="community-forum" class="section bg-white rounded-xl shadow-2xl mb-12">
+            <div class="text-center mb-12">
+                <h2 class="text-4xl font-bold text-text-primary mb-4">ක්‍රියාකාරී ප්‍රජාව</h2>
+                <p class="text-lg text-text-secondary max-w-2xl mx-auto">අනෙකුත් සිසුන් සමඟ සම්බන්ධ වී, ප්‍රශ්න අසන්න, සහ දැනුම බෙදා ගන්න</p>
+            </div>
+            <div class="grid lg:grid-cols-2 gap-6">
+                <!-- Forum Discussion 1 -->
+                <div class="card card-hover cursor-pointer" onclick="window.location.href='javascript:void(0)'">
+                    <div class="flex items-start gap-4">
+                        <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=1974&auto=format&fit=crop" 
+                             alt="Profile picture of forum discussion participant" 
+                             class="w-12 h-12 rounded-full object-cover">
+                        <div class="flex-1">
+                            <h4 class="font-semibold text-text-primary mb-2">Object-Oriented Programming හි Inheritance සංකල්පය පැහැදිලි කරන්න පුළුවන්ද?</h4>
+                            <p class="text-sm text-text-secondary mb-3">මම Java වලින් inheritance භාවිතා කරන විට ටිකක් අවුල් වෙනවා. කවුරුහරි උදාහරණ සමඟ පැහැදිලි කරන්න පුළුවන්ද?</p>
+                            <div class="flex items-center gap-4 text-sm text-text-secondary">
+                                <span class="flex items-center gap-1">
+                                    <i class="fas fa-comments text-primary"></i>
+                                    24 පිළිතුරු
+                                </span>
+                                <span class="flex items-center gap-1">
+                                    <i class="fas fa-eye text-primary"></i>
+                                    156 දැක්ම
+                                </span>
+                                <span>2 පැය පෙර</span>
+                            </div>
+                        </div>
                     </div>
                 </div>
-                <div class="p-4 w-full sm:w-1/2 lg:w-1/3">
-                    <div class="subject-card" onclick="window.location.href='sft.html'">
-                        <i class="fas fa-code"></i><h3>මෘදුකාංග තාක්ෂණවේදය (S.F.T)</h3><p>කේතකරණය සහ ඇල්ගොරිතම ගොනු.</p>
+
+                <!-- Forum Discussion 2 -->
+                <div class="card card-hover cursor-pointer" onclick="window.location.href='javascript:void(0)'">
+                    <div class="flex items-start gap-4">
+                        <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=1974&auto=format&fit=crop" 
+                             alt="Profile picture of study group organizer" 
+                             class="w-12 h-12 rounded-full object-cover">
+                        <div class="flex-1">
+                            <h4 class="font-semibold text-text-primary mb-2">Database Management සඳහා අධ්‍යයන කණ්ඩායමක් සංවිධානය කරමු</h4>
+                            <p class="text-sm text-text-secondary mb-3">සතියකට දෙවරක් හවස 7ට online හමුවෙලා SQL queries සහ normalization practice කරමු. කැමති අය join වෙන්න.</p>
+                            <div class="flex items-center gap-4 text-sm text-text-secondary">
+                                <span class="flex items-center gap-1">
+                                    <i class="fas fa-users text-success"></i>
+                                    12 සාමාජිකයින්
+                                </span>
+                                <span class="flex items-center gap-1">
+                                    <i class="fas fa-calendar text-success"></i>
+                                    සඳුදා ආරම්භ වේ
+                                </span>
+                                <span class="badge badge-success">විවෘත</span>
+                            </div>
+                        </div>
                     </div>
                 </div>
-                <div class="p-4 w-full sm:w-1/2 lg:w-1/3">
-                    <div class="subject-card" onclick="window.location.href='ict.html'">
-                        <i class="fas fa-microchip fa-pulse text-blue-600" style="--fa-animation-duration: 3s;"></i>
-                        <h3>තොරතුරු තාක්ෂණය (I.C.T)</h3><p>තොරතුරු පද්ධති සහ දත්ත ගබඩා ගොනු.</p>
+            </div>
+            <div class="text-center mt-8">
+                <a href="javascript:void(0)" class="btn btn-primary btn-lg px-6 py-3 rounded-lg font-bold">
+                    ප්‍රජාවට එක් වන්න
+                    <i class="fas fa-arrow-right ml-2"></i>
+                </a>
+            </div>
+        </section>
+
+        <!-- Call to Action (From pasted_content.txt) -->
+        <section class="section bg-gradient-to-br from-primary via-primary-800 to-secondary text-white relative overflow-hidden rounded-xl shadow-2xl mb-12">
+            <div class="absolute inset-0 opacity-10">
+                <div class="absolute top-0 right-0 w-96 h-96 bg-accent rounded-full blur-3xl"></div>
+                <div class="absolute bottom-0 left-0 w-96 h-96 bg-primary-400 rounded-full blur-3xl"></div>
+            </div>
+
+            <div class="container-custom relative z-10">
+                <div class="max-w-4xl mx-auto text-center">
+                    <h2 class="text-4xl md:text-5xl font-bold mb-6">ඔබේ අධ්‍යාපන ගමන අද ආරම්භ කරන්න</h2>
+                    <p class="text-xl text-primary-100 mb-8 max-w-2xl mx-auto">
+                        12,500+ සිසුන් සමඟ එක් වී AI බලයෙන් යුත් ඉගෙනුමේ අනාගතය අත්විඳින්න
+                    </p>
+                    <div class="flex flex-wrap justify-center gap-4">
+                        <a href="login.html" class="btn btn-accent btn-lg px-6 py-3 rounded-lg font-bold">
+                            <i class="fas fa-user-plus mr-2"></i>
+                            නොමිලේ ගිණුමක් සාදන්න
+                        </a>
+                        <a href="#ai-tools-section" class="btn btn-outline btn-lg border-white text-white hover:bg-white hover:text-primary px-6 py-3 rounded-lg font-bold">
+                            <i class="fas fa-play-circle mr-2"></i>
+                            AI මෙවලම් අත්හදා බලන්න
+                        </a>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- Content Focus -->
-        <section id="content-focus" class="flex flex-wrap -mx-3 mb-10">
-            <div class="col-md-6 w-full md:w-1/2 px-3 mb-6 md:mb-0">
-                <div class="bg-white p-6 rounded-xl shadow-lg h-full">
-                    <h4 class="text-xl font-semibold text-gray-800 border-b pb-2 mb-4"><i class="fas fa-upload mr-2 text-blue-500"></i> අලුතින් එක් කළ ගොනු</h4>
-                    <ul><li>E.T - Power Generation (Lec 5)</li><li>S.F.T - Python OOP Practice Sheet</li><li>I.C.T - Database Normalization Guide</li><li>E.T - Circuit Diagrams for Labs</li><li>I.C.T - Web Development Basics</li></ul>
-                </div>
-            </div>
-            <div class="col-md-6 w-full md:w-1/2 px-3">
-                <div class="bg-white p-6 rounded-xl shadow-lg h-full">
-                    <h4 class="text-xl font-semibold text-gray-800 border-b pb-2 mb-4"><i class="fas fa-star mr-2 text-yellow-500"></i> ජනප්‍රිය ගොනු</h4>
-                    <ul><li>E.T - Model Papers 2024</li><li>S.F.T - Past Papers Collection (2010-2023)</li><li>I.C.T - Revision Notes for Unit 3</li><li>General - Time Management for A/L</li><li>S.F.T - C++ Data Structures Tutorial</li></ul>
-                </div>
-            </div>
-        </section>
-    </div>
+    </div> <!-- End of container-custom -->
 
-    <!-- Footer -->
-    <footer class="bg-gray-800 text-white text-center p-4 mt-8">
-        <p class="text-sm">&copy; 2024 AYEDU. සියලු හිමිකම් ඇවිරිණි.</p>
-        <div class="social-links mt-2">
-            <a href="#" class="text-gray-400 hover:text-white mx-2"><i class="fab fa-facebook-f"></i></a>
-            <a href="#" class="text-gray-400 hover:text-white mx-2"><i class="fab fa-twitter"></i></a>
-            <a href="#" class="text-gray-400 hover:text-white mx-2"><i class="fab fa-instagram"></i></a>
+    <!-- Footer (From pasted_content.txt) -->
+    <footer class="bg-primary-800 text-white py-12">
+        <div class="container-custom">
+            <div class="grid md:grid-cols-4 gap-8 mb-8">
+                <!-- About -->
+                <div>
+                    <div class="flex items-center gap-3 mb-4">
+                        <div class="w-10 h-10 bg-accent rounded-full flex items-center justify-center">
+                            <i class="fas fa-globe text-white"></i>
+                        </div>
+                        <div>
+                            <span class="text-white font-bold text-xl leading-none">AYEDU</span>
+                            <div class="text-xs text-accent-200">AI HUB</div>
+                        </div>
+                    </div>
+                    <p class="text-gray-300 text-sm">
+                        Advanced Level තාක්ෂණ විද්‍යා සිසුන් සඳහා AI බලයෙන් යුත් සම්පූර්ණ අධ්‍යාපන පරිසරයක්.
+                    </p>
+                </div>
+
+                <!-- Quick Links -->
+                <div>
+                    <h4 class="font-semibold mb-4">ඉක්මන් සබැඳි</h4>
+                    <ul class="space-y-2 text-sm">
+                        <li><a href="index.html" class="text-gray-300 hover:text-accent transition-colors">මුල් පිටුව</a></li>
+                        <li><a href="#ai-tools-section" class="text-gray-300 hover:text-accent transition-colors">AI මෙවලම්</a></li>
+                        <li><a href="#subject-categories" class="text-gray-300 hover:text-accent transition-colors">විෂය කාණ්ඩ</a></li>
+                        <li><a href="#resource-library" class="text-gray-300 hover:text-accent transition-colors">සම්පත් පුස්තකාලය</a></li>
+                    </ul>
+                </div>
+
+                <!-- Resources -->
+                <div>
+                    <h4 class="font-semibold mb-4">සම්පත්</h4>
+                    <ul class="space-y-2 text-sm">
+                        <li><a href="javascript:void(0)" class="text-gray-300 hover:text-accent transition-colors">ඉගෙනුම් පුවරුව</a></li>
+                        <li><a href="javascript:void(0)" class="text-gray-300 hover:text-accent transition-colors">සජීවී පන්ති</a></li>
+                        <li><a href="javascript:void(0)" class="text-gray-300 hover:text-accent transition-colors">අධ්‍යයන කණ්ඩායම්</a></li>
+                        <li><a href="javascript:void(0)" class="text-gray-300 hover:text-accent transition-colors">උපදේශන</a></li>
+                    </ul>
+                </div>
+
+                <!-- Contact -->
+                <div>
+                    <h4 class="font-semibold mb-4">සම්බන්ධ වන්න</h4>
+                    <ul class="space-y-2 text-sm text-gray-300">
+                        <li class="flex items-center gap-2">
+                            <i class="fas fa-envelope text-accent"></i>
+                            info@ayeduaihub.lk
+                        </li>
+                        <li class="flex items-center gap-2">
+                            <i class="fas fa-phone text-accent"></i>
+                            +94 11 234 5678
+                        </li>
+                        <li class="flex items-center gap-2">
+                            <i class="fas fa-map-marker-alt text-accent"></i>
+                            කොළඹ, ශ්‍රී ලංකාව
+                        </li>
+                    </ul>
+                    <div class="flex gap-3 mt-4">
+                        <a href="javascript:void(0)" class="w-8 h-8 bg-primary-700 rounded-full flex items-center justify-center hover:bg-accent transition-colors">
+                            <i class="fab fa-facebook-f text-sm"></i>
+                        </a>
+                        <a href="javascript:void(0)" class="w-8 h-8 bg-primary-700 rounded-full flex items-center justify-center hover:bg-accent transition-colors">
+                            <i class="fab fa-youtube text-sm"></i>
+                        </a>
+                        <a href="javascript:void(0)" class="w-8 h-8 bg-primary-700 rounded-full flex items-center justify-center hover:bg-accent transition-colors">
+                            <i class="fab fa-whatsapp text-sm"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="border-t border-primary-700 pt-8 text-center text-sm text-gray-400">
+                <p>© 2025 AYEDU AI HUB. සියලුම හිමිකම් ඇවිරිණි.</p>
+            </div>
         </div>
     </footer>
 
-
-    <!-- --- UNIQUE AI TOOL MODAL CONTAINER --- -->
+    <!-- AI Tool Modal (From original index.html) -->
     <div id="aiToolModal" class="modal">
-        <div class="modal-content-custom overflow-hidden" id="modalContainer">
-            <!-- Header (Always Visible) -->
-            <div class="flex justify-between items-center px-6 py-4 bg-white border-b border-gray-100 flex-shrink-0 z-10">
-                <div class="flex items-center">
-                    <div id="modalIconContainer" class="w-10 h-10 rounded-full flex items-center justify-center mr-3 text-white"></div>
-                    <h2 id="modalTitle" class="text-xl font-bold text-gray-800">AI Tool</h2>
-                </div>
-                <span class="close-btn text-gray-400 hover:text-red-500" onclick="closeModal()">&times;</span>
+        <div class="modal-content-custom">
+            <div class="p-4 flex justify-between items-center border-b border-gray-200">
+                <h2 id="modalTitle" class="text-xl font-bold text-gray-800">AI Tool Name</h2>
+                <button onclick="closeToolModal()" class="text-gray-500 hover:text-gray-800 text-2xl">
+                    <i class="fas fa-times"></i>
+                </button>
             </div>
-            
-            <!-- Dynamic Tool Interface -->
-            <div id="toolInterfaceRoot" class="flex-grow flex flex-col overflow-hidden relative">
-                <!-- Content Injected Here -->
+            <div id="toolContent" class="flex-grow overflow-hidden">
+                <!-- Tool specific content will be rendered here -->
             </div>
         </div>
     </div>
 
+    <!-- Floating Quick Access Toolbar (From pasted_content.txt) -->
+    <div class="fixed bottom-6 right-6 z-50 flex flex-col gap-3">
+        <button onclick="window.location.href='#ai-tools-section'" class="w-14 h-14 bg-primary rounded-full shadow-xl flex items-center justify-center text-white hover:scale-110 transition-transform" title="AI මෙවලම්">
+            <i class="fas fa-brain text-xl"></i>
+        </button>
+        <button onclick="window.location.href='#learning-dashboard'" class="w-14 h-14 bg-accent rounded-full shadow-xl flex items-center justify-center text-white hover:scale-110 transition-transform" title="ඉගෙනුම් පුවරුව">
+            <i class="fas fa-chart-line text-xl"></i>
+        </button>
+        <button onclick="window.scrollTo({top: 0, behavior: 'smooth'})" class="w-14 h-14 bg-secondary rounded-full shadow-xl flex items-center justify-center text-white hover:scale-110 transition-transform" title="ඉහළට යන්න">
+            <i class="fas fa-arrow-up text-xl"></i>
+        </button>
+    </div>
 
+    <!-- AI Tool Logic Script (From original index.html - FULL CONTENT) -->
     <script>
-        // --- Global Setup ---
-        const API_KEY = "AIzaSyBDuYOCf_6hqaJfaMATixIwxNndwdP4V94"; 
-        const GEMINI_TEXT_API_URL = "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent";
-        const IMAGEN_API_URL = "https://generativelanguage.googleapis.com/v1beta/models/imagen-4.0-generate-001:predict";
-        const TTS_API_URL = "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-tts:generateContent";
-
-        // Quiz Schema
-        const QUIZ_SCHEMA = {
-            type: "ARRAY",
-            items: {
-                type: "OBJECT",
-                properties: {
-                    "question": { "type": "STRING" },
-                    "options": { "type": "ARRAY", "items": { "type": "STRING" } },
-                    "correctAnswerIndex": { "type": "NUMBER" }
-                }
-            }
-        };
-
-        // --- AI Tools Configuration (with Themes & Colors) ---
-        const aiTools = [
-            { id: 'chatAssistant', name: 'සාමාන්‍ය කතාබස්', icon: 'fas fa-comments', color: '#0084ff', type: 'CHAT', model: 'gemini-2.5-flash', systemPrompt: 'Act as a friendly, helpful AI assistant. Respond in Sinhala.' },
-            { id: 'translator', name: 'භාෂා පරිවර්තක', icon: 'fas fa-language', color: '#8b5cf6', type: 'TRANSLATOR', model: 'gemini-2.5-flash', systemPrompt: 'Translate text to {targetLang}. Return only translation.' },
-            { id: 'conceptExplainer', name: 'සංකල්ප පැහැදිලි කරන්නා', icon: 'fas fa-lightbulb', color: '#f59e0b', type: 'CONCEPT', model: 'gemini-2.5-flash', systemPrompt: 'Explain concepts simply in Sinhala.' },
-            { id: 'quizGenerator', name: 'ප්‍රශ්න පත්‍ර ජනකය', icon: 'fas fa-file-circle-question', color: '#ef4444', type: 'QUIZ', model: 'gemini-2.5-flash', systemPrompt: 'Generate 5 MCQ questions in JSON format.', schema: QUIZ_SCHEMA },
-            { id: 'ttsReader', name: 'පාඩම් කියවනය (Audio)', icon: 'fas fa-headphones', color: '#ec4899', type: 'AUDIO', model: 'gemini-2.5-flash-preview-tts', systemPrompt: 'Speak text.' },
-            { id: 'summarizer', name: 'සාරාංශකරණ', icon: 'fas fa-compress-alt', color: '#10b981', type: 'SUMMARIZER', model: 'gemini-2.5-flash', systemPrompt: 'Summarize in Sinhala.' },
-            { id: 'essayWriter', name: 'රචනා ලේඛක', icon: 'fas fa-pen-nib', color: '#6366f1', type: 'ESSAY', model: 'gemini-2.5-flash', systemPrompt: 'Write an essay in Sinhala.' },
-            { id: 'codeAnalyzer', name: 'කේත විචාරක', icon: 'fas fa-code', color: '#1e293b', type: 'CODE', model: 'gemini-2.5-flash', systemPrompt: 'Analyze code and explain bugs in Sinhala.' },
-            { id: 'imageGenerator', name: 'රූප ජනකය', icon: 'fas fa-image', color: '#d946ef', type: 'IMAGE', model: 'imagen-3.0', systemPrompt: 'Generate image.' },
-            { id: 'grammarChecker', name: 'ව්‍යාකරණ පරීක්ෂක', icon: 'fas fa-check-double', color: '#0ea5e9', type: 'GRAMMAR', model: 'gemini-2.5-flash', systemPrompt: 'Correct grammar in Sinhala.' },
-            { id: 'ideaGenerator', name: 'අදහස් උත්පාදක', icon: 'fas fa-brain', color: '#f97316', type: 'IDEA', model: 'gemini-2.5-flash', systemPrompt: 'Generate creative ideas in Sinhala.' },
-        ];
-
+        // --- Configuration ---
+        const DEEPSEEK_API_URL = "https://api.deepseek.com/v1/chat/completions"; // Placeholder - replace with actual endpoint
+        const API_KEY = "AIzaSyB8tCnRkxSG-h3rXmn0ALLdddW3E2bjJk0"; // Placeholder - replace with actual key
         let currentTool = null;
-        let chatHistory = [];
         let isLoading = false;
+        let chatHistory = [];
 
-        const translationLanguages = [
-            { code: "Sinhala", name: "සිංහල" }, { code: "English", name: "English" }, { code: "Tamil", name: "දෙමළ" },
-            { code: "Japanese", name: "ජපන්" }, { code: "Korean", name: "කොරියානු" }, { code: "French", name: "ප්‍රංශ" }
+        // --- AI Tool Definitions (Crucial for functionality) ---
+        const AI_TOOLS = [
+            { id: 1, name: "AI Chatbot", icon: "fas fa-comments", description: "ක්ෂණික පිළිතුරු සහ පැහැදිලි කිරීම් ලබා ගන්න.", type: "CHAT", color: "#3498db", model: "deepseek-chat", systemPrompt: "You are a helpful and friendly AI assistant named AYEDU, specializing in Advanced Level Technology stream subjects for Sri Lankan students. Respond in Sinhala unless the user asks otherwise. Keep responses concise and educational." },
+            { id: 2, name: "සාරාංශකරණය", icon: "fas fa-file-alt", description: "දිගු පාඨ කෙටි සාරාංශ බවට පත් කරන්න.", type: "SUMMARIZER", color: "#2ecc71", model: "deepseek-chat", systemPrompt: "You are a professional summarization tool. Summarize the provided text into 3-5 key bullet points in Sinhala. Maintain the original context." },
+            { id: 3, name: "සංකල්ප පැහැදිලි කිරීම", icon: "fas fa-brain", description: "ඕනෑම සංකීර්ණ සංකල්පයක් සරලව තේරුම් ගන්න.", type: "CONCEPT", color: "#f39c12", model: "deepseek-chat", systemPrompt: "You are an expert educator. Explain the given concept in simple, easy-to-understand Sinhala, using a relevant analogy or example." },
+            { id: 4, name: "කේත සහායක", icon: "fas fa-code", description: "කේත ලියන්න, දෝෂ නිවැරදි කරන්න, සහ පැහැදිලි කිරීම් ලබා ගන්න.", type: "CODE", color: "#e74c3c", model: "deepseek-coder", systemPrompt: "You are a coding assistant. Provide clean, well-commented code in the requested language, or explain the provided code/error. Use Sinhala for explanations and English for code." },
+            { id: 5, name: "ව්‍යාකරණ පරීක්ෂක", icon: "fas fa-spell-check", description: "සිංහල සහ ඉංග්‍රීසි පාඨවල ව්‍යාකරණ දෝෂ නිවැරදි කරන්න.", type: "GRAMMAR", color: "#9b59b6", model: "deepseek-chat", systemPrompt: "You are a grammar and spelling checker. Correct any grammatical or spelling errors in the provided text. Provide the corrected text and a brief explanation of the changes in Sinhala." },
+            { id: 6, name: "පරිවර්තකය", icon: "fas fa-language", description: "සිංහල සහ ඉංග්‍රීසි අතර පාඨ පරිවර්තනය කරන්න.", type: "TRANSLATOR", color: "#1abc9c", model: "deepseek-chat", systemPrompt: "You are a professional translator. Translate the provided text accurately and naturally into the target language." },
+            { id: 7, name: "අදහස් උත්පාදක", icon: "fas fa-lightbulb", description: "ව්‍යාපෘති හෝ රචනා සඳහා නව අදහස් ලබා ගන්න.", type: "IDEA", color: "#34495e", model: "deepseek-chat", systemPrompt: "You are a creative idea generator. Generate 5 unique and practical ideas based on the user's prompt. List them clearly in Sinhala." },
+            { id: 8, name: "ප්‍රශ්න පත්‍ර උත්පාදක", icon: "fas fa-question-circle", description: "ඕනෑම මාතෘකාවක් සඳහා බහුවරණ ප්‍රශ්න සාදන්න.", type: "QUIZ", color: "#f1c40f", model: "deepseek-chat", systemPrompt: "You are a quiz generator. Create a set of 5 multiple-choice questions (MCQs) based on the user's input. The output MUST be a JSON array of objects, each with 'question', 'options' (array of strings), and 'answer' (string). The questions and options must be in Sinhala." },
+            { id: 9, name: "රූප උත්පාදක", icon: "fas fa-image", description: "පෙළ විස්තර වලින් රූප සාදන්න.", type: "IMAGE", color: "#e67e22", model: "dall-e-3", systemPrompt: "You are an image generation prompt enhancer. Convert the user's request into a detailed, high-quality prompt for an image generation model." },
+            { id: 10, name: "ශ්‍රව්‍ය උත්පාදක", icon: "fas fa-volume-up", description: "පෙළ ශ්‍රව්‍ය බවට පත් කරන්න.", type: "AUDIO", color: "#3498db", model: "tts-1", systemPrompt: "You are a text-to-speech assistant. Convert the provided text into high-quality audio." }
         ];
 
-        // --- Core Functions ---
+        // --- UI Rendering Functions ---
 
         function renderAITools() {
             const container = document.getElementById('aiToolButtons');
-            container.innerHTML = '';
-            aiTools.forEach(tool => {
-                container.innerHTML += `
-                    <button class="ai-tool-btn flex flex-col items-center justify-center p-4 bg-white border border-gray-200 rounded-xl shadow-md hover:shadow-xl text-gray-700 active:bg-gray-50 group" onclick="openTool('${tool.id}')">
-                        <div class="w-12 h-12 rounded-full flex items-center justify-center mb-3 transition-transform group-hover:scale-110" style="background-color: ${tool.color}20; color: ${tool.color}">
-                            <i class="${tool.icon} text-2xl"></i>
-                        </div>
-                        <span class="font-semibold text-center text-xs sm:text-sm group-hover:text-blue-600">${tool.name}</span>
-                    </button>
-                `;
-            });
+            container.innerHTML = AI_TOOLS.map(tool => `
+                <button class="ai-tool-btn p-4 bg-white rounded-xl shadow-md hover:shadow-lg flex flex-col items-center justify-center text-center border-t-4" 
+                        style="border-color: ${tool.color};"
+                        onclick="openToolModal(${tool.id})">
+                    <i class="${tool.icon} text-3xl mb-2" style="color: ${tool.color};"></i>
+                    <h3 class="text-lg font-semibold text-gray-800">${tool.name}</h3>
+                    <p class="text-xs text-gray-500 mt-1">${tool.description}</p>
+                </button>
+            `).join('');
         }
 
-        function openTool(toolId) {
-            currentTool = aiTools.find(t => t.id === toolId);
-            const modal = document.getElementById('aiToolModal');
-            const container = document.getElementById('toolInterfaceRoot');
+        function openToolModal(id) {
+            currentTool = AI_TOOLS.find(t => t.id === id);
+            if (!currentTool) return;
+
+            document.getElementById('modalTitle').textContent = currentTool.name;
+            document.getElementById('toolContent').innerHTML = renderToolContent(currentTool);
+            document.getElementById('aiToolModal').style.display = 'flex';
             
-            // Set Header Styling
-            document.getElementById('modalTitle').innerText = currentTool.name;
-            const iconContainer = document.getElementById('modalIconContainer');
-            iconContainer.style.backgroundColor = currentTool.color;
-            iconContainer.innerHTML = `<i class="${currentTool.icon}"></i>`;
-            
-            modal.style.display = 'flex';
-            container.innerHTML = getToolInterfaceHTML(currentTool);
-            
-            // Initialize Tool Specific Logic
-            if(currentTool.type === 'CHAT') renderChatHistory();
+            // Reset chat history for chat tool
+            if (currentTool.type === 'CHAT') {
+                chatHistory = [];
+                renderChatHistory();
+            }
         }
 
-        function closeModal() {
+        function closeToolModal() {
             document.getElementById('aiToolModal').style.display = 'none';
-            chatHistory = []; // Reset chat on close for simple session management
+            currentTool = null;
         }
 
-        // --- UNIQUE INTERFACE GENERATOR ---
-        function getToolInterfaceHTML(tool) {
-            const loadingHtml = `<div id="loadingOverlay" class="absolute inset-0 bg-white/80 z-50 hidden flex-col items-center justify-center backdrop-blur-sm"><div class="w-12 h-12 border-4 border-blue-200 border-t-blue-600 rounded-full animate-spin mb-3"></div><p class="text-blue-600 font-bold animate-pulse">සකසමින් පවතී...</p></div>`;
+        function renderToolContent(currentTool) {
+            const loadingHtml = `
+                <div id="loadingOverlay" class="absolute inset-0 bg-white/80 backdrop-blur-sm z-50 flex items-center justify-center hidden">
+                    <div class="text-center">
+                        <i class="fas fa-spinner fa-spin text-4xl mb-3" style="color: ${currentTool.color};"></i>
+                        <p class="text-lg font-semibold text-gray-700">AI මෙවලම ක්‍රියාත්මක වෙමින් පවතී...</p>
+                    </div>
+                </div>
+            `;
 
-            // 1. CHAT INTERFACE (WhatsApp/Messenger Style)
-            if (tool.type === 'CHAT') {
+            // CHAT Tool
+            if (currentTool.type === 'CHAT') {
                 return `
                     ${loadingHtml}
-                    <div class="theme-chat-bg flex-grow flex flex-col overflow-hidden relative">
-                        <div id="chatOutput" class="flex-grow overflow-y-auto p-4 custom-scroll flex flex-col gap-3"></div>
-                        <div class="bg-white p-3 border-t border-gray-200 flex items-center gap-2">
-                            <input type="text" id="toolInput" class="flex-grow p-3 rounded-full border border-gray-300 focus:outline-none focus:border-blue-500 bg-gray-50" placeholder="පණිවිඩය ටයිප් කරන්න..." onkeydown="handleEnter(event)">
-                            <button onclick="runTool()" class="w-10 h-10 rounded-full bg-blue-600 text-white hover:bg-blue-700 flex items-center justify-center shadow-lg transition-transform hover:scale-105"><i class="fas fa-paper-plane"></i></button>
+                    <div class="flex flex-col h-full theme-chat-bg">
+                        <div id="chatOutput" class="flex-grow overflow-y-auto p-4 custom-scroll flex flex-col space-y-2">
+                            <!-- Chat messages go here -->
+                        </div>
+                        <div class="p-4 border-t border-gray-200 bg-white flex items-center">
+                            <input type="text" id="toolInput" placeholder="ඔබේ පණිවිඩය මෙහි ලියන්න..." 
+                                class="flex-grow p-3 border border-gray-300 rounded-full focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                onkeypress="handleEnter(event)">
+                            <button onclick="runTool()" class="ml-3 w-10 h-10 rounded-full text-white flex items-center justify-center" style="background-color: ${currentTool.color}">
+                                <i class="fas fa-paper-plane"></i>
+                            </button>
                         </div>
                     </div>
                 `;
             }
 
-            // 2. TRANSLATOR INTERFACE (Google Translate Style)
-            if (tool.type === 'TRANSLATOR') {
-                const options = translationLanguages.map(l => `<option value="${l.code}">${l.name}</option>`).join('');
-                return `
-                    ${loadingHtml}
-                    <div class="flex flex-col md:flex-row h-full bg-gray-50">
-                        <div class="flex-1 flex flex-col border-r border-gray-200 p-4 bg-white">
-                            <label class="text-xs font-bold text-gray-500 uppercase mb-2 tracking-wider">Original Text</label>
-                            <textarea id="toolInput" class="flex-grow w-full resize-none outline-none text-lg text-gray-800 placeholder-gray-300" placeholder="මෙහි ලියන්න..."></textarea>
-                        </div>
-                        <div class="h-px md:h-full md:w-px bg-gray-200"></div>
-                        <div class="flex-1 flex flex-col p-4 bg-blue-50/50">
-                            <div class="flex justify-between items-center mb-2">
-                                <label class="text-xs font-bold text-blue-500 uppercase tracking-wider">Translation</label>
-                                <select id="targetLang" class="text-sm bg-white border border-gray-200 rounded px-2 py-1 focus:outline-none text-gray-700 font-semibold">${options}</select>
-                            </div>
-                            <div id="toolOutput" class="flex-grow w-full text-lg text-gray-800 font-medium overflow-y-auto"></div>
-                        </div>
-                    </div>
-                    <div class="p-4 bg-white border-t border-gray-200 flex justify-end"><button onclick="runTool()" class="bg-blue-600 text-white px-6 py-2 rounded-lg font-bold shadow-md hover:bg-blue-700 transition">පරිවර්තනය කරන්න</button></div>
-                `;
-            }
-
-            // 3. CODE ANALYZER (VS Code Style)
-            if (tool.type === 'CODE') {
+            // CODE Tool
+            if (currentTool.type === 'CODE') {
                 return `
                     ${loadingHtml}
                     <div class="flex flex-col h-full theme-code-bg">
-                        <div class="flex items-center bg-[#252526] px-4 py-2 text-xs text-gray-400 border-b border-[#3e3e3e]">
-                            <span class="mr-4 hover:text-white cursor-pointer"><i class="fas fa-file-code mr-1"></i> index.js</span>
-                            <span class="flex-grow"></span>
-                            <span><i class="fas fa-circle text-red-500 mr-1"></i> 1 Error</span>
+                        <div class="p-4 border-b border-gray-700">
+                            <textarea id="toolInput" class="w-full code-input p-3 rounded-lg resize-none h-24" placeholder="කේතය හෝ විස්තරය මෙහි ලියන්න..." onkeypress="handleEnter(event)"></textarea>
+                            <div class="flex justify-end mt-2">
+                                <button onclick="runTool()" class="px-4 py-2 rounded-lg font-bold text-white shadow hover:shadow-lg transition" style="background-color: ${currentTool.color}"><i class="fas fa-bolt mr-2"></i> ක්‍රියාත්මක කරන්න</button>
+                            </div>
                         </div>
-                        <div class="flex-grow flex flex-col md:flex-row overflow-hidden">
-                            <textarea id="toolInput" class="code-input flex-1 p-4 resize-none outline-none custom-scroll text-sm leading-relaxed" spellcheck="false" placeholder="// Paste your code here..."></textarea>
-                            <div id="toolOutput" class="code-output flex-1 p-4 overflow-y-auto custom-scroll text-sm leading-relaxed hidden md:block border-t md:border-t-0 md:border-l border-[#3e3e3e]">/* Analysis results will appear here... */</div>
-                        </div>
-                        <div class="p-2 bg-[#007acc] text-white flex justify-end cursor-pointer hover:bg-[#0062a3]" onclick="runTool()">
-                            <span class="text-xs font-bold uppercase flex items-center px-4 py-1"><i class="fas fa-play mr-2"></i> Run Analysis</span>
+                        <div class="flex-grow p-4 overflow-y-auto custom-scroll">
+                            <label class="block text-sm font-bold text-gray-400 mb-2">ප්‍රතිඵලය</label>
+                            <div id="toolOutput" class="code-output p-3 rounded-lg whitespace-pre-wrap text-sm">කේත ප්‍රතිඵලය මෙහි දිස්වනු ඇත...</div>
                         </div>
                     </div>
                 `;
             }
 
-            // 4. ESSAY WRITER (Google Docs/Paper Style)
-            if (tool.type === 'ESSAY') {
+            // TRANSLATOR Tool
+            if (currentTool.type === 'TRANSLATOR') {
                 return `
                     ${loadingHtml}
-                    <div class="flex flex-col h-full theme-paper-bg overflow-hidden relative">
-                        <div class="bg-white border-b p-2 flex items-center justify-center gap-4 shadow-sm z-10">
-                            <div class="w-full max-w-2xl flex items-center">
-                                <i class="fas fa-heading text-gray-400 mr-3"></i>
-                                <input type="text" id="toolInput" class="paper-input flex-grow text-lg font-semibold py-1 focus:outline-none" placeholder="රචනාවේ මාතෘකාව මෙතැන ලියන්න...">
-                                <button onclick="runTool()" class="ml-4 bg-indigo-600 text-white px-4 py-1.5 rounded-md text-sm font-bold shadow-sm hover:bg-indigo-700">Write</button>
+                    <div class="flex flex-col h-full theme-paper-bg">
+                        <div class="p-6 bg-white border-b border-gray-100">
+                            <div class="flex justify-between items-center mb-3">
+                                <label class="block text-sm font-bold text-gray-700 uppercase tracking-wide opacity-70">පරිවර්තනය කරන්න</label>
+                                <select id="targetLang" class="p-2 border rounded-lg">
+                                    <option value="English">ඉංග්‍රීසි වෙත</option>
+                                    <option value="Sinhala">සිංහල වෙත</option>
+                                </select>
+                            </div>
+                            <textarea id="toolInput" class="w-full bg-gray-50 border border-gray-200 rounded-xl p-4 focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none resize-none h-32 shadow-sm transition" placeholder="පරිවර්තනය කිරීමට අවශ්‍ය පාඨය මෙහි ලියන්න..."></textarea>
+                            <div class="flex justify-end mt-3">
+                                <button onclick="runTool()" class="px-6 py-2 rounded-lg font-bold text-white shadow hover:shadow-lg transition transform hover:-translate-y-0.5" style="background-color: ${currentTool.color}"><i class="fas fa-bolt mr-2"></i> පරිවර්තනය කරන්න</button>
                             </div>
                         </div>
-                        <div class="flex-grow overflow-y-auto p-4 md:p-8 custom-scroll flex justify-center">
-                            <div id="toolOutput" class="paper-sheet w-full max-w-2xl min-h-[600px] text-gray-700">
-                                <p class="text-gray-400 italic text-center mt-10">ඔබේ රචනාව මෙහි ලියැවෙනු ඇත...</p>
-                            </div>
+                        <div class="flex-grow p-6 overflow-y-auto custom-scroll bg-white">
+                            <label class="block text-sm font-bold text-gray-700 mb-4 uppercase tracking-wide opacity-70">පරිවර්තන ප්‍රතිඵලය</label>
+                            <div id="toolOutput" class="prose max-w-none text-gray-800 leading-relaxed"></div>
                         </div>
                     </div>
                 `;
             }
 
-            // 5. AUDIO / LESSON NARRATOR (Music Player Style)
-            if (tool.type === 'AUDIO') {
+            // IDEA Generator Tool
+            if (currentTool.type === 'IDEA') {
                 return `
                     ${loadingHtml}
-                    <div class="flex flex-col h-full theme-audio-bg items-center justify-center p-6 relative overflow-hidden">
-                        <div class="absolute inset-0 opacity-10" style="background-image: url('data:image/svg+xml,...')"></div>
-                        <div class="bg-white/10 backdrop-blur-md rounded-3xl p-8 w-full max-w-md border border-white/20 shadow-2xl relative z-10">
-                            <div class="w-32 h-32 bg-white/20 rounded-full mx-auto mb-6 flex items-center justify-center shadow-inner">
-                                <i class="fas fa-music text-5xl text-white/80"></i>
-                            </div>
-                            <textarea id="toolInput" class="w-full bg-black/20 border-none rounded-xl p-4 text-white placeholder-white/50 mb-6 resize-none h-32 focus:ring-2 focus:ring-white/50 outline-none" placeholder="කියවිය යුතු පාඩම මෙහි අලවන්න..."></textarea>
-                            
-                            <!-- Audio Visualization Placeholder -->
-                            <div id="visualizer" class="audio-visualizer mb-6 opacity-0 transition-opacity">
-                                <div class="audio-bar" style="animation-delay: 0s"></div>
-                                <div class="audio-bar" style="animation-delay: 0.1s"></div>
-                                <div class="audio-bar" style="animation-delay: 0.2s"></div>
-                                <div class="audio-bar" style="animation-delay: 0.3s"></div>
-                                <div class="audio-bar" style="animation-delay: 0.4s"></div>
-                            </div>
-
-                            <audio id="audioPlayer" class="hidden"></audio>
-
-                            <button onclick="runTool()" class="w-full bg-white text-indigo-600 font-bold py-3 rounded-xl shadow-lg hover:bg-indigo-50 transition transform hover:scale-105 flex items-center justify-center">
-                                <i class="fas fa-play mr-2"></i> හඬ කවන්න (Play)
-                            </button>
-                        </div>
-                    </div>
-                `;
-            }
-
-            // 6. QUESTION PAPER GENERATOR (Exam Paper Style)
-            if (tool.type === 'QUIZ') {
-                return `
-                    ${loadingHtml}
-                    <div class="flex flex-col h-full bg-gray-100">
-                        <div class="bg-white p-6 shadow-sm z-10 flex flex-col gap-3">
-                            <label class="font-bold text-gray-700">විෂය නිර්දේශය / සටහන් (Syllabus/Notes):</label>
-                            <textarea id="toolInput" class="w-full p-3 border border-gray-300 rounded-lg h-24 resize-none focus:ring-2 focus:ring-red-500 outline-none" placeholder="පාඩම් කොටස මෙහි අලවන්න..."></textarea>
-                            <button onclick="runTool()" class="self-end bg-red-500 text-white px-6 py-2 rounded-lg font-bold shadow hover:bg-red-600"><i class="fas fa-cog fa-spin mr-2 hover:animate-none"></i> පත්‍රය සාදන්න</button>
-                        </div>
-                        <div class="flex-grow overflow-y-auto p-4 md:p-8 custom-scroll flex justify-center">
-                            <div id="toolOutput" class="bg-white w-full max-w-3xl min-h-[500px] shadow-md p-8 border-t-8 border-red-500 relative">
-                                <div class="border-b-2 border-black pb-4 mb-6 text-center">
-                                    <h1 class="text-2xl font-serif font-bold uppercase tracking-widest">විභාග ප්‍රශ්න පත්‍රය - 2024</h1>
-                                    <p class="text-gray-500 font-serif italic">කාලය: පැය 01 යි</p>
-                                </div>
-                                <p class="text-gray-400 text-center py-10">ප්‍රශ්න පත්‍රය මෙහි දර්ශනය වේ...</p>
-                            </div>
-                        </div>
-                    </div>
-                `;
-            }
-
-            // 7. IMAGE GENERATOR (Gallery Style)
-            if (tool.type === 'IMAGE') {
-                return `
-                    ${loadingHtml}
-                    <div class="flex flex-col h-full bg-gray-900 text-white">
-                        <div class="flex-grow flex items-center justify-center p-4 overflow-hidden relative" id="imageContainer">
-                            <div class="absolute inset-0 bg-gradient-to-br from-purple-900/20 to-black pointer-events-none"></div>
-                            <div id="toolOutput" class="max-w-full max-h-full rounded-lg shadow-2xl overflow-hidden flex items-center justify-center border border-white/10 p-4 bg-black/40 backdrop-blur">
-                                <i class="fas fa-image text-6xl text-white/20"></i>
-                            </div>
-                        </div>
-                        <div class="p-6 bg-gray-800 border-t border-gray-700 flex gap-4 items-center">
-                            <input type="text" id="toolInput" class="flex-grow bg-gray-700 border-none rounded-full px-6 py-3 text-white focus:ring-2 focus:ring-purple-500 outline-none placeholder-gray-400" placeholder="ඔබට අවශ්‍ය රූපය විස්තර කරන්න..." onkeydown="handleEnter(event)">
-                            <button onclick="runTool()" class="bg-purple-600 hover:bg-purple-500 text-white w-12 h-12 rounded-full flex items-center justify-center shadow-lg transition-all hover:rotate-12">
-                                <i class="fas fa-magic"></i>
-                            </button>
-                        </div>
-                    </div>
-                `;
-            }
-
-            // 8. IDEA GENERATOR (Sticky Notes Style)
-            if (tool.type === 'IDEA') {
-                return `
-                    ${loadingHtml}
-                    <div class="flex flex-col h-full theme-sticky-bg relative overflow-hidden">
-                        <div class="p-6 flex justify-center z-10">
-                            <div class="bg-white p-2 rounded-full shadow-xl flex items-center w-full max-w-xl border-4 border-orange-200">
-                                <input type="text" id="toolInput" class="flex-grow px-4 py-2 rounded-full outline-none text-gray-700 font-handwriting text-lg" placeholder="මාතෘකාවක් දෙන්න (උදා: නව ව්‍යාපාර)..." onkeydown="handleEnter(event)">
-                                <button onclick="runTool()" class="bg-orange-500 text-white rounded-full w-10 h-10 hover:bg-orange-600"><i class="fas fa-lightbulb"></i></button>
+                    <div class="flex flex-col h-full theme-sticky-bg">
+                        <div class="p-6 bg-white border-b border-gray-100">
+                            <label class="block text-sm font-bold text-gray-700 mb-2 uppercase tracking-wide opacity-70">අදහස් උත්පාදනය කරන්න</label>
+                            <textarea id="toolInput" class="w-full bg-gray-50 border border-gray-200 rounded-xl p-4 focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none resize-none h-24 shadow-sm transition" placeholder="ඔබට අදහස් අවශ්‍ය මාතෘකාව මෙහි ලියන්න..."></textarea>
+                            <div class="flex justify-end mt-3">
+                                <button onclick="runTool()" class="px-6 py-2 rounded-lg font-bold text-white shadow hover:shadow-lg transition transform hover:-translate-y-0.5" style="background-color: ${currentTool.color}"><i class="fas fa-lightbulb mr-2"></i> අදහස් උත්පාදනය කරන්න</button>
                             </div>
                         </div>
                         <div id="toolOutput" class="flex-grow overflow-y-auto p-8 custom-scroll grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 content-start">
@@ -508,7 +737,7 @@
                 `;
             }
 
-            // DEFAULT / TEXT TOOLS (Concept, Summarizer, Grammar) - Clean Modern Style
+            // DEFAULT / TEXT TOOLS (Concept, Summarizer, Grammar, Quiz, Image, Audio) - Clean Modern Style
             return `
                 ${loadingHtml}
                 <div class="flex flex-col h-full bg-white">
@@ -527,7 +756,7 @@
             `;
         }
 
-        // --- Logic Handlers ---
+        // --- Logic Handlers (Crucial for functionality) ---
 
         function handleEnter(e) { if(e.key === 'Enter') runTool(); }
 
@@ -547,38 +776,26 @@
             try {
                 // 1. Image Gen
                 if (currentTool.type === 'IMAGE') {
-                    const result = await callApi(IMAGEN_API_URL, { instances: [{ prompt: text }], parameters: { sampleCount: 1 } });
-                    const b64 = result.predictions?.[0]?.bytesBase64Encoded;
-                    if(b64) outputEl.innerHTML = `<img src="data:image/png;base64,${b64}" class="rounded shadow-lg max-h-[500px] object-contain">`;
+                    outputEl.innerHTML = `<div class="text-center p-10 text-red-500 font-bold">⚠️ Image generation is not supported with the Deepseek API. Please use a compatible service.</div>`;
                 }
                 
                 // 2. Audio Gen
                 else if (currentTool.type === 'AUDIO') {
-                    const viz = document.getElementById('visualizer');
-                    viz.style.opacity = '1'; // Show fake visualizer
-                    const result = await callApi(TTS_API_URL, {
-                        contents: [{ parts: [{ text: text }] }],
-                        generationConfig: { responseModalities: ["AUDIO"], speechConfig: { voiceConfig: { prebuiltVoiceConfig: { voiceName: "Charon" } } } },
-                        model: "gemini-2.5-flash-preview-tts"
-                    });
-                    const audioData = result.candidates?.[0]?.content?.parts?.[0]?.inlineData?.data;
-                    if (audioData) {
-                        const wav = pcmToWav(new Int16Array(base64ToArrayBuffer(audioData)), 24000);
-                        const audioPlayer = document.getElementById('audioPlayer');
-                        audioPlayer.src = URL.createObjectURL(wav);
-                        audioPlayer.play();
-                        audioPlayer.onended = () => viz.style.opacity = '0';
-                    }
+                    outputEl.innerHTML = `<div class="text-center p-10 text-red-500 font-bold">⚠️ Text-to-Speech (Audio) is not supported with the Deepseek API. Please use a compatible service.</div>`;
                 }
 
                 // 3. Quiz Gen
                 else if (currentTool.type === 'QUIZ') {
-                    const result = await callApi(GEMINI_TEXT_API_URL, {
-                        contents: [{ parts: [{ text: text }] }],
-                        generationConfig: { responseMimeType: "application/json", responseSchema: currentTool.schema },
-                        systemInstruction: { parts: [{ text: currentTool.systemPrompt }] }
-                    });
-                    const quizData = JSON.parse(result.candidates[0].content.parts[0].text);
+                    const result = await generateText(text); // Deepseek does not support JSON schema, so we rely on prompt engineering
+                    const jsonMatch = result.match(/```json\n([\s\S]*?)\n```/);
+                    let quizData;
+                    if (jsonMatch) {
+                        quizData = JSON.parse(jsonMatch[1]);
+                    } else {
+                        // Fallback: try to parse the whole response if no code block is found
+                        quizData = JSON.parse(result);
+                    }
+                    
                     let html = `<div class="border-b-2 border-black pb-4 mb-6 text-center"><h1 class="text-2xl font-serif font-bold uppercase">විභාග ප්‍රශ්න පත්‍රය</h1></div>`;
                     quizData.forEach((q, i) => {
                         html += `<div class="mb-6"><p class="font-bold mb-2">${i+1}. ${q.question}</p><ul class="pl-5 list-[upper-alpha] space-y-1">${q.options.map(o=>`<li>${o}</li>`).join('')}</ul></div>`;
@@ -630,52 +847,73 @@
             }
         }
 
-        // --- Helper API Functions ---
+        // --- Helper API Functions (Crucial for functionality) ---
         async function generateText(input, history = null) {
+            let messages = [];
+            if (history) {
+                // Convert Gemini history format to OpenAI format
+                history.forEach(item => {
+                    const role = item.role === 'model' ? 'assistant' : 'user';
+                    const content = item.parts[0].text;
+                    messages.push({ role, content });
+                });
+            } else {
+                messages.push({ role: "user", content: input });
+            }
+
             const payload = {
-                contents: history || [{ parts: [{ text: input }] }],
-                systemInstruction: { parts: [{ text: currentTool.systemPrompt }] }
+                model: currentTool.model,
+                messages: [
+                    { role: "system", content: currentTool.systemPrompt },
+                    ...messages
+                ]
             };
-            const res = await callApi(GEMINI_TEXT_API_URL, payload);
-            return res.candidates[0].content.parts[0].text;
+            
+            const res = await callApi(DEEPSEEK_API_URL, payload);
+            return res.choices[0].message.content;
         }
 
         async function callApi(url, payload) {
-            const res = await fetch(`${url}?key=${API_KEY}`, { method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify(payload) });
+            const res = await fetch(url, { 
+                method: 'POST', 
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${API_KEY}`
+                }, 
+                body: JSON.stringify(payload) 
+            });
             if (!res.ok) throw new Error((await res.json()).error.message);
             return await res.json();
         }
 
-        // Audio Utils
-        function base64ToArrayBuffer(base64) {
-            const binaryString = atob(base64);
-            const bytes = new Uint8Array(binaryString.length);
-            for (let i = 0; i < binaryString.length; i++) bytes[i] = binaryString.charCodeAt(i);
-            return bytes.buffer;
-        }
-        function pcmToWav(pcm16, sampleRate) {
-            const buffer = new ArrayBuffer(44 + pcm16.byteLength);
-            const view = new DataView(buffer);
-            const writeString = (view, offset, string) => { for (let i = 0; i < string.length; i++) view.setUint8(offset + i, string.charCodeAt(i)); };
-            writeString(view, 0, 'RIFF'); view.setUint32(4, 36 + pcm16.byteLength, true); writeString(view, 8, 'WAVE');
-            writeString(view, 12, 'fmt '); view.setUint32(16, 16, true); view.setUint16(20, 1, true); view.setUint16(22, 1, true); view.setUint32(24, sampleRate, true); view.setUint32(28, sampleRate * 2, true); view.setUint16(32, 2, true); view.setUint16(34, 16, true);
-            writeString(view, 36, 'data'); view.setUint32(40, pcm16.byteLength, true);
-            for (let i = 0; i < pcm16.length; i++) view.setInt16(44 + i * 2, pcm16[i], true);
-            return new Blob([view], { type: 'audio/wav' });
-        }
-
-        // Init
-        window.onload = function() {
-            renderAITools();
-            document.querySelectorAll('.subject-card').forEach((c, i) => setTimeout(() => { c.style.opacity=1; c.style.transform='translateY(0)' }, i*100));
-        };
+        // --- Init and Utility Functions ---
         
-        // Render empty chat history helper
         function renderChatHistory() {
             const chatOut = document.getElementById('chatOutput');
             chatOut.innerHTML = `<div class="text-center text-gray-400 text-sm py-4">සංවාදය ආරම්භ කරන්න...</div>`;
         }
 
+        window.onload = function() {
+            renderAITools();
+            // document.querySelectorAll('.subject-card').forEach((c, i) => setTimeout(() => { c.style.opacity=1; c.style.transform='translateY(0)' }, i*100));
+        };
+        
+        // Mobile Menu Toggle (From pasted_content.txt)
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobileMenu');
+            menu.classList.toggle('hidden');
+        }
+
+        // Smooth scroll for anchor links (From pasted_content.txt)
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth' });
+                }
+            });
+        });
     </script>
 </body>
 </html>
