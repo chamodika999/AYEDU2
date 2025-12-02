@@ -203,21 +203,21 @@
                 <div class="text-white animate-fade-in">
                     <div class="inline-flex items-center gap-2 bg-accent/20 backdrop-blur-sm px-4 py-2 rounded-full mb-6">
                         <i class="fas fa-star text-accent"></i>
-                        <span style="color: black;" class="text-sm font-medium">2025 හි #1 අධ්‍යාපන වේදිකාව</span>
+                        <span class="text-sm font-medium">2025 හි #1 අධ්‍යාපන වේදිකාව</span>
                     </div>
-                    <h1 style="color: black;" class="text-5xl lg:text-6xl font-bold mb-6 leading-tight">
+                    <h1 class="text-5xl lg:text-6xl font-bold mb-6 leading-tight">
                         ඔබේ අධ්‍යයන සාර්ථකත්වය,<br>
                         <span class="text-gradient">බුද්ධිමත් සහාය සමඟ</span>
                     </h1>
-                    <p style="color: black;" class="text-xl text-primary-100 mb-8 leading-relaxed">
+                    <p class="text-xl text-primary-100 mb-8 leading-relaxed">
                         Advanced Level තාක්ෂණ විද්‍යා සිසුන් සඳහා AI බලයෙන් යුත් සම්පූර්ණ අධ්‍යාපන පරිසරයක්. සාම්ප්‍රදායික ඉගෙනුම සම්පත් නවීන AI මෙවලම් සමඟ ඒකාබද්ධ කරමින්.
                     </p>
-                    <div style="color: black;" class="flex flex-wrap gap-4">
+                    <div class="flex flex-wrap gap-4">
                         <a href="#ai-tools-section" class="btn btn-accent btn-lg px-6 py-3 rounded-lg font-bold">
                             <i class="fas fa-rocket mr-2"></i>
                             AI මෙවලම් අත්හදා බලන්න
                         </a>
-                        <a style="color: black;" href="#subject-categories" class="btn btn-outline btn-lg border-white text-white hover:bg-white hover:text-primary px-6 py-3 rounded-lg font-bold">
+                        <a href="#subject-categories" class="btn btn-outline btn-lg border-white text-white hover:bg-white hover:text-primary px-6 py-3 rounded-lg font-bold">
                             <i class="fas fa-book mr-2"></i>
                             විෂය ගවේෂණය කරන්න
                         </a>
@@ -546,9 +546,9 @@
                         <a href="javascript:void(0)" class="w-8 h-8 bg-primary-700 rounded-full flex items-center justify-center hover:bg-accent transition-colors">
                             <i class="fab fa-whatsapp text-sm"></i>
                         </a>
-                    </div>
                 </div>
             </div>
+        </div>
 
             <div class="border-t border-primary-700 pt-8 text-center text-sm text-gray-400">
                 <p>© 2025 AYEDU AI HUB. සියලුම හිමිකම් ඇවිරිණි.</p>
@@ -587,24 +587,24 @@
     <!-- AI Tool Logic Script (From original index.html - FULL CONTENT) -->
     <script>
         // --- Configuration ---
-        const DEEPSEEK_API_URL = "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent"; // Placeholder - replace with actual endpoint
-        const API_KEY = "AIzaSyDggqu3LeShfaMJXwZwHfQ04a61DoxhydU"; // Placeholder - replace with actual key
+        const GEMINI_API_URL = "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent";
+        const API_KEY = "AIzaSyA8vfPW4NXHvLl-N5VhnT0iV4JCU0UDpuE"; // මෙහි ඔබේ Gemini API Key ඇතුළත් කරන්න
         let currentTool = null;
         let isLoading = false;
         let chatHistory = [];
 
         // --- AI Tool Definitions (Crucial for functionality) ---
         const AI_TOOLS = [
-            { id: 1, name: "AI Chatbot", icon: "fas fa-comments", description: "ක්ෂණික පිළිතුරු සහ පැහැදිලි කිරීම් ලබා ගන්න.", type: "CHAT", color: "#3498db", model: "deepseek-chat", systemPrompt: "You are a helpful and friendly AI assistant named AYEDU, specializing in Advanced Level Technology stream subjects for Sri Lankan students. Respond in Sinhala unless the user asks otherwise. Keep responses concise and educational." },
-            { id: 2, name: "සාරාංශකරණය", icon: "fas fa-file-alt", description: "දිගු පාඨ කෙටි සාරාංශ බවට පත් කරන්න.", type: "SUMMARIZER", color: "#2ecc71", model: "deepseek-chat", systemPrompt: "You are a professional summarization tool. Summarize the provided text into 3-5 key bullet points in Sinhala. Maintain the original context." },
-            { id: 3, name: "සංකල්ප පැහැදිලි කිරීම", icon: "fas fa-brain", description: "ඕනෑම සංකීර්ණ සංකල්පයක් සරලව තේරුම් ගන්න.", type: "CONCEPT", color: "#f39c12", model: "deepseek-chat", systemPrompt: "You are an expert educator. Explain the given concept in simple, easy-to-understand Sinhala, using a relevant analogy or example." },
-            { id: 4, name: "කේත සහායක", icon: "fas fa-code", description: "කේත ලියන්න, දෝෂ නිවැරදි කරන්න, සහ පැහැදිලි කිරීම් ලබා ගන්න.", type: "CODE", color: "#e74c3c", model: "deepseek-coder", systemPrompt: "You are a coding assistant. Provide clean, well-commented code in the requested language, or explain the provided code/error. Use Sinhala for explanations and English for code." },
-            { id: 5, name: "ව්‍යාකරණ පරීක්ෂක", icon: "fas fa-spell-check", description: "සිංහල සහ ඉංග්‍රීසි පාඨවල ව්‍යාකරණ දෝෂ නිවැරදි කරන්න.", type: "GRAMMAR", color: "#9b59b6", model: "deepseek-chat", systemPrompt: "You are a grammar and spelling checker. Correct any grammatical or spelling errors in the provided text. Provide the corrected text and a brief explanation of the changes in Sinhala." },
-            { id: 6, name: "පරිවර්තකය", icon: "fas fa-language", description: "සිංහල සහ ඉංග්‍රීසි අතර පාඨ පරිවර්තනය කරන්න.", type: "TRANSLATOR", color: "#1abc9c", model: "deepseek-chat", systemPrompt: "You are a professional translator. Translate the provided text accurately and naturally into the target language." },
-            { id: 7, name: "අදහස් උත්පාදක", icon: "fas fa-lightbulb", description: "ව්‍යාපෘති හෝ රචනා සඳහා නව අදහස් ලබා ගන්න.", type: "IDEA", color: "#34495e", model: "deepseek-chat", systemPrompt: "You are a creative idea generator. Generate 5 unique and practical ideas based on the user's prompt. List them clearly in Sinhala." },
-            { id: 8, name: "ප්‍රශ්න පත්‍ර උත්පාදක", icon: "fas fa-question-circle", description: "ඕනෑම මාතෘකාවක් සඳහා බහුවරණ ප්‍රශ්න සාදන්න.", type: "QUIZ", color: "#f1c40f", model: "deepseek-chat", systemPrompt: "You are a quiz generator. Create a set of 5 multiple-choice questions (MCQs) based on the user's input. The output MUST be a JSON array of objects, each with 'question', 'options' (array of strings), and 'answer' (string). The questions and options must be in Sinhala." },
-            { id: 9, name: "රූප උත්පාදක", icon: "fas fa-image", description: "පෙළ විස්තර වලින් රූප සාදන්න.", type: "IMAGE", color: "#e67e22", model: "dall-e-3", systemPrompt: "You are an image generation prompt enhancer. Convert the user's request into a detailed, high-quality prompt for an image generation model." },
-            { id: 10, name: "ශ්‍රව්‍ය උත්පාදක", icon: "fas fa-volume-up", description: "පෙළ ශ්‍රව්‍ය බවට පත් කරන්න.", type: "AUDIO", color: "#3498db", model: "tts-1", systemPrompt: "You are a text-to-speech assistant. Convert the provided text into high-quality audio." }
+            { id: 1, name: "AI Chatbot", icon: "fas fa-comments", description: "ක්ෂණික පිළිතුරු සහ පැහැදිලි කිරීම් ලබා ගන්න.", type: "CHAT", color: "#3498db", model: "gemini-2.5-flash-preview-09-2025", systemPrompt: "ඔබ AYEDU නමින් හඳුන්වන විශේෂයෙන් Advanced Level Technology විෂය ධාරාව සඳහා සහාය වන AI සහායකයෙකි. පරිශීලකයා වෙනස් බසකින් ඉල්ලා සිටී නම් හැර, සිංහලෙන් පිළිතුරු දෙන්න. පිළිතුරු කෙටි හා අධ්‍යාපනික විය යුතුය." },
+            { id: 2, name: "සාරාංශකරණය", icon: "fas fa-file-alt", description: "දිගු පාඨ කෙටි සාරාංශ බවට පත් කරන්න.", type: "SUMMARIZER", color: "#2ecc71", model: "gemini-2.5-flash-preview-09-2025", systemPrompt: "ඔබ විශේෂඥ සාරාංශකරණ මෙවලමකි. ලබාදුන් පාඨය සිංහලෙන් 3-5 ප්‍රධාන ලක්ෂණ ලෙස සාරාංශ කරන්න. මුල් සන්දර්භය ආරක්ෂා කරන්න." },
+            { id: 3, name: "සංකල්ප පැහැදිලි කිරීම", icon: "fas fa-brain", description: "ඕනෑම සංකීර්ණ සංකල්පයක් සරලව තේරුම් ගන්න.", type: "CONCEPT", color: "#f39c12", model: "gemini-2.5-flash-preview-09-2025", systemPrompt: "ඔබ විශේෂඥ අධ්‍යාපනඥයෙක්. දෙන ලද සංකල්පය සරල, තේරුම් ගත හැකි සිංහලෙන්, සුදුසු උපමාවක් හෝ උදාහරණයක් භාවිතා කරමින් පැහැදිලි කරන්න." },
+            { id: 4, name: "කේත සහායක", icon: "fas fa-code", description: "කේත ලියන්න, දෝෂ නිවැරදි කරන්න, සහ පැහැදිලි කිරීම් ලබා ගන්න.", type: "CODE", color: "#e74c3c", model: "gemini-2.5-flash-preview-09-2025", systemPrompt: "ඔබ කේත සහායකයෙක්. ඉල්ලූ භාෂාවෙන් පිරිසිදු, හොඳින් අදහස් දක්වන කේතය සපයන්න, හෝ සපයන ලද කේතය/දෝෂය පැහැදිලි කරන්න. පැහැදිලි කිරීම් සඳහා සිංහල භාවිතා කරන්න සහ කේතය සඳහා ඉංග්‍රීසි භාවිතා කරන්න." },
+            { id: 5, name: "ව්‍යාකරණ පරීක්ෂක", icon: "fas fa-spell-check", description: "සිංහල සහ ඉංග්‍රීසි පාඨවල ව්‍යාකරණ දෝෂ නිවැරදි කරන්න.", type: "GRAMMAR", color: "#9b59b6", model: "gemini-2.5-flash-preview-09-2025", systemPrompt: "ඔබ ව්‍යාකරණ සහ අකුරු සම්බන්ධීකරණ පරීක්ෂකයෙක්. ලබාදුන් පාඨයේ ඇති ඕනෑම ව්‍යාකරණ හෝ අකුරු දෝෂ නිවැරදි කරන්න. නිවැරදි කළ පාඨය සහ වෙනස්කම් පිළිබඳ කෙටි පැහැදිලි කිරීම සිංහලෙන් සපයන්න." },
+            { id: 6, name: "පරිවර්තකය", icon: "fas fa-language", description: "සිංහල සහ ඉංග්‍රීසි අතර පාඨ පරිවර්තනය කරන්න.", type: "TRANSLATOR", color: "#1abc9c", model: "gemini-2.5-flash-preview-09-2025", systemPrompt: "ඔබ වෘත්තීය පරිවර්තකයෙක්. ලබාදුන් පාඨය නිවැරදිව සහ ස්වාභාවිකව ඉලක්ක භාෂාවට පරිවර්තනය කරන්න." },
+            { id: 7, name: "අදහස් උත්පාදක", icon: "fas fa-lightbulb", description: "ව්‍යාපෘති හෝ රචනා සඳහා නව අදහස් ලබා ගන්න.", type: "IDEA", color: "#34495e", model: "gemini-2.5-flash-preview-09-2025", systemPrompt: "ඔබ නිර්මාණශීලී අදහස් උත්පාදකයෙකි. පරිශීලකයාගේ ඉල්ලීම මත පදනම්ව අද්විතීය හා ප්‍රායෝගික අදහස් 5ක් ජනනය කරන්න. ඒවා පැහැදිලිව සිංහලෙන් ලැයිස්තුගත කරන්න." },
+            { id: 8, name: "ප්‍රශ්න පත්‍ර උත්පාදක", icon: "fas fa-question-circle", description: "ඕනෑම මාතෘකාවක් සඳහා බහුවරණ ප්‍රශ්න සාදන්න.", type: "QUIZ", color: "#f1c40f", model: "gemini-2.5-flash-preview-09-2025", systemPrompt: "ඔබ ප්‍රශ්නපත්‍ර උත්පාදකයෙකි. පරිශීලකයාගේ ආදානය මත පදනම්ව බහුවරණ ප්‍රශ්න (MCQs) 5ක් සාදන්න. ප්‍රතිදානය JSON වස්තු අරාවක් විය යුතුය, එක් එක් වස්තුවට 'question', 'options' (පේළි අරාව), සහ 'answer' (පේළිය) අඩංගු වේ. ප්‍රශ්න සහ විකල්ප සිංහලෙන් විය යුතුය." },
+            { id: 9, name: "රූප උත්පාදක", icon: "fas fa-image", description: "පෙළ විස්තර වලින් රූප සාදන්න.", type: "IMAGE", color: "#e67e22", model: "gemini-2.5-flash-preview-09-2025", systemPrompt: "ඔබ රූප ජනනය කිරීමේ ඉල්ලීම වැඩිදියුණු කරන්නා. පරිශීලකයාගේ ඉල්ලීම රූප ජනනය කිරීමේ ආකෘතියක් සඳහා විස්තරාත්මක, උසස් තත්ත්වයේ ඉල්ලීමක් බවට පරිවර්තනය කරන්න." },
+            { id: 10, name: "ශ්‍රව්‍ය උත්පාදක", icon: "fas fa-volume-up", description: "පෙළ ශ්‍රව්‍ය බවට පත් කරන්න.", type: "AUDIO", color: "#3498db", model: "gemini-2.5-flash-preview-09-2025", systemPrompt: "ඔබ පෙළ-සිට-කථන සහායකයෙකි. ලබාදුන් පාඨය උසස් තත්ත්වයේ ශ්‍රව්‍ය බවට පරිවර්තනය කරන්න." }
         ];
 
         // --- UI Rendering Functions ---
@@ -737,7 +737,34 @@
                 `;
             }
 
-            // DEFAULT / TEXT TOOLS (Concept, Summarizer, Grammar, Quiz, Image, Audio) - Clean Modern Style
+            // AUDIO Tool
+            if (currentTool.type === 'AUDIO') {
+                return `
+                    ${loadingHtml}
+                    <div class="flex flex-col h-full theme-audio-bg">
+                        <div class="p-6 bg-white/10 backdrop-blur-sm border-b border-white/20">
+                            <label class="block text-sm font-bold text-white mb-2 uppercase tracking-wide">පෙළ ඇතුලත් කරන්න</label>
+                            <textarea id="toolInput" class="w-full bg-white/20 border border-white/30 rounded-xl p-4 focus:ring-2 focus:ring-white focus:border-transparent outline-none resize-none h-32 shadow-sm transition text-white placeholder-white/70" placeholder="ශ්‍රව්‍ය බවට පත් කිරීමට අවශ්‍ය පාඨය මෙහි ලියන්න..."></textarea>
+                            <div class="flex justify-end mt-3">
+                                <button onclick="runTool()" class="px-6 py-2 rounded-lg font-bold text-white shadow hover:shadow-lg transition transform hover:-translate-y-0.5" style="background-color: ${currentTool.color}"><i class="fas fa-volume-up mr-2"></i> ශ්‍රව්‍ය උත්පාදනය කරන්න</button>
+                            </div>
+                        </div>
+                        <div class="flex-grow p-6 overflow-y-auto custom-scroll flex flex-col items-center justify-center">
+                            <label class="block text-sm font-bold text-white mb-4 uppercase tracking-wide">ශ්‍රව්‍ය ප්‍රතිඵලය</label>
+                            <div class="audio-visualizer mb-6">
+                                <div class="audio-bar" style="animation-delay: 0s;"></div>
+                                <div class="audio-bar" style="animation-delay: 0.1s;"></div>
+                                <div class="audio-bar" style="animation-delay: 0.2s;"></div>
+                                <div class="audio-bar" style="animation-delay: 0.3s;"></div>
+                                <div class="audio-bar" style="animation-delay: 0.4s;"></div>
+                            </div>
+                            <div id="toolOutput" class="text-white text-center max-w-lg"></div>
+                        </div>
+                    </div>
+                `;
+            }
+
+            // DEFAULT / TEXT TOOLS (Concept, Summarizer, Grammar, Quiz, Image, etc.)
             return `
                 ${loadingHtml}
                 <div class="flex flex-col h-full bg-white">
@@ -774,19 +801,19 @@
             if(loader) loader.classList.replace('hidden', 'flex');
             
             try {
-                // 1. Image Gen
+                // 1. Image Gen - Not supported
                 if (currentTool.type === 'IMAGE') {
-                    outputEl.innerHTML = `<div class="text-center p-10 text-red-500 font-bold">⚠️ Image generation is not supported with the Deepseek API. Please use a compatible service.</div>`;
+                    outputEl.innerHTML = `<div class="text-center p-10 text-red-500 font-bold">⚠️ මෙම පරිසරයේ රූප උත්පාදනය සහාය නොදක්වයි. අනුකූල සේවාවක් භාවිතා කරන්න.</div>`;
                 }
                 
-                // 2. Audio Gen
+                // 2. Audio Gen - Not supported
                 else if (currentTool.type === 'AUDIO') {
-                    outputEl.innerHTML = `<div class="text-center p-10 text-red-500 font-bold">⚠️ Text-to-Speech (Audio) is not supported with the Deepseek API. Please use a compatible service.</div>`;
+                    outputEl.innerHTML = `<div class="text-center p-10 text-white font-bold">⚠️ මෙම පරිසරයේ ශ්‍රව්‍ය උත්පාදනය සහාය නොදක්වයි. අනුකූල සේවාවක් භාවිතා කරන්න.</div>`;
                 }
 
                 // 3. Quiz Gen
                 else if (currentTool.type === 'QUIZ') {
-                    const result = await generateText(text); // Deepseek does not support JSON schema, so we rely on prompt engineering
+                    const result = await generateText(text);
                     const jsonMatch = result.match(/```json\n([\s\S]*?)\n```/);
                     let quizData;
                     if (jsonMatch) {
@@ -827,13 +854,16 @@
                 // 6. General Text Tools (Essay, Code, Concept, etc.)
                 else {
                     let prompt = text;
-                    if (currentTool.type === 'TRANSLATOR') prompt = `Translate to ${document.getElementById('targetLang').value}: ${text}`;
+                    if (currentTool.type === 'TRANSLATOR') {
+                        const target = document.getElementById('targetLang').value;
+                        prompt = `Translate to ${target}: ${text}`;
+                    }
                     
                     const reply = await generateText(prompt);
                     
                     if (currentTool.type === 'CODE') {
                         outputEl.innerHTML = `<pre class="text-sm font-mono whitespace-pre-wrap">${reply}</pre>`;
-                        outputEl.classList.remove('hidden'); // Show output panel in code view
+                        outputEl.classList.remove('hidden');
                     } else {
                         outputEl.innerHTML = marked.parse(reply);
                     }
@@ -849,40 +879,59 @@
 
         // --- Helper API Functions (Crucial for functionality) ---
         async function generateText(input, history = null) {
-            let messages = [];
-            if (history) {
-                // Convert Gemini history format to OpenAI format
+            let contents = [];
+            
+            // Add system instruction
+            contents.push({
+                role: "user",
+                parts: [{ text: currentTool.systemPrompt }]
+            });
+            
+            // Add chat history if available
+            if (history && history.length > 0) {
                 history.forEach(item => {
-                    const role = item.role === 'model' ? 'assistant' : 'user';
-                    const content = item.parts[0].text;
-                    messages.push({ role, content });
+                    contents.push({
+                        role: item.role,
+                        parts: item.parts
+                    });
                 });
-            } else {
-                messages.push({ role: "user", content: input });
             }
-
+            
+            // Add current input
+            if (input) {
+                contents.push({
+                    role: "user",
+                    parts: [{ text: input }]
+                });
+            }
+            
             const payload = {
-                model: currentTool.model,
-                messages: [
-                    { role: "system", content: currentTool.systemPrompt },
-                    ...messages
-                ]
+                contents: contents,
+                generationConfig: {
+                    temperature: 0.7,
+                    maxOutputTokens: 2048,
+                }
             };
             
-            const res = await callApi(DEEPSEEK_API_URL, payload);
-            return res.choices[0].message.content;
+            const response = await callGeminiAPI(GEMINI_API_URL, payload);
+            return response.candidates[0].content.parts[0].text;
         }
 
-        async function callApi(url, payload) {
-            const res = await fetch(url, { 
+        async function callGeminiAPI(url, payload) {
+            const apiUrl = `${url}?key=${API_KEY}`;
+            const res = await fetch(apiUrl, { 
                 method: 'POST', 
                 headers: {
                     'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${API_KEY}`
                 }, 
                 body: JSON.stringify(payload) 
             });
-            if (!res.ok) throw new Error((await res.json()).error.message);
+            
+            if (!res.ok) {
+                const errorData = await res.json();
+                throw new Error(errorData.error?.message || 'API Error');
+            }
+            
             return await res.json();
         }
 
@@ -895,7 +944,10 @@
 
         window.onload = function() {
             renderAITools();
-            // document.querySelectorAll('.subject-card').forEach((c, i) => setTimeout(() => { c.style.opacity=1; c.style.transform='translateY(0)' }, i*100));
+            // API Key setup instruction alert
+            if (API_KEY === "YOUR_GEMINI_API_KEY_HERE") {
+                console.warn("⚠️ කරුණාකර API_KEY විචල්‍යය ඔබේ Gemini API Key එකට වෙනස් කරන්න.");
+            }
         };
         
         // Mobile Menu Toggle (From pasted_content.txt)
